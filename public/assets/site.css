@@ -270,7 +270,6 @@ footer.site a:hover{color:var(--text)}
 .js .road-div .r{stroke-dasharray:1;stroke-dashoffset:1}
 .js .road-div .dash{opacity:0}
 .road-div.in .r{animation:roadDraw 1.8s cubic-bezier(.4,0,.2,1) forwards}
-.road-div.in .asph{animation-delay:.05s}
 .road-div.in .dash{animation:roadFade .8s 1.3s forwards}
 @keyframes roadDraw{to{stroke-dashoffset:0}}
 @keyframes roadFade{to{opacity:1}}
