@@ -158,8 +158,8 @@ const CARS = [
   { slug: 'corvette-stingray', name: '2023 Chevrolet Corvette Stingray 2LT (C8)', status: 'live', tag: 'Available on Turo',
     blurb: 'Mid-engine American supercar performance with a 6.2L V8 and a removable roof. Our flagship rental.' },
   { slug: 'audi-r8', name: 'Audi R8', status: 'soon', photo: '/images/audi-r8.jpg', tag: 'Coming soon', blurb: 'V10 supercar drama with everyday usability.' },
-  { slug: 'tesla-cybertruck', name: 'Tesla Cybertruck', status: 'soon', photo: '/images/tesla-cybertruck.jpg', tag: 'Coming soon', blurb: 'The stainless-steel head-turner with electric acceleration.' },
-  { slug: 'mercedes-g63-amg', name: 'Mercedes-AMG G63', status: 'soon', photo: '/images/mercedes-g63-amg.jpg', tag: 'Coming soon', blurb: 'Iconic luxury SUV with a twin-turbo V8 soundtrack.' },
+  { slug: 'tesla-cybertruck', name: 'Tesla Cybertruck', status: 'soon', photo: '/images/tesla-cybertruck-showroom.jpg', tag: 'Coming soon', blurb: 'The stainless-steel head-turner with electric acceleration.' },
+  { slug: 'mercedes-g63-amg', name: 'Mercedes-AMG G63', status: 'soon', photo: '/images/mercedes-g63-amg-showroom.jpg', tag: 'Coming soon', blurb: 'Iconic luxury SUV with a twin-turbo V8 soundtrack.' },
 ];
 
 const GUIDES = [

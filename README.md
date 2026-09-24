@@ -48,3 +48,6 @@ Health check path: `/healthz`. Add `boiseluxuryrentals.com` (and `www`) as custo
 - Logo (ring + red arc + BLR) lives in `tools/brand.js`; `npm run build` writes `assets/favicon.svg` and `assets/logo.svg` from it.
 - Static icon files (`favicon.ico`, `apple-touch-icon.png`, `assets/favicon-*.png`, `assets/icon-*.png`) and the 1200x630 social image (`images/og-image.jpg`) are committed as files. If the logo changes, they need regenerating.
 - Optional Google business details (phone, public email, Instagram/Facebook/Google Business Profile links) go in `SITE.phone`, `SITE.email`, `SITE.sameAs` in `tools/data.js`. Blank values are left out.
+
+## Replacing a photo? Use a new file name
+Images are cached by browsers for 30 days. If you swap a photo but keep the same file name, visitors (and you) may keep seeing the old one. Always save a replacement under a new name (for example add `-2`), then update the name in `photos.json` (Corvette) or the `photo:` field in `tools/data.js` (other cars).
