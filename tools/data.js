@@ -10,6 +10,13 @@ const SITE = {
   url: 'https://boiseluxuryrentals.com',
   turoUrl: 'https://turo.com/us/en/car-rental/united-states/meridian-id/chevrolet/corvette/3912340',
   origin: 'Meridian, ID',
+  // Optional business details. Fill in what you want Google to show; blank values are simply left out.
+  phone: '',            // e.g. '+1-208-555-0123'  (shown to Google as your business phone)
+  hours: [],            // optional, e.g. [{ days: ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday'], opens: '08:00', closes: '20:00' }]
+  email: '',            // public email, if you want one shown
+  sameAs: [             // other pages that are officially you: Google Business Profile, Instagram, Facebook, YouTube...
+    // 'https://www.instagram.com/yourhandle',
+  ],
   published: '2026-09-23',
 };
 

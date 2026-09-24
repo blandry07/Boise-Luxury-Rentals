@@ -1,0 +1,9 @@
+'use strict';
+/** Brand mark (logo E): ring + red sweep arc + BLR drawn as vector paths, so it looks identical everywhere. */
+const BLR_D = 'M19.18 30.51Q20.03 30.51 20.46 30.14Q20.9 29.77 20.9 29.05Q20.9 28.33 20.46 27.96Q20.03 27.58 19.18 27.58H17.21V30.51ZM19.3 36.57Q20.38 36.57 20.92 36.11Q21.46 35.66 21.46 34.74Q21.46 33.84 20.93 33.39Q20.39 32.94 19.3 32.94H17.21V36.57ZM22.62 31.59Q23.77 31.92 24.41 32.82Q25.04 33.72 25.04 35.03Q25.04 37.03 23.68 38.02Q22.33 39 19.56 39H13.63V25.15H19Q21.88 25.15 23.18 26.02Q24.47 26.89 24.47 28.81Q24.47 29.82 24 30.53Q23.52 31.24 22.62 31.59Z M27.62 25.15H31.19V36.3H37.46V39H27.62Z M44.3 31.29Q45.42 31.29 45.91 30.87Q46.39 30.46 46.39 29.5Q46.39 28.55 45.91 28.15Q45.42 27.74 44.3 27.74H42.8V31.29ZM42.8 33.76V39H39.22V25.15H44.68Q47.42 25.15 48.69 26.07Q49.97 26.99 49.97 28.97Q49.97 30.34 49.3 31.23Q48.64 32.11 47.3 32.52Q48.04 32.69 48.62 33.28Q49.2 33.87 49.79 35.07L51.73 39H47.93L46.24 35.56Q45.73 34.52 45.2 34.14Q44.68 33.76 43.81 33.76Z';
+const RING = '<circle cx="32" cy="32" r="28" fill="none" stroke="#eef1f5" stroke-width="3"/>';
+const ARC = '<circle cx="32" cy="32" r="28" fill="none" stroke="#e5352b" stroke-width="5" stroke-linecap="round" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/>';
+const LETTERS = '<path d="' + BLR_D + '" fill="#fff"/>';
+const LOGO_MARK = RING + ARC + LETTERS;
+const svgDoc = (inner, viewBox, bg) => '<svg xmlns="http://www.w3.org/2000/svg" viewBox="' + viewBox + '">' + (bg || '') + inner + '</svg>';
+module.exports = { BLR_D, RING, ARC, LETTERS, LOGO_MARK, svgDoc };

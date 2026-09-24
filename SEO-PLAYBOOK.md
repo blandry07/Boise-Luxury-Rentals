@@ -32,3 +32,12 @@
 - Do not copy the same text across pages. Each landing page here has its own angle; keep it that way.
 - Only claim what is true and on the Turo listing (price, mileage, age rules). Fill `LISTING` in `tools/data.js` and rebuild.
 - Every page should still say plainly that booking happens on Turo. It is also a trust signal.
+
+## Google visibility checklist (after the domain is live)
+1. Search Console: verify the domain, submit `https://boiseluxuryrentals.com/sitemap.xml`, then URL Inspection > Request Indexing for `/`, `/corvette-rental-boise/`, `/c8-corvette-rental-boise/`, `/cars/corvette-stingray/`.
+2. Favicon in results: served at `/favicon.ico` plus PNG/SVG links (48px multiples). Google can take days to weeks to refresh it.
+3. Site name in results comes from the WebSite structured data on the home page ("Boise Luxury Rentals").
+4. Google Business Profile: create it as a service-area business (Meridian / Boise / Treasure Valley), category "Car rental agency", website = the home page, link to the Turo listing in the description. Add the profile link to `SITE.sameAs`.
+5. Bing Webmaster Tools: sign in and import the site from Search Console (one click). This also feeds DuckDuckGo and other engines.
+6. Earn a few real links: Turo listing description, Instagram bio, Facebook page, local Chamber/Boise directories.
+7. Test social previews by pasting the home URL into a text message or Facebook's Sharing Debugger.

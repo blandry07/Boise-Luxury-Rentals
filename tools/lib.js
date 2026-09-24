@@ -1,4 +1,5 @@
 const crypto = require('crypto');
+const { BLR_D } = require('./brand');
 const fsAssets = require('fs');
 const pathAssets = require('path');
 function assetVer(f) { try { return crypto.createHash('md5').update(fsAssets.readFileSync(pathAssets.join(__dirname, '..', 'public', 'assets', f))).digest('hex').slice(0, 8); } catch (e) { return '1'; } }
@@ -50,24 +51,36 @@ function breadcrumbSchema(items) {
 }
 
 function businessSchema() {
-  return [{
+  const biz = {
     '@context': 'https://schema.org',
     '@type': 'AutoRental',
     '@id': SITE.url + '/#business',
     name: SITE.name,
+    alternateName: ['Boise Luxury Rentals Corvette Rental', 'boiseluxuryrentals.com'],
     url: SITE.url,
-    image: SITE.url + PHOTOS.hero,
-    logo: SITE.url + '/assets/logo.svg',
+    image: [SITE.url + '/images/og-image.jpg', SITE.url + PHOTOS.hero],
+    logo: { '@type': 'ImageObject', url: SITE.url + '/assets/icon-512.png', width: 512, height: 512 },
+    slogan: 'Luxury and sport car rentals in Boise, Idaho',
     description: 'Luxury and sport car rentals in Boise, Idaho, including a 2023 Chevrolet Corvette Stingray 2LT (C8). Bookings are completed on Turo.',
-    areaServed: ['Boise, ID', 'Meridian, ID', 'Eagle, ID', 'Nampa, ID', 'Caldwell, ID', 'Star, ID', 'Kuna, ID', 'Treasure Valley, ID', 'Idaho'],
+    areaServed: ['Boise, ID', 'Meridian, ID', 'Eagle, ID', 'Nampa, ID', 'Caldwell, ID', 'Star, ID', 'Kuna, ID', 'Treasure Valley, ID', 'Idaho'].map((n) => ({ '@type': 'Place', name: n })),
+    knowsAbout: ['Corvette rental', 'C8 Corvette Stingray', 'Sports car rental Boise', 'Boise Airport car rental', 'Idaho road trips'],
     address: { '@type': 'PostalAddress', addressLocality: 'Meridian', addressRegion: 'ID', addressCountry: 'US' },
     geo: { '@type': 'GeoCoordinates', latitude: 43.6121, longitude: -116.3915 },
-    potentialAction: { '@type': 'ReserveAction', target: { '@type': 'EntryPoint', urlTemplate: SITE.turoUrl, actionPlatform: 'https://schema.org/DesktopWebPlatform' }, result: { '@type': 'LodgingReservation', name: 'Reserve on Turo' } },
-  }, {
+    hasMap: 'https://www.google.com/maps/place/Meridian,+ID',
+    sameAs: [SITE.turoUrl].concat(SITE.sameAs || []),
+    potentialAction: { '@type': 'ReserveAction', target: { '@type': 'EntryPoint', urlTemplate: SITE.turoUrl, actionPlatform: 'https://schema.org/DesktopWebPlatform' }, result: { '@type': 'Reservation', name: 'Reserve on Turo' } },
+  };
+  if (SITE.phone) { biz.telephone = SITE.phone; biz.contactPoint = { '@type': 'ContactPoint', telephone: SITE.phone, contactType: 'customer service', areaServed: 'US', availableLanguage: 'English' }; }
+  if (SITE.email) biz.email = SITE.email;
+  if (SITE.hours && SITE.hours.length) biz.openingHoursSpecification = SITE.hours.map((h) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: h.days, opens: h.opens, closes: h.closes }));
+  return [biz, {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
+    '@id': SITE.url + '/#website',
     name: SITE.name,
+    alternateName: ['Boise Luxury Rentals', 'BLR'],
     url: SITE.url,
+    inLanguage: 'en-US',
     publisher: { '@id': SITE.url + '/#business' },
   }];
 }
@@ -143,8 +156,10 @@ function faqSchema(faqs) {
  */
 function layout(opts) {
   const url = SITE.url + opts.path;
-  const schemas = (opts.schema || []).concat(opts.path === '/' ? businessSchema() : []);
-  const og = SITE.url + (opts.ogImage || PHOTOS.hero);
+  const biz = businessSchema();
+  // Business (AutoRental) data on every indexable page; the WebSite node only on the home page.
+  const schemas = (opts.schema || []).concat(opts.path === '/' ? biz : (opts.noindex ? [] : [biz[0]]));
+  const og = SITE.url + (opts.ogImage || '/images/og-image.jpg');
   const nav = NAV.map((n) => {
     const current = n.href === opts.path || (n.href !== '/' && opts.path.startsWith(n.href)) ? ' aria-current="page"' : '';
     return `<a href="${n.href}"${current}>${n.label}</a>`;
@@ -167,9 +182,27 @@ ${opts.preloadHero ? `<link rel="preload" as="image" href="${PHOTOS.hero}" fetch
 <meta property="og:description" content="${esc(opts.description)}">
 <meta property="og:url" content="${url}">
 <meta property="og:image" content="${og}">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="${esc(opts.ogAlt || 'Boise Luxury Rentals: Chevrolet Corvette Stingray available to book on Turo in Boise, Idaho')}">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="${esc(opts.title)}">
+<meta name="twitter:description" content="${esc(opts.description)}">
+<meta name="twitter:image" content="${og}">
 <meta name="theme-color" content="#0a0c0f">
+<link rel="icon" href="/favicon.ico" sizes="48x48">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon-96.png" type="image/png" sizes="96x96">
+<link rel="icon" href="/assets/icon-192.png" type="image/png" sizes="192x192">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="application-name" content="${esc(SITE.name)}">
+<meta name="apple-mobile-web-app-title" content="${esc(SITE.name)}">
+<meta name="geo.region" content="US-ID">
+<meta name="geo.placename" content="Meridian, Idaho">
+<meta name="geo.position" content="43.6121;-116.3915">
+<meta name="ICBM" content="43.6121, -116.3915">
 <link rel="stylesheet" href="/assets/site.css?v=${assetVer('site.css')}">
 ${schemas.map((s) => '<script type="application/ld+json">' + JSON.stringify(s) + '</script>').join('\n')}
 </head>
@@ -178,7 +211,7 @@ ${schemas.map((s) => '<script type="application/ld+json">' + JSON.stringify(s) +
 <div class="turo-bar"><strong>All bookings are completed on Turo.</strong> Tap <em>Book on Turo</em> to check dates and pricing. <a href="/faq/">How it works</a></div>
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" width="44" height="44" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><text x="32" y="39" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-weight="900" font-size="19" fill="#fff" letter-spacing="-.5">BLR</text></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
+    <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" width="44" height="44" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><path d="${BLR_D}" fill="#fff"/></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
     <button class="menu-btn" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="main" aria-label="Main">
       ${nav}

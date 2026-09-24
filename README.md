@@ -43,3 +43,8 @@ Health check path: `/healthz`. Add `boiseluxuryrentals.com` (and `www`) as custo
 - Drive distances/times are estimates from Meridian; spot-check a few in Google Maps (each place has a live directions link).
 - Restaurant and landmark details (names, locations) are worth a quick check for anything that has closed or moved.
 - Confirm the Corvette's model year/trim so you can add it to the car page if you want.
+
+## Logo, icons and social preview
+- Logo (ring + red arc + BLR) lives in `tools/brand.js`; `npm run build` writes `assets/favicon.svg` and `assets/logo.svg` from it.
+- Static icon files (`favicon.ico`, `apple-touch-icon.png`, `assets/favicon-*.png`, `assets/icon-*.png`) and the 1200x630 social image (`images/og-image.jpg`) are committed as files. If the logo changes, they need regenerating.
+- Optional Google business details (phone, public email, Instagram/Facebook/Google Business Profile links) go in `SITE.phone`, `SITE.email`, `SITE.sameAs` in `tools/data.js`. Blank values are left out.

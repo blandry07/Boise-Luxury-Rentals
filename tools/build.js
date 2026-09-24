@@ -48,15 +48,28 @@ write('404.html', core.notFoundPage());
 // Sitemap
 const priority = (u) => (u === '/' ? '1.0' : u.startsWith('/guides/') && u !== '/guides/' ? '0.6' : u === '/privacy/' ? '0.2' : '0.8');
 const today = new Date().toISOString().slice(0, 10);
+const IMG_PAGES = { '/': 8, '/corvette-rental-boise/': 12, '/cars/corvette-stingray/': 12, '/c8-corvette-rental-boise/': 6, '/cars/': 3 };
+const { PHOTOS } = require('./data');
+const imgXml = (u) => (IMG_PAGES[u] ? PHOTOS.gallery.slice(0, IMG_PAGES[u]).map((p) => `<image:image><image:loc>${SITE.url}${p.src}</image:loc><image:caption>${p.alt.replace(/&/g, '&amp;').replace(/</g, '&lt;')}</image:caption></image:image>`).join('') : '');
 write('sitemap.xml',
-  '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n' +
-  pages.map(([u]) => `  <url><loc>${SITE.url}${u}</loc><lastmod>${today}</lastmod><priority>${priority(u)}</priority></url>`).join('\n') +
+  '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">\n' +
+  pages.map(([u]) => `  <url><loc>${SITE.url}${u}</loc><lastmod>${today}</lastmod><priority>${priority(u)}</priority>${imgXml(u)}</url>`).join('\n') +
   '\n</urlset>\n');
+
+write('site.webmanifest', JSON.stringify({
+  name: SITE.name, short_name: 'Boise Luxury', description: 'Luxury and sport car rentals in Boise, Idaho. Book on Turo.',
+  start_url: '/', scope: '/', display: 'standalone', background_color: '#0a0c0f', theme_color: '#0a0c0f',
+  icons: [
+    { src: '/assets/icon-192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+    { src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+    { src: '/assets/icon-512.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' },
+  ],
+}, null, 2));
 
 write('robots.txt', `User-agent: *\nAllow: /\nDisallow: /api/\n\nSitemap: ${SITE.url}/sitemap.xml\n`);
 
-const LOGO_MARK = '<circle cx="32" cy="32" r="28" fill="none" stroke="#eef1f5" stroke-width="3"/><circle cx="32" cy="32" r="28" fill="none" stroke="#e5352b" stroke-width="5" stroke-linecap="round" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><text x="32" y="39" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-weight="900" font-size="19" fill="#fff" letter-spacing="-.5">BLR</text>';
-write('assets/favicon.svg', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="-4 -4 72 72"><rect x="-4" y="-4" width="72" height="72" rx="16" fill="#0a0c0f"/>' + LOGO_MARK + '</svg>');
-write('assets/logo.svg', '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" fill="#0a0c0f"/>' + LOGO_MARK + '</svg>');
+const { LOGO_MARK, svgDoc } = require('./brand');
+write('assets/favicon.svg', svgDoc(LOGO_MARK, '-6 -6 76 76', '<rect x="-6" y="-6" width="76" height="76" rx="16" fill="#0a0c0f"/>'));
+write('assets/logo.svg', svgDoc(LOGO_MARK, '-6 -6 76 76', '<rect x="-6" y="-6" width="76" height="76" fill="#0a0c0f"/>'));
 
 console.log('Built ' + (pages.length + 1) + ' pages, sitemap.xml, robots.txt');
