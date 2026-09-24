@@ -1,6 +1,6 @@
 # Boise Luxury Rentals (boiseluxuryrentals.com)
 
-Marketing site for Boise Sports & Luxury Car Rentals. **All bookings happen on Turo**; the site links to the Corvette listing and has a contact form that emails you.
+Marketing site for Boise Luxury Rentals. **All bookings happen on Turo**; the site links to the Corvette listing and has a contact form that emails you.
 
 ## Structure
 - `server.js`: Express server. Serves `/public` with clean URLs and handles `POST /api/contact`.

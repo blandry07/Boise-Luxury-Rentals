@@ -1,7 +1,7 @@
 {
   "name": "boise-luxury-rentals",
   "version": "1.0.0",
-  "description": "Boise Sports & Luxury Car Rentals - marketing site (bookings happen on Turo)",
+  "description": "Boise Luxury Rentals - marketing site (bookings happen on Turo)",
   "main": "server.js",
   "private": true,
   "engines": {

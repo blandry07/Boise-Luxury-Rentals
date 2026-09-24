@@ -9,14 +9,17 @@ const { SITE, PHOTOS, LISTING, PLACES } = require('./data');
 const L = require('./lib');
 const { esc, turoBtn, layout, pageHead, hero, disclosure, faqHtml, faqSchema, breadcrumbSchema, carSchema, articleSchema, val, mapsDir, CTA_LABEL } = L;
 
-const G = PHOTOS.gallery; // 0 front, 1 rear, 2 side, 3 interior, 4 roof off, 5 detail, 6 trunk, 7 scenic
-const img = (i) => `<div class="ph ar"><img src="${G[i].src}" alt="${esc(G[i].alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>`;
-const mosaic = () => `<div class="mosaic">${G.map((p) => `<div class="ph"><img src="${p.src}" data-full="${p.src}" alt="${esc(p.alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>`).join('')}</div>`;
+const G = PHOTOS.gallery; // order + tags come from /photos.json
+const photoImg = (p, extra = '') => `<img src="${p.src}" data-full="${p.src}" alt="${esc(p.alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"${extra}>`;
+const img = (tag) => `<div class="ph ar">${photoImg(PHOTOS.pick(tag))}</div>`;
+// First 9 photos form the big mosaic; everything else follows in a tidy grid. Both open in the lightbox.
+const mosaic = () => `<div class="mosaic">${G.slice(0, 9).map((p) => `<div class="ph">${photoImg(p)}</div>`).join('')}</div>` +
+  (G.length > 9 ? `<h3 style="margin:34px 0 14px">More photos</h3><div class="photo-grid">${G.slice(9).map((p) => `<div class="ph">${photoImg(p)}</div>`).join('')}</div>` : '');
 const CAR = `${LISTING.year} ${LISTING.make} ${LISTING.model} ${LISTING.trim}`;
 
-const feature = ({ id, i, flip, eyebrow, h2, html }) => `
+const feature = ({ id, tag, flip, eyebrow, h2, html }) => `
 <section id="${id}"><div class="wrap"><div class="feature${flip ? ' flip' : ''}">
-  ${img(i)}
+  ${img(tag)}
   <div><span class="eyebrow">${eyebrow}</span><h2>${h2}</h2>${html}</div>
 </div></div></section>`;
 
@@ -91,22 +94,22 @@ function flagship() {
   ${mosaic()}
 </div></section>
 
-${feature({ id: 'power', i: 2, eyebrow: 'Horsepower &amp; performance', h2: 'A 6.2L V8 behind you, about 3 seconds to 60',
+${feature({ id: 'power', tag: 'side', eyebrow: 'Horsepower &amp; performance', h2: 'A 6.2L V8 behind you, about 3 seconds to 60',
   html: `<p>The heart of any <strong>C8 Corvette rental</strong> is the LT2 6.2-liter V8. Chevrolet rates the 2023 Stingray at 490 horsepower, or 495 with the performance exhaust, and roughly 465 to 470 lb-ft of torque. With the engine mid-mounted and power going to the rear wheels through an 8-speed dual-clutch, Chevrolet quotes roughly <strong>3 seconds from 0 to 60 mph</strong>.</p>
   <div class="big-num"><div><b>490+</b><span>Horsepower</span></div><div><b>~3.0s</b><span>0-60 mph</span></div><div><b>8-spd</b><span>Dual-clutch</span></div></div>
   <ul><li>Mid-engine layout for balance and grip through corners</li><li>Drive modes from relaxed Tour to sharper Sport</li><li>Easy to drive in town: it is an automatic, not a manual</li></ul>
   <p class="muted">Want the engineering detail? See our <a href="/c8-corvette-rental-boise/">C8 Corvette rental page</a>.</p>` })}
 
-${feature({ id: 'interior', i: 3, flip: true, eyebrow: 'Interior', h2: 'A cockpit built around the driver',
+${feature({ id: 'interior', tag: 'interior', flip: true, eyebrow: 'Interior', h2: 'A cockpit built around the driver',
   html: `<p>Inside the ${LISTING.year} Stingray ${LISTING.trim}, everything angles toward the driver: a configurable digital instrument display, an infotainment touchscreen with Apple CarPlay and Android Auto, and a low, wraparound seating position.</p>
   <ul><li>Two supportive sport seats</li><li>Digital driver display and touchscreen infotainment</li><li>2LT trim highlights Chevrolet lists include premium Bose audio, heated and ventilated seats and a head-up display</li><li>Dual-zone climate control for Idaho's hot summers and cool mountain mornings</li></ul>
   <p class="muted">Exact options vary by car, so the Turo listing shows the equipment for this one.</p>` })}
 
-${feature({ id: 'roof', i: 4, eyebrow: 'Removable roof', h2: 'Take the roof off and drive open-air',
+${feature({ id: 'roof', tag: 'roof', eyebrow: 'Removable roof', h2: 'Take the roof off and drive open-air',
   html: `<p>This Corvette has a <strong>removable roof panel</strong>. On a clear day in the Treasure Valley, lift it off by hand, stow it in the rear trunk and drive with the sky overhead: down Bogus Basin Road, along the Payette River, or across the Camas Prairie toward Sun Valley.</p>
   <ul><li>Panel comes off in a couple of minutes and stows in the rear trunk</li><li>Stowing the panel uses part of the rear cargo space (see luggage below)</li><li>Keep the panel in the car whenever the roof is off, and put it back on before rain</li></ul>` })}
 
-${feature({ id: 'luggage', i: 6, flip: true, eyebrow: 'Luggage capacity', h2: 'Room for a weekend trip for two',
+${feature({ id: 'luggage', tag: 'trunk-rear', flip: true, eyebrow: 'Luggage capacity', h2: 'Room for a weekend trip for two',
   html: `<p>The C8 is a two-seater with <strong>two trunks</strong>, a front trunk and a rear trunk. Chevrolet lists about <strong>12.6 cubic feet</strong> of combined cargo space, plenty for a couple's weekend when you pack soft duffel bags.</p>
   <div class="big-num"><div><b>2</b><span>Trunks</span></div><div><b>12.6</b><span>cu ft combined</span></div><div><b>2</b><span>Seats</span></div></div>
   <ul><li>Soft bags fit far better than hard-shell suitcases</li><li>Stowing the roof panel takes space from the rear trunk</li><li>Traveling for several days or with more than two people? Plan on packing light or ask us first</li></ul>` })}
@@ -354,7 +357,7 @@ function c8Page() {
         <li><strong>Cabin forward:</strong> a driver-focused cockpit, a low nose and a long tail.</li>
       </ul>
     </div>
-    ${img(2)}
+    ${img('engine')}
   </div>
 </div></section>
 
@@ -371,7 +374,7 @@ function c8Page() {
 
 <section><div class="wrap">
   <div class="grid g2" style="gap:44px;align-items:center">
-    ${img(4)}
+    ${img('cockpit')}
     <div>
       <span class="eyebrow">Drive modes</span>
       <h2>One car, several personalities</h2>

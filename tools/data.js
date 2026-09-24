@@ -4,7 +4,7 @@
  */
 
 const SITE = {
-  name: 'Boise Sports & Luxury Car Rentals',
+  name: 'Boise Luxury Rentals',
   short: 'Boise Luxury Rentals',
   domain: 'boiseluxuryrentals.com',
   url: 'https://boiseluxuryrentals.com',
@@ -14,23 +14,17 @@ const SITE = {
 };
 
 // Photo slots. Drop your JPGs into /public/images/ using these names (see README).
-// Suggested shot list (name each file exactly like this):
-//   hero     wide, cinematic front 3/4 or side shot (landscape, ~2400px wide)
-//   01 front 3/4   02 rear   03 side profile   04 interior/cockpit
-//   05 roof panel off (or roof panel removed)   06 wheel / brake / detail
-//   07 open trunk with luggage   08 scenic Idaho road shot
+// Photos are managed in /photos.json (order, alt text, and which photo fills which spot).
+// Edit that file, not this one. The FIRST photo carrying a tag is the one used for that spot.
+const fs = require('fs');
+const path = require('path');
+const photoFile = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'photos.json'), 'utf8'));
+const gallery = photoFile.photos.map((p) => ({ src: '/images/' + p.file, alt: p.alt, tags: p.tags || [] }));
+const byTag = (tag) => gallery.find((p) => p.tags.includes(tag)) || gallery[0];
 const PHOTOS = {
-  hero: '/images/corvette-hero.jpg',
-  gallery: [
-    { src: '/images/corvette-01.jpg', alt: '2023 Chevrolet Corvette Stingray 2LT C8 rental in Boise, Idaho, front three-quarter view' },
-    { src: '/images/corvette-02.jpg', alt: 'C8 Corvette Stingray rear view showing mid-engine styling, available for rent in Boise' },
-    { src: '/images/corvette-03.jpg', alt: 'Corvette Stingray side profile, sports car rental in Boise and the Treasure Valley' },
-    { src: '/images/corvette-04.jpg', alt: 'Corvette Stingray 2LT interior and driver cockpit' },
-    { src: '/images/corvette-05.jpg', alt: 'C8 Corvette Stingray with the removable roof panel off' },
-    { src: '/images/corvette-06.jpg', alt: 'Corvette Stingray wheel and brake detail' },
-    { src: '/images/corvette-07.jpg', alt: 'C8 Corvette Stingray open trunk showing luggage space' },
-    { src: '/images/corvette-08.jpg', alt: 'Corvette Stingray on a scenic Idaho road near Boise' },
-  ],
+  hero: byTag('hero').src,
+  gallery,
+  pick: byTag,
 };
 
 /**
@@ -43,7 +37,7 @@ const LISTING = {
   make: 'Chevrolet',
   model: 'Corvette Stingray',
   trim: '2LT',
-  color: '',            // e.g. 'Torch Red'
+  color: 'Black exterior, red interior',
   roof: 'Removable roof panel',
   pricePerDay: '',      // e.g. '$249' (leave blank to show "See Turo")
   dailyMiles: '',       // e.g. '150 miles per day'
@@ -157,8 +151,8 @@ const CARS = [
   { slug: 'corvette-stingray', name: '2023 Chevrolet Corvette Stingray 2LT (C8)', status: 'live', tag: 'Available on Turo',
     blurb: 'Mid-engine American supercar performance with a 6.2L V8 and a removable roof. Our flagship rental.' },
   { slug: 'audi-r8', name: 'Audi R8', status: 'soon', tag: 'Coming soon', blurb: 'V10 supercar drama with everyday usability.' },
-  { slug: 'tesla-cybertruck', name: 'Tesla Cybertruck', status: 'soon', tag: 'Coming soon', blurb: 'The stainless-steel head-turner with electric acceleration.' },
-  { slug: 'mercedes-g63-amg', name: 'Mercedes-AMG G63', status: 'soon', tag: 'Coming soon', blurb: 'Iconic luxury SUV with a twin-turbo V8 soundtrack.' },
+  { slug: 'tesla-cybertruck', name: 'Tesla Cybertruck', status: 'soon', photo: '/images/tesla-cybertruck.jpg', tag: 'Coming soon', blurb: 'The stainless-steel head-turner with electric acceleration.' },
+  { slug: 'mercedes-g63-amg', name: 'Mercedes-AMG G63', status: 'soon', photo: '/images/mercedes-g63-amg.jpg', tag: 'Coming soon', blurb: 'Iconic luxury SUV with a twin-turbo V8 soundtrack.' },
 ];
 
 const GUIDES = [

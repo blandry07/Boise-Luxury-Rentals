@@ -84,7 +84,7 @@ ${hero('Boise Sports &amp; <span>Luxury Car Rentals</span>',
     <span class="eyebrow">Our fleet</span>
     <h2>One car now. More on the way.</h2>
     <div class="grid g4">
-      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}"><div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : ''}</div></div>`).join('')}
+      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">${c.photo ? `<div class="ph"><img src="${c.photo}" alt="${esc(c.name)}, coming soon" loading="lazy" onerror="this.style.display='none'"></div>` : ''}<div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : ''}</div></div>`).join('')}
     </div>
   </div>
 </section>
@@ -138,7 +138,7 @@ function carsIndex() {
 <section><div class="wrap">
   <div class="grid g2">
     ${CARS.map((c, i) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">
-      <div class="ph">${c.status === 'live' ? `<img src="${PHOTOS.gallery[i === 0 ? 0 : 0].src}" alt="${esc(c.name)} rental in Boise" loading="lazy" onerror="this.style.display='none'">` : ''}</div>
+      <div class="ph">${c.status === 'live' ? `<img src="${PHOTOS.gallery[0].src}" alt="${esc(c.name)} rental in Boise" loading="lazy" onerror="this.style.display='none'">` : (c.photo ? `<img src="${c.photo}" alt="${esc(c.name)}, coming soon to Boise Luxury Rentals" loading="lazy" onerror="this.style.display='none'">` : '')}</div>
       <div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span>
       <h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>
       ${c.status === 'live' ? `<div class="cta-row"><a class="btn btn-ghost btn-sm" href="/cars/${c.slug}/">Details &amp; photos</a>${turoBtn('Book on Turo', { small: true, note: false })}</div>` : '<p class="muted" style="margin:0">Not yet available. Check back soon.</p>'}
@@ -284,7 +284,7 @@ function aboutPage() {
   return layout({
     path: '/about/',
     title: 'About Boise Luxury Rentals | Local Turo Host in Meridian, Idaho',
-    description: 'Boise Sports & Luxury Car Rentals is a locally owned Turo host in Meridian, Idaho, offering a Chevrolet Corvette Stingray. Learn how booking works.',
+    description: 'Boise Luxury Rentals is a locally owned Turo host in Meridian, Idaho, offering a Chevrolet Corvette Stingray. Learn how booking works.',
     body, schema: [breadcrumbSchema(crumbs)],
   });
 }

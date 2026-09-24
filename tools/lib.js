@@ -233,7 +233,7 @@ ${opts.body}
       <a href="/exotic-rental-boise/">Exotic car rental Boise</a>
     </p>
     <p class="disclaimer" style="border:0;margin-top:0;padding-top:0">${esc(SITE.short)} is an independent vehicle host on Turo and is not owned by, affiliated with or endorsed by Turo, Inc. Turo is a trademark of Turo Inc. All reservations, payments, insurance and protection plans, eligibility requirements, mileage limits and cancellation terms are provided by Turo and shown on the vehicle listing. Drive times and distances on this site are approximate, measured from Meridian, Idaho in normal traffic. Confirm conditions and current hours before you go. Drive safely and obey all traffic laws.</p>
-    <p class="disclaimer" style="border:0;margin-top:0;padding-top:0">&copy; ${new Date().getFullYear()} ${esc(SITE.name)}. Meridian, Idaho.</p>
+    <p class="disclaimer" style="border:0;margin-top:0;padding-top:0">&copy; ${new Date().getFullYear()} Boise Luxury Rentals</p>
   </div>
 </footer>
 <div class="sticky-cta"><span>Reserve on Turo<br>Secure checkout</span>${turoBtn('Book on Turo', { small: true, note: false })}</div>
