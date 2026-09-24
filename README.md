@@ -15,15 +15,15 @@ Open `tools/data.js` and complete the `LISTING` block (color, daily price, daily
 ## SEO
 See `SEO-PLAYBOOK.md`. Run `npm run seo` after every build to audit titles, descriptions, H1s, schema, keywords and the sitemap.
 
-## Your photos
-Drop JPGs into `public/images/` with these names (landscape, ~2000px wide, under ~500 KB each is ideal):
+## Your photos and how to change their order
+All photos live in `public/images/` and are controlled by **`photos.json`** in the project root.
 
-| File | Used for |
-|---|---|
-| `corvette-hero.jpg` | Home page hero + social share image |
-| `corvette-01.jpg` ... `corvette-08.jpg` | Shot list: 01 front 3/4 (large lead), 02 rear, 03 side profile, 04 interior, 05 roof panel off, 06 wheel/detail, 07 open trunk with luggage, 08 scenic Idaho road |
+- **Reorder:** move a whole `{ ... }` block up or down. The order in the file is the order on the site. The first 9 fill the big photo mosaic; the rest appear under "More photos".
+- **Hide a photo:** delete its block (the file can stay in the folder).
+- **Add a photo:** put the JPG in `public/images/` and add a block with `file`, `alt` (describe the photo) and optional `tags`.
+- **Special spots:** the first photo carrying a tag fills that spot: `hero` (home page + social share), `side`, `interior`, `roof`, `trunk-rear`, `trunk-front`, `engine`, `cockpit`, `screen`.
 
-Until a photo exists, that slot shows a dark placeholder. To use a different number of photos or different names, edit `PHOTOS` in `tools/data.js` and run `npm run build`.
+Then commit and push in GitHub Desktop. Railway runs `npm run build` on deploy, so the site updates itself. (Locally: `npm run build`.)
 
 ## Railway environment variables
 | Variable | Value |
