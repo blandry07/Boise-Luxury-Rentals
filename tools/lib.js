@@ -1,3 +1,7 @@
+const crypto = require('crypto');
+const fsAssets = require('fs');
+const pathAssets = require('path');
+function assetVer(f) { try { return crypto.createHash('md5').update(fsAssets.readFileSync(pathAssets.join(__dirname, '..', 'public', 'assets', f))).digest('hex').slice(0, 8); } catch (e) { return '1'; } }
 'use strict';
 const { SITE, PHOTOS } = require('./data');
 
@@ -166,7 +170,7 @@ ${opts.preloadHero ? `<link rel="preload" as="image" href="${PHOTOS.hero}" fetch
 <meta name="twitter:card" content="summary_large_image">
 <meta name="theme-color" content="#0a0c0f">
 <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="/assets/site.css">
+<link rel="stylesheet" href="/assets/site.css?v=${assetVer('site.css')}">
 ${schemas.map((s) => '<script type="application/ld+json">' + JSON.stringify(s) + '</script>').join('\n')}
 </head>
 <body>
@@ -174,7 +178,7 @@ ${schemas.map((s) => '<script type="application/ld+json">' + JSON.stringify(s) +
 <div class="turo-bar"><strong>All bookings are completed on Turo.</strong> Tap <em>Book on Turo</em> to check dates and pricing. <a href="/faq/">How it works</a></div>
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><text x="32" y="39" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-weight="900" font-size="19" fill="#fff" letter-spacing="-.5">BLR</text></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
+    <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" width="44" height="44" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><text x="32" y="39" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-weight="900" font-size="19" fill="#fff" letter-spacing="-.5">BLR</text></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
     <button class="menu-btn" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="main" aria-label="Main">
       ${nav}
@@ -239,7 +243,7 @@ ${addDividers(opts.body)}
 </footer>
 <div class="sticky-cta"><span>Reserve on Turo<br>Secure checkout</span>${turoBtn('Book on Turo', { small: true, note: false })}</div>
 <div class="lightbox" role="dialog" aria-label="Photo viewer" aria-modal="true"><button class="lb-close" aria-label="Close">&times;</button><button class="lb-prev" aria-label="Previous">&lsaquo;</button><img alt=""><button class="lb-next" aria-label="Next">&rsaquo;</button></div>
-<script src="/assets/site.js" defer></script>
+<script src="/assets/site.js?v=${assetVer('site.js')}" defer></script>
 </body>
 </html>`;
 }
@@ -256,7 +260,8 @@ function wordSplit(html) {
   return String(html).replace(/(<[^>]+>)|([^<\s]+)/g, (m, tag, word) => (tag ? tag : `<i class="w" style="--i:${n++}">${word}</i>`));
 }
 
-const ROAD_DIVIDER = '<div class="road-div" aria-hidden="true"><svg viewBox="0 0 1200 70" fill="none" preserveAspectRatio="xMidYMid meet"><path class="r" pathLength="1" d="M0 40 C150 5 300 70 470 38 S760 8 900 40 S1120 62 1200 34" stroke="#e5352b" stroke-width="5" stroke-linecap="round"/><path class="dash" d="M0 40 C150 5 300 70 470 38 S760 8 900 40 S1120 62 1200 34" stroke="#eef1f5" stroke-width="1.6" stroke-dasharray="7 12" opacity=".6"/></svg></div>';
+const ROAD_PATH = 'M-20 52 C160 8 320 88 520 50 S840 6 1000 48 S1140 78 1220 44';
+const ROAD_DIVIDER = `<div class="road-div" aria-hidden="true"><svg viewBox="0 0 1200 96" fill="none" stroke-linecap="butt"><path class="r edge" pathLength="1" d="${ROAD_PATH}" stroke="#e8edf2" stroke-width="40"/><path class="r asph" pathLength="1" d="${ROAD_PATH}" stroke="#2a2f36" stroke-width="35"/><path class="dash" d="${ROAD_PATH}" stroke="#d8b26a" stroke-width="3.2" stroke-dasharray="16 15"/></svg></div>`;
 /** Put a road divider between every second pair of sections (max 3 per page). */
 function addDividers(body) {
   let i = 0, used = 0;
@@ -269,7 +274,7 @@ function addDividers(body) {
 
 function hero(h1, lead, opts = {}) {
   return `<section class="hero${opts.short ? ' short' : ''}${opts.xl ? ' xl' : ''}">
-  <img class="bg" src="${opts.img || PHOTOS.hero}" alt="${esc(opts.alt || 'Chevrolet Corvette Stingray available to book on Turo in Boise, Idaho')}" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
+  <div class="bgwrap"><img class="bg" src="${opts.img || PHOTOS.hero}" alt="${esc(opts.alt || 'Chevrolet Corvette Stingray available to book on Turo in Boise, Idaho')}" fetchpriority="high" decoding="async" onerror="this.style.display='none'"></div>
   <div class="wrap">
     ${opts.year ? `<span class="badge-year">${opts.year}</span><br>` : ''}<span class="eyebrow">${esc(opts.eyebrow || 'Boise, Idaho · Booked on Turo')}</span>
     <h1>${wordSplit(h1)}</h1>
