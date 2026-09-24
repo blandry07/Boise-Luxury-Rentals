@@ -53,7 +53,8 @@ function businessSchema() {
     name: SITE.name,
     url: SITE.url,
     image: SITE.url + PHOTOS.hero,
-    description: 'Sports and luxury car rentals in Boise, Idaho, including a 2023 Chevrolet Corvette Stingray 2LT (C8). Bookings are completed on Turo.',
+    logo: SITE.url + '/assets/logo.svg',
+    description: 'Luxury and sport car rentals in Boise, Idaho, including a 2023 Chevrolet Corvette Stingray 2LT (C8). Bookings are completed on Turo.',
     areaServed: ['Boise, ID', 'Meridian, ID', 'Eagle, ID', 'Nampa, ID', 'Caldwell, ID', 'Star, ID', 'Kuna, ID', 'Treasure Valley, ID', 'Idaho'],
     address: { '@type': 'PostalAddress', addressLocality: 'Meridian', addressRegion: 'ID', addressCountry: 'US' },
     geo: { '@type': 'GeoCoordinates', latitude: 43.6121, longitude: -116.3915 },
@@ -173,7 +174,7 @@ ${schemas.map((s) => '<script type="application/ld+json">' + JSON.stringify(s) +
 <div class="turo-bar"><strong>All bookings are completed on Turo.</strong> Tap <em>Book on Turo</em> to check dates and pricing. <a href="/faq/">How it works</a></div>
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="/" aria-label="${esc(SITE.name)} home">Boise Luxury Rentals<small>Sports &amp; Luxury Cars</small></a>
+    <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><text x="32" y="39" text-anchor="middle" font-family="system-ui,Arial,sans-serif" font-weight="900" font-size="19" fill="#fff" letter-spacing="-.5">BLR</text></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
     <button class="menu-btn" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="main" aria-label="Main">
       ${nav}
@@ -182,14 +183,14 @@ ${schemas.map((s) => '<script type="application/ld+json">' + JSON.stringify(s) +
   </div>
 </header>
 <main id="main">
-${opts.body}
+${addDividers(opts.body)}
 </main>
 <footer class="site">
   <div class="wrap">
     <div class="grid g4">
       <div>
         <h4>${esc(SITE.short)}</h4>
-        <p>Sports and luxury car rentals in Boise, Meridian and the Treasure Valley. Reservations are made on Turo.</p>
+        <p>Luxury and sport car rentals in Boise, Meridian and the Treasure Valley. Reservations are made on Turo.</p>
         <p>${turoBtn('Book on Turo', { small: true, note: false })}</p>
       </div>
       <div>
@@ -248,12 +249,30 @@ function pageHead(crumbItems, h1, lead) {
   return `<div class="page-head"><div class="wrap">${crumbs(crumbItems)}<h1>${h1}</h1>${lead ? `<p class="lead muted" style="max-width:720px;font-size:1.1rem">${lead}</p>` : ''}</div></div>`;
 }
 
+
+/** Wrap each word of an HTML string in <i class="w"> so the H1 can slide in word by word (text is unchanged for SEO). */
+function wordSplit(html) {
+  let n = 0;
+  return String(html).replace(/(<[^>]+>)|([^<\s]+)/g, (m, tag, word) => (tag ? tag : `<i class="w" style="--i:${n++}">${word}</i>`));
+}
+
+const ROAD_DIVIDER = '<div class="road-div" aria-hidden="true"><svg viewBox="0 0 1200 70" fill="none" preserveAspectRatio="xMidYMid meet"><path class="r" pathLength="1" d="M0 40 C150 5 300 70 470 38 S760 8 900 40 S1120 62 1200 34" stroke="#e5352b" stroke-width="5" stroke-linecap="round"/><path class="dash" d="M0 40 C150 5 300 70 470 38 S760 8 900 40 S1120 62 1200 34" stroke="#eef1f5" stroke-width="1.6" stroke-dasharray="7 12" opacity=".6"/></svg></div>';
+/** Put a road divider between every second pair of sections (max 3 per page). */
+function addDividers(body) {
+  let i = 0, used = 0;
+  return body.replace(/<\/section>(\s*)<section/g, (m, ws) => {
+    const put = i++ % 2 === 1 && used < 3;
+    if (put) used++;
+    return '</section>' + ws + (put ? ROAD_DIVIDER + ws : '') + '<section';
+  });
+}
+
 function hero(h1, lead, opts = {}) {
   return `<section class="hero${opts.short ? ' short' : ''}${opts.xl ? ' xl' : ''}">
   <img class="bg" src="${opts.img || PHOTOS.hero}" alt="${esc(opts.alt || 'Chevrolet Corvette Stingray available to book on Turo in Boise, Idaho')}" fetchpriority="high" decoding="async" onerror="this.style.display='none'">
   <div class="wrap">
     ${opts.year ? `<span class="badge-year">${opts.year}</span><br>` : ''}<span class="eyebrow">${esc(opts.eyebrow || 'Boise, Idaho · Booked on Turo')}</span>
-    <h1>${h1}</h1>
+    <h1>${wordSplit(h1)}</h1>
     <p class="lead">${lead}</p>
     ${opts.badge ? `<p class="turo-badge"><span>&#10003;</span> ${opts.badge}</p>` : ''}
     <div class="cta-row">${opts.big ? turoBtn(CTA_LABEL, { big: true }) : turoBtn('Book on Turo')}<a class="btn btn-ghost" href="${opts.secondaryHref || '/cars/corvette-stingray/'}">${esc(opts.secondaryLabel || 'See the Corvette')}</a></div>

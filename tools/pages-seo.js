@@ -48,7 +48,7 @@ function sportsCarPage() {
   <li><strong>Try before you buy:</strong> curious about a mid-engine Corvette? A rental day is a good test drive.</li>
 </ul>
 <h2>What we offer now</h2>
-<p>Right now our lineup is the <a href="/cars/corvette-stingray/">Chevrolet Corvette Stingray (C8)</a>. We're planning to add more sports and luxury vehicles over time. See the <a href="/cars/">cars page</a> for what's coming.</p>
+<p>Right now our lineup is the <a href="/cars/corvette-stingray/">Chevrolet Corvette Stingray (C8)</a>. We're planning to add more luxury and sport vehicles over time. See the <a href="/cars/">cars page</a> for what's coming.</p>
 <h2>Booking &amp; requirements</h2>
 <p>All rentals are booked through Turo, which handles driver eligibility, protection plans and payment. Age, license, deposit and mileage rules are shown on the listing, so review them before you reserve.</p>
 <h2>Tips for a great sports car day</h2>

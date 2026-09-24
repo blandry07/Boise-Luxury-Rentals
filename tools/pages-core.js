@@ -30,7 +30,7 @@ function steps() {
 function home() {
   const teaser = PLACES.filter((p) => ['Idaho State Capitol', 'Bogus Basin Road', 'Idaho City (Ponderosa Pine Scenic Byway)', 'McCall & Payette Lake', 'Sun Valley & Ketchum', 'Lucky Peak Reservoir & Discovery Park'].includes(p.name));
   const body = `
-${hero('Boise Sports &amp; <span>Luxury Car Rentals</span>',
+${hero('Boise <span>Luxury Rentals</span>',
     'Corvette rental in Boise, Idaho: a 2023 mid-engine C8 Corvette Stingray 2LT with a removable roof. Check dates and book securely on Turo.',
     { xl: true, big: true, year: '2023 Chevrolet Corvette Stingray 2LT', eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
       badge: 'All reservations are completed securely on <strong>Turo</strong>', secondaryLabel: 'See the Corvette', secondaryHref: '/corvette-rental-boise/',
@@ -126,7 +126,7 @@ ${hero('Boise Sports &amp; <span>Luxury Car Rentals</span>',
   return layout({
     path: '/',
     title: 'Boise Sports Car Rental | Corvette Rental in Boise, Idaho',
-    description: 'Rent a Chevrolet Corvette Stingray in Boise and the Treasure Valley. Sports and luxury car rentals, booked securely on Turo. Photos, road-trip guides and local tips.',
+    description: 'Rent a Chevrolet Corvette Stingray in Boise and the Treasure Valley. Luxury and sport car rentals, booked securely on Turo. Photos, road-trip guides and local tips.',
     body,
     schema: [faqSchema(FAQS.slice(0, 5))],
   });
@@ -134,7 +134,7 @@ ${hero('Boise Sports &amp; <span>Luxury Car Rentals</span>',
 
 function carsIndex() {
   const crumbs = [{ label: 'Home', href: '/' }, { label: 'Cars', href: '/cars/' }];
-  const body = pageHead(crumbs, 'Our Cars', 'Sports and luxury rentals in the Boise area. Every vehicle is booked through Turo.') + `
+  const body = pageHead(crumbs, 'Our Cars', 'Luxury and sport rentals in the Boise area. Every vehicle is booked through Turo.') + `
 <section><div class="wrap">
   <div class="grid g2">
     ${CARS.map((c, i) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">
@@ -148,8 +148,8 @@ function carsIndex() {
 </div></section>`;
   return layout({
     path: '/cars/',
-    title: 'Sports & Luxury Cars for Rent in Boise | Corvette Stingray',
-    description: 'Browse the Boise Luxury Rentals fleet: the Chevrolet Corvette Stingray today, with more sports and luxury cars coming. Reserve on Turo.',
+    title: 'Luxury & Sport Cars for Rent in Boise | Corvette Stingray',
+    description: 'Browse the Boise Luxury Rentals fleet: the Chevrolet Corvette Stingray today, with more luxury and sport cars coming. Reserve on Turo.',
     body, schema: [breadcrumbSchema(crumbs)],
   });
 }
@@ -263,7 +263,7 @@ function thingsPage() {
 
 function aboutPage() {
   const crumbs = [{ label: 'Home', href: '/' }, { label: 'About', href: '/about/' }];
-  const body = pageHead(crumbs, 'About Boise Luxury Rentals', 'A locally owned sports and luxury car rental host in Meridian, Idaho.') + `
+  const body = pageHead(crumbs, 'About Boise Luxury Rentals', 'A locally owned luxury and sport car rental host in Meridian, Idaho.') + `
 <section><div class="wrap prose">
   <p>${esc(SITE.name)} is an owner-operated car rental host based in Meridian, Idaho. We started with one goal: to make it easy for locals and visitors to experience Idaho's roads in something special.</p>
   <h2>Booked on Turo, hosted locally</h2>
@@ -271,7 +271,7 @@ function aboutPage() {
   <blockquote>This website is our showcase. Every reservation, payment and trip agreement is made on Turo.</blockquote>
   <h2>What we offer</h2>
   <ul>
-    <li><strong>Well-kept vehicles.</strong> Starting with a Chevrolet Corvette Stingray (C8), with more sports and luxury cars planned.</li>
+    <li><strong>Well-kept vehicles.</strong> Starting with a Chevrolet Corvette Stingray (C8), with more luxury and sport cars planned.</li>
     <li><strong>Local knowledge.</strong> Our <a href="/things-to-do-boise-by-car/">things-to-see list</a> and <a href="/guides/">road-trip guides</a> are built around real Idaho driving roads.</li>
     <li><strong>Real people.</strong> Message us before you book and we will text or call you back.</li>
   </ul>

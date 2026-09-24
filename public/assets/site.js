@@ -1,6 +1,16 @@
 (function () {
   'use strict';
 
+  // ---- Road divider: draw the road when it scrolls into view ----
+  document.documentElement.classList.add('js');
+  var roads = document.querySelectorAll('.road-div');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.4 });
+    roads.forEach(function (r) { io.observe(r); });
+  } else { roads.forEach(function (r) { r.classList.add('in'); }); }
+
   // ---- Mobile nav ----
   var btn = document.querySelector('.menu-btn');
   var nav = document.querySelector('nav.main');
