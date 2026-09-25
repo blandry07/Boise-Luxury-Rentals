@@ -56,7 +56,7 @@ function flagship() {
       badge: 'Reservations, payment and protection plans are handled securely by <strong>Turo</strong>',
       secondaryLabel: 'See every detail', secondaryHref: '#overview',
       alt: `${CAR} C8 Corvette rental in Boise, Idaho`,
-      stats: [['490+', 'Horsepower'], ['6.2L', 'V8 engine'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats']] }
+      stats: [['490+', 'Horsepower'], ['6.2L', 'V8 engine'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['HUD', 'Heads up display']] }
   ) + `
 <section id="overview" style="padding-bottom:20px"><div class="wrap">
   <ul class="toc" aria-label="On this page">
