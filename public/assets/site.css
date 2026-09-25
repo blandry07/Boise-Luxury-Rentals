@@ -180,6 +180,10 @@ footer.site a:hover{color:var(--text)}
   .hero{min-height:70vh}
   .sticky-cta{display:flex;position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(10,12,15,.96);border-top:1px solid var(--line);padding:10px 14px;gap:10px;align-items:center;justify-content:space-between}
   .sticky-cta span{font-size:.78rem;color:var(--muted);line-height:1.3}
+  /* When JS is running, keep this bar off-screen until the page's own CTA
+     button (in the hero) has scrolled out of view, so it never overlaps it. */
+  .js .sticky-cta.js-managed{transform:translateY(100%);transition:transform .25s ease}
+  .js .sticky-cta.js-managed.show{transform:translateY(0)}
 }
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
 

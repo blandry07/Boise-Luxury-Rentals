@@ -11,6 +11,29 @@
     roads.forEach(function (r) { io.observe(r); });
   } else { roads.forEach(function (r) { r.classList.add('in'); }); }
 
+  // ---- Sticky mobile "Book on Turo" bar: only show once the page's own
+  // CTA button has scrolled out of view, so it never sits on top of it ----
+  var stickyCta = document.querySelector('.sticky-cta');
+  var heroCta = document.querySelector('.hero .cta-row');
+  if (stickyCta && heroCta && 'IntersectionObserver' in window) {
+    stickyCta.classList.add('js-managed');
+    var ctaIo = new IntersectionObserver(function (es) {
+      es.forEach(function (e) {
+        // Only reveal the bar once the hero CTA has been scrolled PAST
+        // (above the viewport) - not simply "not visible yet" on first load,
+        // which would otherwise show it immediately while the hero's own
+        // button just hasn't scrolled into view yet.
+        var scrolledPast = !e.isIntersecting && e.boundingClientRect.top < 0;
+        stickyCta.classList.toggle('show', scrolledPast);
+      });
+    }, { threshold: 0 });
+    ctaIo.observe(heroCta);
+  } else if (stickyCta && !heroCta) {
+    // No hero CTA on this page (e.g. Contact, FAQ) - keep the sticky bar's
+    // default always-on behavior.
+    stickyCta.classList.add('show');
+  }
+
   // ---- Mobile nav ----
   var btn = document.querySelector('.menu-btn');
   var nav = document.querySelector('nav.main');
