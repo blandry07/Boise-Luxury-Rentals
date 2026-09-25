@@ -13,8 +13,14 @@ const G = PHOTOS.gallery; // order + tags come from /photos.json
 const photoImg = (p, extra = '') => `<img src="${p.src}" data-full="${p.src}" alt="${esc(p.alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"${extra}>`;
 const img = (tag) => `<div class="ph ar">${photoImg(PHOTOS.pick(tag))}</div>`;
 // First 9 photos form the big mosaic; everything else follows in a tidy grid. Both open in the lightbox.
-const mosaic = () => `<div class="mosaic">${G.slice(0, 9).map((p) => `<div class="ph">${photoImg(p)}</div>`).join('')}</div>` +
-  (G.length > 9 ? `<h3 style="margin:34px 0 14px">More photos</h3><div class="photo-grid">${G.slice(9).map((p) => `<div class="ph">${photoImg(p)}</div>`).join('')}</div>` : '');
+const mosaic = () => {
+  const rest = G.slice(9);
+  // Keep the trailing grid to a full row (3-col desktop / 2-col tablet, so a multiple of 6)
+  // so it never ends with a lone photo dangling next to empty grid cells.
+  const restFull = rest.slice(0, Math.floor(rest.length / 6) * 6);
+  return `<div class="mosaic">${G.slice(0, 9).map((p) => `<div class="ph">${photoImg(p)}</div>`).join('')}</div>` +
+    (restFull.length > 0 ? `<h3 style="margin:34px 0 14px">More photos</h3><div class="photo-grid">${restFull.map((p) => `<div class="ph">${photoImg(p)}</div>`).join('')}</div>` : '');
+};
 const CAR = `${LISTING.year} ${LISTING.make} ${LISTING.model} ${LISTING.trim}`;
 
 const feature = ({ id, tag, flip, eyebrow, h2, html }) => `
@@ -346,7 +352,7 @@ function c8Page() {
 </div></div></section>
 
 <section><div class="wrap">
-  <div class="grid g2" style="gap:44px;align-items:center">
+  <div class="grid g2 stretch" style="gap:44px;align-items:center">
     <div>
       <span class="eyebrow">Why the C8 is different</span>
       <h2>Everything changed when the engine moved</h2>
@@ -373,7 +379,7 @@ function c8Page() {
 </div></section>
 
 <section><div class="wrap">
-  <div class="grid g2" style="gap:44px;align-items:center">
+  <div class="grid g2 stretch" style="gap:44px;align-items:center">
     ${img('cockpit')}
     <div>
       <span class="eyebrow">Drive modes</span>

@@ -197,9 +197,10 @@ footer.site a:hover{color:var(--text)}
 .hero.xl h1{font-size:clamp(2.2rem,6vw,4.6rem)}
 .hero .badge-year{display:inline-block;color:var(--gold);letter-spacing:.2em;text-transform:uppercase;font-size:.85rem;font-weight:700;margin-bottom:10px}
 
-.feature{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:center;padding:34px 0}
+.feature{display:grid;grid-template-columns:1.1fr 1fr;gap:56px;align-items:stretch;padding:34px 0}
 .feature.flip .ph{order:2}
 .feature .ph{aspect-ratio:4/3;border-radius:18px;border:1px solid var(--line);box-shadow:0 30px 70px rgba(0,0,0,.45)}
+@media(min-width:921px){.feature .ph.ar{aspect-ratio:unset;min-height:340px;width:100%}}
 .feature h2{margin-bottom:.4em}
 .feature ul{padding-left:1.2em}
 .feature li{margin-bottom:.45em}
@@ -237,6 +238,7 @@ footer.site a:hover{color:var(--text)}
   .cols2{grid-template-columns:1fr}
 }
 .ph.ar{aspect-ratio:4/3;border-radius:18px;border:1px solid var(--line)}
+@media(min-width:921px){.grid.g2.stretch{align-items:stretch}.grid.g2.stretch>.ph.ar{aspect-ratio:unset;min-height:340px}}
 .feature>*,.grid>*,.cols2>*{min-width:0}
 @media(max-width:520px){.big-num b{font-size:1.35rem}.big-num span{font-size:.62rem;letter-spacing:.06em}.btn-xl{padding:18px 22px;font-size:.95rem;width:100%}.cta-stack{width:100%}.stat-strip b{font-size:1.25rem}}
 .turo-badge{display:block;width:fit-content;max-width:100%;border-radius:18px;line-height:1.4}
