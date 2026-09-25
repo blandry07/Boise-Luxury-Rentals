@@ -313,7 +313,7 @@ function hero(h1, lead, opts = {}) {
     <h1>${wordSplit(h1)}</h1>
     <p class="lead">${lead}</p>
     ${opts.badge ? `<p class="turo-badge"><span>&#10003;</span> ${opts.badge}</p>` : ''}
-    <div class="cta-row">${opts.big ? turoBtn(CTA_LABEL, { big: true }) : turoBtn('Book on Turo')}<a class="btn btn-ghost" href="${opts.secondaryHref || '/cars/corvette-stingray/'}">${esc(opts.secondaryLabel || 'See the Corvette')}</a></div>
+    <div class="cta-row">${opts.big ? turoBtn(CTA_LABEL, { big: true }) : turoBtn('Book on Turo')}<a class="btn btn-ghost${opts.big ? ' btn-xl' : ''}" href="${opts.secondaryHref || '/cars/corvette-stingray/'}">${esc(opts.secondaryLabel || 'See the Corvette')}</a></div>
     ${opts.stats ? statStrip(opts.stats) : ''}
   </div>
 </section>`;

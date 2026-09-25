@@ -48,7 +48,7 @@ nav.main a[aria-current="page"]{color:var(--accent2)}
 .btn-ghost:hover{border-color:var(--text)}
 .btn-sm{padding:10px 18px;font-size:.9rem}
 .cta-note{display:block;font-size:.78rem;color:var(--muted);margin-top:8px}
-.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;align-items:flex-start}
 .cta-stack{display:inline-flex;flex-direction:column}
 
 /* Hero */

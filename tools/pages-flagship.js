@@ -338,7 +338,7 @@ function c8Page() {
     { short: true, big: true, eyebrow: 'C8 Corvette Rental Boise · Performance',
       badge: 'Available to book on <strong>Turo</strong>',
       img: '/images/corvette-studio-front-angle2.jpg', secondaryLabel: 'Corvette rental details & photos', secondaryHref: '/corvette-rental-boise/', alt: 'C8 Corvette Stingray studio photo, front angle',
-      stats: [['490+', 'Horsepower'], ['~40/60', 'Weight split'], ['~3.0s', '0-60 mph'], ['8-spd', 'Dual-clutch'], ['Mid', 'Engine']] }
+      stats: [['490+', 'Horsepower'], ['~40/60', 'Weight split'], ['~3.0s', '0-60 mph'], ['8-spd', 'Dual-clutch'], ['Mid', 'Engine'], ['HUD', 'Heads up display']] }
   ) + `
 <section><div class="wrap"><div class="notice" style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
   <div><h3 style="margin:0 0 .2em">Looking for photos, roof, luggage, pickup and requirements?</h3><p style="margin:0">Everything about the actual car is on our main <a href="/corvette-rental-boise/"><strong>Corvette rental in Boise</strong></a> page. This page is about how the C8 drives.</p></div>
