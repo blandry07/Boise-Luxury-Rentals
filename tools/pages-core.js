@@ -33,8 +33,9 @@ function home() {
 ${hero('Boise <span>Luxury Rentals</span>',
     'Corvette rental in Boise, Idaho: a 2023 mid-engine C8 Corvette Stingray 2LT with a removable roof. Check dates and book securely on Turo.',
     { xl: true, big: true, year: '2023 Chevrolet Corvette Stingray 2LT', eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
+      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray 2LT studio photo, front three-quarter view',
       badge: 'All reservations are completed securely on <strong>Turo</strong>', secondaryLabel: 'See the Corvette', secondaryHref: '/corvette-rental-boise/',
-      stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['Turo', 'Book securely']] })}
+      stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['HUD', 'Heads Up Display'], ['Turo', 'Book securely']] })}
 
 <section>
   <div class="wrap">
@@ -55,7 +56,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
         <ul class="muted"><li>Mid-engine layout with a front and rear trunk</li><li>Automatic dual-clutch: easy in traffic, thrilling on the open road</li><li>Based in Meridian, minutes from Boise</li></ul>
         <div class="cta-row">${turoBtn('CHECK AVAILABILITY & BOOK ON TURO', { big: true })}</div><p style="margin-top:14px"><a href="/corvette-rental-boise/">Corvette rental Boise: full details, photos &amp; requirements &rarr;</a></p>
       </div>
-      ${gallery(PHOTOS.gallery.slice(0, 2)).replace('class="gallery"', 'class="gallery" style="grid-template-columns:1fr 1fr"')}
+      <div class="ph feature-photo"><img src="${PHOTOS.gallery[0].src}" alt="${esc(PHOTOS.gallery[0].alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
     </div>
   </div>
 </section>

@@ -265,7 +265,7 @@ function vehiclePage() {
     `${LISTING.year} Corvette <span>Stingray ${LISTING.trim}</span>`,
     'Vehicle profile and spec sheet for our C8 Corvette Stingray rental in Boise, Idaho.',
     { short: true, big: true, eyebrow: 'Vehicle profile · Booked on Turo', badge: 'Book on <strong>Turo</strong>. No payments on this site',
-      secondaryLabel: 'Full Corvette rental details', secondaryHref: '/corvette-rental-boise/', alt: `${CAR} Corvette Stingray rental in Boise` }
+      img: '/images/corvette-studio-rear.jpg', secondaryLabel: 'Full Corvette rental details', secondaryHref: '/corvette-rental-boise/', alt: `${CAR} Corvette Stingray studio photo, rear three-quarter view` }
   ) + `
 <section><div class="wrap">
   <span class="eyebrow">Gallery</span><h2>Photos of the ${LISTING.year} Corvette Stingray</h2>
@@ -337,7 +337,7 @@ function c8Page() {
     'Mid-engine layout, a 6.2L V8 and a dual-clutch that snaps off shifts. If you searched for a <strong>C8 rental in Boise</strong> for the driving, this page is for you.',
     { short: true, big: true, eyebrow: 'C8 Corvette Rental Boise · Performance',
       badge: 'Available to book on <strong>Turo</strong>',
-      secondaryLabel: 'Corvette rental details & photos', secondaryHref: '/corvette-rental-boise/', alt: 'C8 Corvette Stingray rental in Boise, Idaho',
+      img: '/images/corvette-studio-front-angle2.jpg', secondaryLabel: 'Corvette rental details & photos', secondaryHref: '/corvette-rental-boise/', alt: 'C8 Corvette Stingray studio photo, front angle',
       stats: [['490+', 'Horsepower'], ['~40/60', 'Weight split'], ['~3.0s', '0-60 mph'], ['8-spd', 'Dual-clutch'], ['Mid', 'Engine']] }
   ) + `
 <section><div class="wrap"><div class="notice" style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">
