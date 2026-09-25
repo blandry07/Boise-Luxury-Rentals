@@ -31,9 +31,9 @@ function home() {
   const teaser = PLACES.filter((p) => ['Idaho State Capitol', 'Bogus Basin Road', 'Idaho City (Ponderosa Pine Scenic Byway)', 'McCall & Payette Lake', 'Sun Valley & Ketchum', 'Lucky Peak Reservoir & Discovery Park'].includes(p.name));
   const body = `
 ${hero('Boise <span>Luxury Rentals</span>',
-    'Corvette rental in Boise, Idaho: a 2023 mid-engine C8 Corvette Stingray 2LT with a removable roof. Check dates and book securely on Turo.',
-    { xl: true, big: true, year: '2023 Chevrolet Corvette Stingray 2LT', eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
-      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray 2LT studio photo, front three-quarter view',
+    'Corvette rental in Boise, Idaho: a 2023 mid-engine C8 Corvette Stingray Z51 with a removable roof. Check dates and book securely on Turo.',
+    { xl: true, big: true, year: '2023 Chevrolet Corvette Stingray Z51', eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
+      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray Z51 studio photo, front three-quarter view',
       badge: 'All reservations are completed securely on <strong>Turo</strong>', secondaryLabel: 'See the Corvette', secondaryHref: '/corvette-rental-boise/',
       stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['HUD', 'Heads Up Display'], ['Turo', 'Book securely']] })}
 
@@ -51,7 +51,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     <div class="grid g2" style="align-items:center;gap:40px">
       <div>
         <span class="eyebrow">Featured car</span>
-        <h2>2023 Chevrolet Corvette Stingray 2LT (C8)</h2>
+        <h2>2023 Chevrolet Corvette Stingray Z51 (C8)</h2>
         <p>The C8 moved the V8 behind the driver and rewrote the Corvette playbook: a 6.2L V8, an eight-speed dual-clutch transmission, a two-seat cockpit and supercar looks at a fraction of the usual exotic price tag.</p>
         <ul class="muted"><li>Mid-engine layout with a front and rear trunk</li><li>Automatic dual-clutch: easy in traffic, thrilling on the open road</li><li>Based in Meridian, minutes from Boise</li></ul>
         <div class="cta-row">${turoBtn('CHECK AVAILABILITY & BOOK ON TURO', { big: true })}</div><p style="margin-top:14px"><a href="/corvette-rental-boise/">Corvette rental Boise: full details, photos &amp; requirements &rarr;</a></p>
@@ -104,7 +104,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
   <div class="wrap narrow prose">
     <span class="eyebrow">Boise's sports car rental</span>
     <h2>Corvette rental in Boise and across Idaho</h2>
-    <p>Whether you want a <a href="/corvette-rental-boise/">Corvette rental in Boise</a> for a special day or a full <strong>Corvette rental Idaho</strong> road trip, our 2023 Corvette Stingray 2LT is built for it. The <a href="/c8-corvette-rental-boise/">C8 Corvette rental</a> pairs a mid-engine layout with a 6.2L V8, and the removable roof makes every drive feel bigger.</p>
+    <p>Whether you want a <a href="/corvette-rental-boise/">Corvette rental in Boise</a> for a special day or a full <strong>Corvette rental Idaho</strong> road trip, our 2023 Corvette Stingray Z51 is built for it. The <a href="/c8-corvette-rental-boise/">C8 Corvette rental</a> pairs a mid-engine layout with a 6.2L V8, and the removable roof makes every drive feel bigger.</p>
     <p>Looking for a <a href="/sports-car-rental-boise/">sports car rental in Boise</a> or a <a href="/exotic-rental-boise/">supercar-style exotic rental</a>? The <a href="/cars/corvette-stingray/">Corvette Stingray rental in Boise</a> is the closest, most fun value in the Treasure Valley. Flying in? See our <a href="/boise-airport-car-rental/">Boise Airport sports car rental</a> info, and remember: <strong>every booking is completed on Turo</strong>.</p>
   </div>
 </section>

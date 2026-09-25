@@ -43,7 +43,7 @@ const LISTING = {
   year: 2023,
   make: 'Chevrolet',
   model: 'Corvette Stingray',
-  trim: '2LT',
+  trim: 'Z51',
   color: 'Black exterior, red interior',
   roof: 'Removable roof panel',
   pricePerDay: '',      // e.g. '$249' (leave blank to show "See Turo")
@@ -155,7 +155,7 @@ const FAQS = [
 ];
 
 const CARS = [
-  { slug: 'corvette-stingray', name: '2023 Chevrolet Corvette Stingray 2LT (C8)', status: 'live', tag: 'Available on Turo',
+  { slug: 'corvette-stingray', name: '2023 Chevrolet Corvette Stingray Z51 (C8)', status: 'live', tag: 'Available on Turo',
     blurb: 'Mid-engine American supercar performance with a 6.2L V8 and a removable roof. Our flagship rental.' },
   { slug: 'audi-r8', name: 'Audi R8', status: 'soon', photo: '/images/audi-r8.jpg', tag: 'Coming soon', blurb: 'V10 supercar drama with everyday usability.' },
   { slug: 'tesla-cybertruck', name: 'Tesla Cybertruck', status: 'soon', photo: '/images/tesla-cybertruck-showroom.jpg', tag: 'Coming soon', blurb: 'The stainless-steel head-turner with electric acceleration.' },

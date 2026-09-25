@@ -61,7 +61,7 @@ function businessSchema() {
     image: [SITE.url + '/images/og-image.jpg', SITE.url + PHOTOS.hero],
     logo: { '@type': 'ImageObject', url: SITE.url + '/assets/icon-512.png', width: 512, height: 512 },
     slogan: 'Luxury and sport car rentals in Boise, Idaho',
-    description: 'Luxury and sport car rentals in Boise, Idaho, including a 2023 Chevrolet Corvette Stingray 2LT (C8). Bookings are completed on Turo.',
+    description: 'Luxury and sport car rentals in Boise, Idaho, including a 2023 Chevrolet Corvette Stingray Z51 (C8). Bookings are completed on Turo.',
     areaServed: ['Boise, ID', 'Meridian, ID', 'Eagle, ID', 'Nampa, ID', 'Caldwell, ID', 'Star, ID', 'Kuna, ID', 'Treasure Valley, ID', 'Idaho'].map((n) => ({ '@type': 'Place', name: n })),
     knowsAbout: ['Corvette rental', 'C8 Corvette Stingray', 'Sports car rental Boise', 'Boise Airport car rental', 'Idaho road trips'],
     address: { '@type': 'PostalAddress', addressLocality: 'Meridian', addressRegion: 'ID', addressCountry: 'US' },

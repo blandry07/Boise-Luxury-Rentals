@@ -38,7 +38,7 @@ const ctaBand = (h2, sub) => `
 
 const FLAGSHIP_FAQS = [
   { q: 'How do I book the Corvette?', a: 'Every reservation is completed on Turo. Click "Check Availability & Book on Turo" to open the listing, choose your dates and check out there. This website does not take bookings or payments.' },
-  { q: 'What Corvette will I be renting?', a: 'A 2023 Chevrolet Corvette Stingray 2LT, the mid-engine C8 generation, with a 6.2L V8, an 8-speed dual-clutch automatic and a removable roof panel.' },
+  { q: 'What Corvette will I be renting?', a: 'A 2023 Chevrolet Corvette Stingray Z51, the mid-engine C8 generation, with a 6.2L V8, an 8-speed dual-clutch automatic and a removable roof panel.' },
   { q: 'Can I take the roof off?', a: 'Yes. The C8 Stingray coupe has a removable roof panel that lifts out by hand and stows in the rear trunk, so you can drive with open sky overhead. Stowing the panel uses up part of the rear cargo space.' },
   { q: 'Will luggage fit in the C8 Corvette?', a: 'Chevrolet lists about 12.6 cubic feet of combined front and rear cargo space. That is comfortable for a couple on a weekend trip if you pack soft duffel bags. Hard-shell suitcases and stowing the roof panel at the same time will be tight.' },
   { q: 'Is there airport pickup or delivery at Boise Airport (BOI)?', a: 'The Corvette is based in Meridian, about 14 miles and 20 minutes from Boise Airport. Any pickup or delivery options we offer are shown on the Turo listing and arranged through Turo trip messaging.' },
@@ -108,7 +108,7 @@ ${feature({ id: 'power', tag: 'side', eyebrow: 'Horsepower &amp; performance', h
 
 ${feature({ id: 'interior', tag: 'interior', flip: true, eyebrow: 'Interior', h2: 'A cockpit built around the driver',
   html: `<p>Inside the ${LISTING.year} Stingray ${LISTING.trim}, everything angles toward the driver: a configurable digital instrument display, an infotainment touchscreen with Apple CarPlay and Android Auto, and a low, wraparound seating position.</p>
-  <ul><li>Two supportive sport seats</li><li>Digital driver display and touchscreen infotainment</li><li>2LT trim highlights Chevrolet lists include premium Bose audio, heated and ventilated seats and a head-up display</li><li>Dual-zone climate control for Idaho's hot summers and cool mountain mornings</li></ul>
+  <ul><li>Two supportive sport seats</li><li>Digital driver display and touchscreen infotainment</li><li>Z51 trim highlights Chevrolet lists include premium Bose audio, heated and ventilated seats and a head-up display</li><li>Dual-zone climate control for Idaho's hot summers and cool mountain mornings</li></ul>
   <p class="muted">Exact options vary by car, so the Turo listing shows the equipment for this one.</p>` })}
 
 ${feature({ id: 'roof', tag: 'roof', eyebrow: 'Removable roof', h2: 'Take the roof off and drive open-air',
@@ -254,8 +254,8 @@ ${ctaBand('Ready to drive a C8 Corvette in Boise?', 'Check your dates and lock i
 
   return layout({
     path,
-    title: 'Corvette Rental Boise | 2023 C8 Stingray 2LT on Turo',
-    description: 'Corvette rental in Boise: a 2023 C8 Stingray 2LT with a removable roof. See photos, horsepower, luggage, airport info and mileage, then book on Turo.',
+    title: 'Corvette Rental Boise | 2023 C8 Stingray Z51 on Turo',
+    description: 'Corvette rental in Boise: a 2023 C8 Stingray Z51 with a removable roof. See photos, horsepower, luggage, airport info and mileage, then book on Turo.',
     body, preloadHero: true,
     schema: [breadcrumbSchema(crumbs), faqSchema(FLAGSHIP_FAQS), carSchema()],
   });
@@ -317,8 +317,8 @@ function vehiclePage() {
 <section><div class="wrap narrow">${disclosure('Review the Turo listing for driver requirements, protection plan choices, mileage allowance and the cancellation policy before you reserve.')}</div></section>`;
   return layout({
     path,
-    title: '2023 Corvette Stingray 2LT Rental Boise | Specs & Photos',
-    description: 'Specs, photos and rental details for our 2023 Chevrolet Corvette Stingray 2LT (C8) in Meridian near Boise, Idaho. Corvette Stingray rental in Boise, booked on Turo.',
+    title: '2023 Corvette Stingray Z51 Rental Boise | Specs & Photos',
+    description: 'Specs, photos and rental details for our 2023 Chevrolet Corvette Stingray Z51 (C8) in Meridian near Boise, Idaho. Corvette Stingray rental in Boise, booked on Turo.',
     body, preloadHero: true, schema: [breadcrumbSchema(crumbs), carSchema()],
   });
 }
@@ -329,10 +329,10 @@ function vehiclePage() {
 const C8_FAQS = [
   { q: 'How fast is a C8 Corvette Stingray?', a: 'Chevrolet quotes roughly 3 seconds from 0 to 60 mph for the 2023 Stingray, and independent tests put the quarter mile in the low 11-second range. Top speed is quoted near 190 mph, which of course belongs on a closed course and not an Idaho highway.' },
   { q: 'Is the C8 Corvette an automatic?', a: 'Yes. Every C8 Corvette uses an 8-speed dual-clutch automatic transmission with paddle shifters. It is smooth in traffic and very quick when you use the paddles or Sport mode.' },
-  { q: 'What is the difference between a C8 Stingray, Z06 and E-Ray?', a: 'The Stingray is the base C8 with a 6.2L V8. The Z06 adds a 5.5L flat-plane-crank V8 with far more power, and the E-Ray adds hybrid all-wheel drive. We rent a 2023 Stingray 2LT, which is more than fast enough for Idaho roads.' },
+  { q: 'What is the difference between a C8 Stingray, Z06 and E-Ray?', a: 'The Stingray is the base C8 with a 6.2L V8. The Z06 adds a 5.5L flat-plane-crank V8 with far more power, and the E-Ray adds hybrid all-wheel drive. We rent a 2023 Stingray Z51, which is more than fast enough for Idaho roads.' },
   { q: 'Is a C8 rental hard to drive?', a: 'No. It is friendly around town, and visibility and low-speed manners are better than most supercar-style cars. It is very quick, so build up gradually and remember the nose sits low over steep driveways.' },
   { q: 'Can I take the roof off?', a: 'Yes. The C8 Stingray coupe has a removable roof panel that stows in the rear trunk.' },
-  { q: 'Where can I rent a C8 in Boise?', a: 'You can rent our 2023 Corvette Stingray 2LT in Meridian near Boise through Turo. Click the button on this page to check availability and book.' },
+  { q: 'Where can I rent a C8 in Boise?', a: 'You can rent our 2023 Corvette Stingray Z51 in Meridian near Boise through Turo. Click the button on this page to check availability and book.' },
 ];
 
 function c8Page() {
@@ -409,7 +409,7 @@ function c8Page() {
       <tr><td><strong>Engine</strong></td><td>6.2L V8</td><td>6.2L V8</td><td>5.5L flat-plane V8</td><td>6.2L V8 + electric motor</td></tr>
       <tr><td><strong>Transmission</strong></td><td>Manual or automatic</td><td>Dual-clutch automatic</td><td>Dual-clutch automatic</td><td>Dual-clutch automatic</td></tr>
       <tr><td><strong>Drive</strong></td><td>Rear-wheel</td><td>Rear-wheel</td><td>Rear-wheel</td><td>Hybrid all-wheel</td></tr>
-      <tr><td><strong>Rent it in Boise</strong></td><td>-</td><td><strong>Yes, ours (2023 2LT)</strong></td><td>-</td><td>-</td></tr>
+      <tr><td><strong>Rent it in Boise</strong></td><td>-</td><td><strong>Yes, ours (2023 Z51)</strong></td><td>-</td><td>-</td></tr>
     </tbody>
   </table></div>
 </div></section>
@@ -425,7 +425,7 @@ function c8Page() {
   <p class="muted" style="margin-top:18px">Drive within the law and to the conditions. Speed belongs on a closed course. See all <a href="/guides/best-sports-car-routes-boise/">our favorite drives</a>.</p>
 </div></section>
 
-${ctaBand('Feel the mid-engine difference', 'Check availability for the 2023 Corvette Stingray 2LT and book securely on Turo.')}
+${ctaBand('Feel the mid-engine difference', 'Check availability for the 2023 Corvette Stingray Z51 and book securely on Turo.')}
 
 <section><div class="wrap narrow">
   <span class="eyebrow">FAQ</span><h2>C8 Corvette rental: common questions</h2>
