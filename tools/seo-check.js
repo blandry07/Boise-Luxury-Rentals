@@ -35,7 +35,7 @@ for (const f of files) {
   if (h1s !== 1) warn(u, `${h1s} H1 tags (need exactly 1)`);
   if (!h.includes(`<link rel="canonical" href="https://boiseluxuryrentals.com${u}">`)) warn(u, 'canonical missing/incorrect');
   if (!/application\/ld\+json/.test(h)) warn(u, 'no structured data');
-  for (const m of h.matchAll(/<img\b[^>]*>/g)) if (!/\balt="[^"]+"/.test(m[0]) && !/class="bg"/.test(m[0]) && !/<img alt="">/.test(m[0])) warn(u, 'image without alt: ' + m[0].slice(0, 60));
+  for (const m of h.matchAll(/<img\b[^>]*>/g)) if (!/\balt="[^"]*"/.test(m[0]) && !/class="bg"/.test(m[0])) warn(u, 'image without alt: ' + m[0].slice(0, 60));
   for (const needle of ['rel="icon" href="/favicon.ico"', 'rel="apple-touch-icon"', 'rel="manifest" href="/site.webmanifest"', 'property="og:image:width"', 'property="og:image:type"', 'name="twitter:title"', 'name="twitter:description"', 'property="og:title"', 'property="og:description"', 'name="theme-color" content="#0a0c0f"', '"@type":"AutoRental"', 'name="twitter:image"', 'property="og:image" content="https://boiseluxuryrentals.com/']) if (!h.includes(needle)) warn(u, 'head tag missing: ' + needle);
   for (const m of h.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) { try { JSON.parse(m[1]); } catch (e) { warn(u, 'invalid JSON-LD'); } }
   titles.set(title, (titles.get(title) || []).concat(u));

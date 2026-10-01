@@ -1,7 +1,7 @@
 'use strict';
 const { SITE, PHOTOS, PLACES, RESTAURANTS, FAQS, CARS, GUIDES } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, pageHead, hero, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir } = L;
+const { esc, turoBtn, layout, pageHead, hero, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg } = L;
 
 function placeCard(p) {
   const link = p.href ? `<a href="${p.href}">Read the route guide &rarr;</a> &nbsp;·&nbsp; ` : '';
@@ -34,7 +34,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     'Corvette rental in Boise, Idaho: a 2023 mid-engine C8 Corvette Stingray Z51 with a removable roof. Check dates and book securely on Turo.',
     { xl: true, big: true, year: '2023 Chevrolet Corvette Stingray Z51', eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
       img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray Z51 studio photo, front three-quarter view',
-      badge: 'All reservations are completed securely on <strong>Turo</strong>', secondaryLabel: 'See the Corvette', secondaryHref: '/corvette-rental-boise/',
+      badge: '5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong>', secondaryLabel: 'See the Corvette', secondaryHref: '/corvette-rental-boise/',
       stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['HUD', 'Heads Up Display'], ['Turo', 'Book securely']] })}
 
 <section>
@@ -56,7 +56,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
         <ul class="muted"><li>Mid-engine layout with a front and rear trunk</li><li>Automatic dual-clutch: easy in traffic, thrilling on the open road</li><li>Based in Meridian, minutes from Boise</li></ul>
         <div class="cta-row">${turoBtn('CHECK AVAILABILITY & BOOK ON TURO', { big: true })}</div><p style="margin-top:14px"><a href="/corvette-rental-boise/">Corvette rental Boise: full details, photos &amp; requirements &rarr;</a></p>
       </div>
-      <div class="ph feature-photo"><img src="${PHOTOS.gallery[0].src}" alt="${esc(PHOTOS.gallery[0].alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+      <div class="ph feature-photo">${picImg(PHOTOS.gallery[0].src, PHOTOS.gallery[0].alt, ' loading="lazy"')}</div>
     </div>
   </div>
 </section>
@@ -85,7 +85,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     <span class="eyebrow">Our fleet</span>
     <h2>One car now. More on the way.</h2>
     <div class="grid g4">
-      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">${c.photo ? `<div class="ph"><img src="${c.photo}" alt="${esc(c.name)}, coming soon" loading="lazy" onerror="this.style.display='none'"></div>` : ''}<div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : ''}</div></div>`).join('')}
+      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">${c.photo ? `<div class="ph">${picImg(c.photo, `${c.name}, coming soon`, ' loading="lazy"')}</div>` : ''}<div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : ''}</div></div>`).join('')}
     </div>
   </div>
 </section>
@@ -129,6 +129,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     title: 'Boise Sports Car Rental | Corvette Rental in Boise, Idaho',
     description: 'Rent a Chevrolet Corvette Stingray in Boise and the Treasure Valley. Luxury and sport car rentals, booked securely on Turo. Photos, road-trip guides and local tips.',
     body,
+    preloadHero: '/images/corvette-studio-front.jpg',
     schema: [faqSchema(FAQS.slice(0, 5))],
   });
 }
@@ -139,7 +140,7 @@ function carsIndex() {
 <section><div class="wrap">
   <div class="grid g2">
     ${CARS.map((c, i) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">
-      <div class="ph">${c.status === 'live' ? `<img src="${PHOTOS.gallery[0].src}" alt="${esc(c.name)} rental in Boise" loading="lazy" onerror="this.style.display='none'">` : (c.photo ? `<img src="${c.photo}" alt="${esc(c.name)}, coming soon to Boise Luxury Rentals" loading="lazy" onerror="this.style.display='none'">` : '')}</div>
+      <div class="ph">${c.status === 'live' ? picImg(PHOTOS.gallery[0].src, `${c.name} rental in Boise`, ' loading="lazy"') : (c.photo ? picImg(c.photo, `${c.name}, coming soon to Boise Luxury Rentals`, ' loading="lazy"') : '')}</div>
       <div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span>
       <h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>
       ${c.status === 'live' ? `<div class="cta-row"><a class="btn btn-ghost btn-sm" href="/cars/${c.slug}/">Details &amp; photos</a>${turoBtn('Book on Turo', { small: true, note: false })}</div>` : '<p class="muted" style="margin:0">Not yet available. Check back soon.</p>'}
@@ -319,6 +320,7 @@ function contactPage() {
       </div>
       <h2>Have a question first?</h2>
       <p class="muted">Ask about the car, planning a route, delivery, timing your trip around a flight, or anything else. We'll reply by text or phone call, so please include a phone number.</p>
+      <p class="muted" style="margin-top:14px"><strong>Available 7am&ndash;9pm, 7 days a week.</strong></p>
     </div>
     <div class="card">
       <form id="contact-form" class="contact" novalidate>
