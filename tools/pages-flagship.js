@@ -7,10 +7,10 @@
  */
 const { SITE, PHOTOS, LISTING, PLACES } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, pageHead, hero, disclosure, faqHtml, faqSchema, breadcrumbSchema, carSchema, articleSchema, val, mapsDir, CTA_LABEL } = L;
+const { esc, turoBtn, layout, pageHead, hero, disclosure, faqHtml, faqSchema, breadcrumbSchema, carSchema, articleSchema, val, mapsDir, CTA_LABEL, picImg } = L;
 
 const G = PHOTOS.gallery; // order + tags come from /photos.json
-const photoImg = (p, extra = '') => `<img src="${p.src}" data-full="${p.src}" alt="${esc(p.alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"${extra}>`;
+const photoImg = (p, extra = '') => picImg(p.src, p.alt, ` data-full="${p.src}" loading="lazy"${extra}`);
 const img = (tag) => `<div class="ph ar">${photoImg(PHOTOS.pick(tag))}</div>`;
 // First 9 photos form the big mosaic; everything else follows in a tidy grid. Both open in the lightbox.
 const mosaic = () => {
@@ -59,7 +59,7 @@ function flagship() {
     'Corvette Rental in <span>Boise, Idaho</span>',
     'The mid-engine <strong>C8 Corvette</strong> you have been looking at, with a removable roof, a 6.2L V8 and Treasure Valley roads to match. Sports car rental in Boise, booked securely on Turo.',
     { xl: true, big: true, year: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim}`, eyebrow: 'Corvette Rental Boise · C8 Rental',
-      badge: 'Reservations, payment and protection plans are handled securely by <strong>Turo</strong>',
+      badge: '5&#9733; rated on Turo &middot; reservations, payment and protection plans are handled securely by <strong>Turo</strong>',
       secondaryLabel: 'See every detail', secondaryHref: '#overview',
       alt: `${CAR} C8 Corvette rental in Boise, Idaho`,
       stats: [['490+', 'Horsepower'], ['6.2L', 'V8 engine'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['HUD', 'Heads up display']] }
@@ -270,7 +270,7 @@ function vehiclePage() {
   const body = hero(
     `${LISTING.year} Corvette <span>Stingray ${LISTING.trim}</span>`,
     'Vehicle profile and spec sheet for our C8 Corvette Stingray rental in Boise, Idaho.',
-    { short: true, big: true, eyebrow: 'Vehicle profile · Booked on Turo', badge: 'Book on <strong>Turo</strong>. No payments on this site',
+    { short: true, big: true, eyebrow: 'Vehicle profile · Booked on Turo', badge: '5&#9733; rated on Turo. No payments on this site',
       img: '/images/corvette-studio-rear.jpg', secondaryLabel: 'Full Corvette rental details', secondaryHref: '/corvette-rental-boise/', alt: `${CAR} Corvette Stingray studio photo, rear three-quarter view` }
   ) + `
 <section><div class="wrap">
@@ -319,7 +319,7 @@ function vehiclePage() {
     path,
     title: '2023 Corvette Stingray Z51 Rental Boise | Specs & Photos',
     description: 'Specs, photos and rental details for our 2023 Chevrolet Corvette Stingray Z51 (C8) in Meridian near Boise, Idaho. Corvette Stingray rental in Boise, booked on Turo.',
-    body, preloadHero: true, schema: [breadcrumbSchema(crumbs), carSchema()],
+    body, preloadHero: '/images/corvette-studio-rear.jpg', schema: [breadcrumbSchema(crumbs), carSchema()],
   });
 }
 
@@ -342,7 +342,7 @@ function c8Page() {
     'C8 Corvette Rental <span>in Boise</span>',
     'Mid-engine layout, a 6.2L V8 and a dual-clutch that snaps off shifts. If you searched for a <strong>C8 rental in Boise</strong> for the driving, this page is for you.',
     { short: true, big: true, eyebrow: 'C8 Corvette Rental Boise · Performance',
-      badge: 'Available to book on <strong>Turo</strong>',
+      badge: '5&#9733; rated on <strong>Turo</strong> &middot; available to book now',
       img: '/images/corvette-studio-front-angle2.jpg', secondaryLabel: 'Corvette rental details & photos', secondaryHref: '/corvette-rental-boise/', alt: 'C8 Corvette Stingray studio photo, front angle',
       stats: [['490+', 'Horsepower'], ['~40/60', 'Weight split'], ['~3.0s', '0-60 mph'], ['8-spd', 'Dual-clutch'], ['Mid', 'Engine'], ['HUD', 'Heads up display']] }
   ) + `
@@ -436,7 +436,7 @@ ${ctaBand('Feel the mid-engine difference', 'Check availability for the 2023 Cor
     path,
     title: 'C8 Corvette Rental Boise | Mid-Engine 2023 Stingray on Turo',
     description: 'C8 Corvette rental in Boise: how the mid-engine 6.2L V8 Stingray drives, performance numbers, drive modes and how it compares to other Corvettes. Book on Turo.',
-    body, preloadHero: true, schema: [breadcrumbSchema(crumbs), faqSchema(C8_FAQS)],
+    body, preloadHero: '/images/corvette-studio-front-angle2.jpg', schema: [breadcrumbSchema(crumbs), faqSchema(C8_FAQS)],
   });
 }
 

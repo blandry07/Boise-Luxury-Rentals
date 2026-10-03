@@ -1,7 +1,7 @@
 'use strict';
 const { SITE, PHOTOS, PLACES, RESTAURANTS, FAQS, CARS, GUIDES } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, pageHead, hero, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir } = L;
+const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg } = L;
 
 function placeCard(p) {
   const link = p.href ? `<a href="${p.href}">Read the route guide &rarr;</a> &nbsp;·&nbsp; ` : '';
@@ -31,11 +31,14 @@ function home() {
   const teaser = PLACES.filter((p) => ['Idaho State Capitol', 'Bogus Basin Road', 'Idaho City (Ponderosa Pine Scenic Byway)', 'McCall & Payette Lake', 'Sun Valley & Ketchum', 'Lucky Peak Reservoir & Discovery Park'].includes(p.name));
   const body = `
 ${hero('Boise <span>Luxury Rentals</span>',
-    'Corvette rental in Boise, Idaho: a 2023 mid-engine C8 Corvette Stingray Z51 with a removable roof. Check dates and book securely on Turo.',
-    { xl: true, big: true, year: '2023 Chevrolet Corvette Stingray Z51', eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
-      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray Z51 studio photo, front three-quarter view',
-      badge: 'All reservations are completed securely on <strong>Turo</strong>', secondaryLabel: 'See the Corvette', secondaryHref: '/corvette-rental-boise/',
-      stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['HUD', 'Heads Up Display'], ['Turo', 'Book securely']] })}
+    'Rent our 2023 Corvette Stingray Z51 &mdash; book securely on Turo.',
+    { xl: true, big: true, compact: true, singleCta: true, eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
+      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray Z51 studio photo, front three-quarter view' })}
+
+<section class="mini-stats"><div class="wrap">
+  <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">2023 Chevrolet Corvette Stingray Z51 &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
+  ${statStrip([['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['HUD', 'Heads Up Display'], ['Turo', 'Book securely']])}
+</div></section>
 
 <section>
   <div class="wrap">
@@ -56,7 +59,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
         <ul class="muted"><li>Mid-engine layout with a front and rear trunk</li><li>Automatic dual-clutch: easy in traffic, thrilling on the open road</li><li>Based in Meridian, minutes from Boise</li></ul>
         <div class="cta-row">${turoBtn('CHECK AVAILABILITY & BOOK ON TURO', { big: true })}</div><p style="margin-top:14px"><a href="/corvette-rental-boise/">Corvette rental Boise: full details, photos &amp; requirements &rarr;</a></p>
       </div>
-      <div class="ph feature-photo"><img src="${PHOTOS.gallery[0].src}" alt="${esc(PHOTOS.gallery[0].alt)}" loading="lazy" decoding="async" onerror="this.style.display='none'"></div>
+      <div class="ph feature-photo">${picImg(PHOTOS.gallery[0].src, PHOTOS.gallery[0].alt, ' loading="lazy"')}</div>
     </div>
   </div>
 </section>
@@ -85,7 +88,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     <span class="eyebrow">Our fleet</span>
     <h2>One car now. More on the way.</h2>
     <div class="grid g4">
-      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">${c.photo ? `<div class="ph"><img src="${c.photo}" alt="${esc(c.name)}, coming soon" loading="lazy" onerror="this.style.display='none'"></div>` : ''}<div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : ''}</div></div>`).join('')}
+      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">${c.photo ? `<div class="ph">${picImg(c.photo, `${c.name}, coming soon`, ' loading="lazy"')}</div>` : ''}<div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : ''}</div></div>`).join('')}
     </div>
   </div>
 </section>
@@ -129,6 +132,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     title: 'Boise Sports Car Rental | Corvette Rental in Boise, Idaho',
     description: 'Rent a Chevrolet Corvette Stingray in Boise and the Treasure Valley. Luxury and sport car rentals, booked securely on Turo. Photos, road-trip guides and local tips.',
     body,
+    preloadHero: '/images/corvette-studio-front.jpg',
     schema: [faqSchema(FAQS.slice(0, 5))],
   });
 }
@@ -139,7 +143,7 @@ function carsIndex() {
 <section><div class="wrap">
   <div class="grid g2">
     ${CARS.map((c, i) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">
-      <div class="ph">${c.status === 'live' ? `<img src="${PHOTOS.gallery[0].src}" alt="${esc(c.name)} rental in Boise" loading="lazy" onerror="this.style.display='none'">` : (c.photo ? `<img src="${c.photo}" alt="${esc(c.name)}, coming soon to Boise Luxury Rentals" loading="lazy" onerror="this.style.display='none'">` : '')}</div>
+      <div class="ph">${c.status === 'live' ? picImg(PHOTOS.gallery[0].src, `${c.name} rental in Boise`, ' loading="lazy"') : (c.photo ? picImg(c.photo, `${c.name}, coming soon to Boise Luxury Rentals`, ' loading="lazy"') : '')}</div>
       <div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span>
       <h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>
       ${c.status === 'live' ? `<div class="cta-row"><a class="btn btn-ghost btn-sm" href="/cars/${c.slug}/">Details &amp; photos</a>${turoBtn('Book on Turo', { small: true, note: false })}</div>` : '<p class="muted" style="margin:0">Not yet available. Check back soon.</p>'}
@@ -319,6 +323,7 @@ function contactPage() {
       </div>
       <h2>Have a question first?</h2>
       <p class="muted">Ask about the car, planning a route, delivery, timing your trip around a flight, or anything else. We'll reply by text or phone call, so please include a phone number.</p>
+      <p class="muted" style="margin-top:14px"><strong>Available 7am&ndash;9pm, 7 days a week.</strong></p>
     </div>
     <div class="card">
       <form id="contact-form" class="contact" novalidate>
@@ -338,7 +343,7 @@ function contactPage() {
         <div class="hp" aria-hidden="true"><label for="website">Leave this empty</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
         <div id="form-msg" class="form-msg" role="status" aria-live="polite"></div>
         <button class="btn btn-turo" type="submit">Send message</button>
-        <p class="muted" style="font-size:.82rem;margin:0">By sending this you agree we may contact you about your inquiry. See our <a href="/privacy/">privacy note</a>.</p>
+        <p class="muted" style="font-size:.82rem;margin:0">By sending this you agree we may contact you about your inquiry. See our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms &amp; Conditions</a>.</p>
       </form>
     </div>
   </div>
@@ -351,17 +356,170 @@ function contactPage() {
   });
 }
 
+const LEGAL_UPDATED = 'October 2, 2026';
+
+function legalToc(items) {
+  return `<nav class="notice" aria-label="Table of contents" style="padding:18px 22px">
+    <strong style="display:block;margin-bottom:8px">On this page</strong>
+    <ol style="columns:2;column-gap:28px;margin:0;padding-left:1.2em">
+      ${items.map((t, i) => `<li style="break-inside:avoid"><a href="#s${i + 1}">${t}</a></li>`).join('')}
+    </ol>
+  </nav>`;
+}
+
 function privacyPage() {
-  const crumbs = [{ label: 'Home', href: '/' }, { label: 'Privacy', href: '/privacy/' }];
-  const body = pageHead(crumbs, 'Privacy Note') + `
+  const crumbs = [{ label: 'Home', href: '/' }, { label: 'Privacy Policy', href: '/privacy/' }];
+  const toc = [
+    'Information we collect', 'How we use information', 'Cookies &amp; tracking technologies',
+    'How we share information &mdash; we do not sell your data', 'Turo and other third-party links',
+    'Data retention', "Children's privacy", 'Your choices &amp; rights', 'Security', 'Changes to this policy', 'Contact us',
+  ];
+  const body = pageHead(crumbs, 'Privacy Policy', `Last updated: ${LEGAL_UPDATED}`) + `
 <section><div class="wrap prose">
-  <p>This site does not sell your information. If you use the contact form, the name, phone number, email, dates and message you enter are emailed to us so we can reply to your inquiry, and are not used for anything else.</p>
-  <p>This site does not process bookings or payments. When you click <em>Book on Turo</em>, you leave this site and are subject to Turo's own terms and privacy policy.</p>
-  <p>Questions about this note? <a href="/contact/">Contact us</a>.</p>
+  ${legalToc(toc)}
+
+  <p>${esc(SITE.short)} ("${esc(SITE.short)}," "we," "us" or "our") operates ${esc(SITE.domain)} (the "Site"). This Privacy Policy explains what information the Site collects, how we use and share it, and the choices you have. It applies only to ${esc(SITE.domain)} &mdash; it does not apply to Turo, Inc. ("Turo") or any other third-party site you visit from here, each of which has its own privacy practices.</p>
+  <p><strong>The short version:</strong> we do not sell or rent your personal information to anyone, we collect only what we need to answer your questions and run the Site, and every booking, payment and protection plan happens on Turo under Turo's own privacy policy &mdash; never on this Site.</p>
+
+  <h2 id="s1">1. Information we collect</h2>
+  <h3>Information you give us directly</h3>
+  <p>If you use the contact form on <a href="/contact/">our Contact page</a>, we collect what you choose to enter: your name, phone number, email address (optional), preferred contact method, the vehicle you're asking about, your trip dates (optional) and your message. A name and either a phone number or email are required so we can reply; everything else is optional.</p>
+  <h3>Information collected automatically</h3>
+  <p>Like most websites, when you visit the Site our servers and the third-party tools described in Section 3 automatically log standard technical information, which may include your IP address, approximate location derived from your IP address, browser and device type, operating system, referring/exit pages, the pages you view, and the dates and times of your visit.</p>
+  <h3>Information we do not collect</h3>
+  <p>We do not operate a booking or payment system, so we never collect payment card numbers, driver's license images, government ID numbers or insurance information through this Site. That information is collected and verified by Turo as part of its own booking process, governed by <a href="https://turo.com/us/en/privacy-policy" rel="noopener" target="_blank">Turo's Privacy Policy</a>.</p>
+
+  <h2 id="s2">2. How we use information</h2>
+  <ul>
+    <li>To respond to messages sent through the contact form and follow up about a potential or existing trip;</li>
+    <li>To operate, maintain, secure and improve the Site (for example, understanding which pages are useful and fixing problems);</li>
+    <li>To measure how people find the Site and whether our advertising is working, using the tools described below;</li>
+    <li>To detect, prevent and address fraud, abuse, spam or security issues (for example, a honeypot field and basic rate-limiting on the contact form); and</li>
+    <li>To comply with applicable law or respond to lawful requests from public authorities.</li>
+  </ul>
+  <p>We do not use your contact-form information for unrelated marketing, and we do not profile you or make automated decisions that produce legal or similarly significant effects.</p>
+
+  <h2 id="s3">3. Cookies &amp; tracking technologies</h2>
+  <p>The Site uses cookies and similar technologies (like pixels and local storage) placed by us and by third parties:</p>
+  <ul>
+    <li><strong>Google Tag Manager (GTM):</strong> a tag-management tool that loads other measurement and advertising tags on our behalf. It may set cookies used for analytics (for example, to understand aggregate traffic and page performance).</li>
+    <li><strong>Meta (Facebook) Pixel:</strong> loaded on every page, it allows Meta to help us measure the effectiveness of Facebook/Instagram advertising and may be used to build audiences for future ads. Meta may associate this with a Facebook or Instagram account if you have one and are logged in. Meta's use of this data is governed by <a href="https://www.facebook.com/privacy/policy/" rel="noopener" target="_blank">Meta's Privacy Policy</a>, and you can review or limit how Meta uses this information in your <a href="https://www.facebook.com/adpreferences/" rel="noopener" target="_blank">Meta Ad Preferences</a>.</li>
+  </ul>
+  <p>These providers may set their own cookies and collect data directly &mdash; we do not control exactly what they store, and their own privacy policies govern that collection. You can block or delete cookies in your browser settings at any time; doing so may affect how parts of the Site work but will not prevent you from browsing or using the contact form. We do not currently respond to browser "Do Not Track" signals because there is no common industry standard for how to interpret them.</p>
+
+  <h2 id="s4">4. How we share information &mdash; we do not sell your data</h2>
+  <p><strong>We do not sell, rent or trade your personal information to third parties for their own marketing purposes, and we never will.</strong> We share information only in these limited circumstances:</p>
+  <ul>
+    <li><strong>Service providers</strong> who perform tasks on our behalf and are bound to use data only for that purpose &mdash; for example, our email-delivery provider (to send and receive contact-form messages), our hosting provider (to run the Site), and analytics/advertising platforms (Google and Meta, as described above);</li>
+    <li><strong>Legal reasons</strong> &mdash; if required to by law, subpoena, or other legal process, or to protect the rights, property or safety of ${esc(SITE.short)}, our visitors or the public;</li>
+    <li><strong>Business transfers</strong> &mdash; if we were ever to sell, merge or reorganize the business, information may transfer as part of that deal, subject to this Policy or a successor policy you're notified of; and</li>
+    <li><strong>With your direction</strong> &mdash; for example, if you ask us to pass a question along to Turo on your behalf.</li>
+  </ul>
+
+  <h2 id="s5">5. Turo and other third-party links</h2>
+  <p>${esc(SITE.short)} is an independent vehicle host on Turo and is not owned by, affiliated with, or endorsed by Turo, Inc. Every "Book on Turo" link takes you to Turo's platform, where Turo collects and processes the information needed for identity verification, payment, insurance/protection plans and trip messaging under its own <a href="https://turo.com/us/en/privacy-policy" rel="noopener" target="_blank">Privacy Policy</a> and <a href="https://turo.com/us/en/terms" rel="noopener" target="_blank">Terms of Service</a>. We encourage you to read those directly, since we have no access to, and no control over, the information you provide to Turo. The Site may also link to our social profiles (Facebook, Instagram, Google) or other outside sites; this Policy does not cover those third-party destinations.</p>
+
+  <h2 id="s6">6. Data retention</h2>
+  <p>We keep contact-form messages for as long as reasonably necessary to respond to your inquiry and for a limited period afterward for our own records (for example, in case you follow up about the same trip), after which they are routinely deleted. Standard technical/analytics logs generated by Google and Meta's tools are retained according to those providers' own retention schedules, not ours.</p>
+
+  <h2 id="s7">7. Children's privacy</h2>
+  <p>The Site is not directed to children, and vehicle rentals on Turo require renters to meet Turo's minimum age and licensing requirements. We do not knowingly collect personal information from children. If you believe a child has provided us information through the contact form, please <a href="/contact/">contact us</a> and we will delete it.</p>
+
+  <h2 id="s8">8. Your choices &amp; rights</h2>
+  <p>Depending on where you live, you may have rights to access, correct, delete, or receive a copy of personal information we hold about you, and to opt out of certain sharing for advertising purposes (sometimes described under state privacy laws as a "sale" or "share" of information even though no money changes hands). To exercise any of these rights, <a href="/contact/">contact us</a> and we will respond within a reasonable time. We will not discriminate against you for making a request. You can also:</p>
+  <ul>
+    <li>Control cookies through your browser's privacy settings;</li>
+    <li>Adjust how Meta uses your data for ads in <a href="https://www.facebook.com/adpreferences/" rel="noopener" target="_blank">Meta Ad Preferences</a>;</li>
+    <li>Opt out of personalized Google ads at <a href="https://adssettings.google.com/" rel="noopener" target="_blank">Google Ads Settings</a>; and</li>
+    <li>Manage or delete your own Turo account data directly through Turo, since we do not control or store that information.</li>
+  </ul>
+
+  <h2 id="s9">9. Security</h2>
+  <p>We use reasonable technical and organizational measures (such as encrypted transport (HTTPS), a contact-form honeypot and rate-limiting to deter spam/abuse) to help protect information submitted through the Site. No method of transmission or storage is 100% secure, and we cannot guarantee absolute security.</p>
+
+  <h2 id="s10">10. Changes to this policy</h2>
+  <p>We may update this Privacy Policy from time to time to reflect changes to the Site or applicable law. The "Last updated" date at the top of this page shows when it was last revised. Material changes will be posted here; continued use of the Site after an update means you accept the revised Policy.</p>
+
+  <h2 id="s11">11. Contact us</h2>
+  <p>Questions about this Privacy Policy, or want to exercise one of the rights above? <a href="/contact/">Contact us</a> and we'll get back to you.</p>
 </div></section>`;
   return layout({
-    path: '/privacy/', title: 'Privacy Note | Boise Luxury Rentals',
-    description: 'How Boise Luxury Rentals handles contact-form information. Bookings and payments are handled by Turo.',
+    path: '/privacy/', title: 'Privacy Policy | Boise Luxury Rentals',
+    description: 'How Boise Luxury Rentals collects, uses and protects information on boiseluxuryrentals.com. We do not sell your data. Bookings and payments are handled by Turo.',
+    body, schema: [breadcrumbSchema(crumbs)],
+  });
+}
+
+function termsPage() {
+  const crumbs = [{ label: 'Home', href: '/' }, { label: 'Terms & Conditions', href: '/terms/' }];
+  const toc = [
+    'Acceptance of these terms', 'About this website', 'All bookings happen on Turo', 'Eligibility',
+    'Accuracy of information &amp; availability', 'Acceptable use of the Site', 'Intellectual property',
+    'Third-party links &amp; services', 'Disclaimers', 'Limitation of liability', 'Indemnification',
+    'Governing law &amp; disputes', 'Changes to these terms', 'General', 'Contact us',
+  ];
+  const body = pageHead(crumbs, 'Terms &amp; Conditions', `Last updated: ${LEGAL_UPDATED}`) + `
+<section><div class="wrap prose">
+  ${legalToc(toc)}
+
+  <p>These Terms &amp; Conditions ("Terms") govern your use of ${esc(SITE.domain)} (the "Site"), operated by ${esc(SITE.short)} ("${esc(SITE.short)}," "we," "us" or "our"). By browsing or using the Site, you agree to these Terms. If you do not agree, please do not use the Site.</p>
+
+  <h2 id="s1">1. Acceptance of these terms</h2>
+  <p>By accessing or using the Site in any way &mdash; browsing pages, viewing photos, using the contact form, or clicking through to Turo &mdash; you agree to be bound by these Terms and by our <a href="/privacy/">Privacy Policy</a>, which is incorporated here by reference. We may update these Terms as described in Section 13; continuing to use the Site after an update means you accept the revised Terms.</p>
+
+  <h2 id="s2">2. About this website</h2>
+  <p>${esc(SITE.short)} is an independent host on Turo, the peer-to-peer car-sharing marketplace. This Site is a marketing showcase for our vehicle(s) and the surrounding Boise, Idaho/Treasure Valley area. <strong>${esc(SITE.short)} is not owned by, affiliated with, sponsored by, or endorsed by Turo, Inc., Chevrolet, General Motors, or any vehicle manufacturer mentioned on the Site.</strong> Any manufacturer names, model names and trademarks (for example, "Corvette," "Stingray" and "Z51") are the property of their respective owners and are used only to describe the vehicle(s) we host, under nominative fair use.</p>
+  <p>This Site does not process reservations, payments, identity verification, insurance or protection-plan selection, or any other part of a rental transaction. It exists to inform you about the vehicle(s) we host and to direct you to our live Turo listing(s), where every actual booking takes place.</p>
+
+  <h2 id="s3">3. All bookings happen on Turo</h2>
+  <p>Every reservation, payment, security deposit, insurance/protection plan, cancellation, mileage allowance, pickup/delivery arrangement, trip extension and trip-related dispute is handled entirely by Turo and is governed by <a href="https://turo.com/us/en/terms" rel="noopener" target="_blank">Turo's Terms of Service</a> and the specific listing details shown on Turo at the time you book. This Site has no ability to take a reservation, accept payment, or guarantee availability. When you click "Book on Turo" (or any similar button or link), you will leave this Site and transact directly with Turo, subject solely to Turo's own terms. We are not a party to, and have no liability arising from, the rental agreement formed between you and us (as host) through Turo's platform, except as set out in that Turo-governed agreement itself.</p>
+
+  <h2 id="s4">4. Eligibility</h2>
+  <p>This Site itself has no age restriction to browse, since no transaction occurs here. To actually rent a vehicle, you must meet Turo's own eligibility requirements (minimum age, valid driver's license, identity verification and any other conditions Turo or we, as host, set on the listing), all of which are presented and verified by Turo during booking, not by this Site.</p>
+
+  <h2 id="s5">5. Accuracy of information &amp; availability</h2>
+  <p>We try to keep vehicle descriptions, specifications, photos, drive-time estimates and general content on this Site accurate and up to date, but they are provided for general informational purposes only and may not reflect real-time availability, current pricing, mileage limits, or the exact condition/options of the vehicle on a given date. <strong>The Turo listing is always the authoritative source</strong> for current pricing, availability, mileage allowances, protection-plan options and trip terms. Photos may show the vehicle at a particular time and may not reflect its exact current condition, trim accessories or minor cosmetic changes.</p>
+
+  <h2 id="s6">6. Acceptable use of the Site</h2>
+  <p>You agree not to:</p>
+  <ul>
+    <li>Use the Site for any unlawful purpose, or in a way that could damage, disable, overburden or impair it;</li>
+    <li>Attempt to gain unauthorized access to any part of the Site, its servers, or any connected systems;</li>
+    <li>Use automated means (bots, scrapers, crawlers) to extract content, pricing or photos from the Site without our prior written consent;</li>
+    <li>Submit false, misleading or fraudulent information through the contact form, or use it to send spam, unsolicited commercial messages, or abusive content; or</li>
+    <li>Copy, reproduce, republish or create derivative works from the Site's text, photography or design for commercial purposes without our prior written permission.</li>
+  </ul>
+
+  <h2 id="s7">7. Intellectual property</h2>
+  <p>The Site's text, layout, design, original photography and the ${esc(SITE.short)} name and logo are owned by ${esc(SITE.short)} or used with permission, and are protected by applicable copyright and trademark laws. You may view and share links to the Site for personal, non-commercial purposes. All other use &mdash; including copying, reproducing or reusing our photos or written content elsewhere &mdash; requires our prior written consent. "Turo" and the Turo logo are trademarks of Turo Inc.; vehicle manufacturer names and marks belong to their respective owners. Nothing on this Site grants you any license to those third-party marks.</p>
+
+  <h2 id="s8">8. Third-party links &amp; services</h2>
+  <p>The Site links to third-party platforms, including Turo, Google (Maps/Search/Tag Manager/Ads), Meta (Facebook/Instagram), and our Google Business Profile. We don't control these third parties and aren't responsible for their content, policies, availability or practices. Visiting a linked site is at your own risk and subject to that site's own terms and privacy policy.</p>
+
+  <h2 id="s9">9. Disclaimers</h2>
+  <p>THE SITE AND ITS CONTENT ARE PROVIDED "AS IS" AND "AS AVAILABLE," WITHOUT WARRANTIES OF ANY KIND, WHETHER EXPRESS OR IMPLIED, INCLUDING, WITHOUT LIMITATION, IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. We do not warrant that the Site will be uninterrupted, timely, secure, or error-free, that defects will be corrected, or that the Site or the servers that make it available are free of viruses or other harmful components. Drive times, mileage, and distances shown on the Site are approximate, measured from Meridian, Idaho under normal traffic conditions, and are provided for general trip planning only &mdash; always confirm current conditions, hours and closures before you go, and drive safely and obey all applicable traffic laws.</p>
+
+  <h2 id="s10">10. Limitation of liability</h2>
+  <p>TO THE FULLEST EXTENT PERMITTED BY LAW, ${esc(SITE.short.toUpperCase())} AND ITS OWNERS, EMPLOYEES AND AGENTS WILL NOT BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, EXEMPLARY OR PUNITIVE DAMAGES, OR ANY LOSS OF PROFITS, REVENUE, DATA OR GOODWILL, ARISING OUT OF OR RELATED TO YOUR USE OF (OR INABILITY TO USE) THE SITE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGES. BECAUSE ALL RENTAL TRANSACTIONS OCCUR ON TURO UNDER TURO'S OWN TERMS, WE ARE NOT LIABLE FOR ANY DISPUTE, LOSS, DAMAGE, INJURY, OR OTHER CLAIM ARISING FROM A BOOKING, TRIP, OR RENTAL ITSELF &mdash; THOSE ARE GOVERNED SOLELY BY YOUR AGREEMENT WITH TURO. Some jurisdictions do not allow certain limitations of liability, so some of the above limitations may not apply to you.</p>
+
+  <h2 id="s11">11. Indemnification</h2>
+  <p>You agree to indemnify, defend and hold harmless ${esc(SITE.short)} and its owners, employees and agents from any claims, damages, losses, liabilities and expenses (including reasonable attorneys' fees) arising out of or related to your violation of these Terms, your misuse of the Site, or your violation of any law or the rights of a third party.</p>
+
+  <h2 id="s12">12. Governing law &amp; disputes</h2>
+  <p>These Terms are governed by the laws of the State of Idaho, without regard to its conflict-of-laws principles. You agree that any dispute arising from these Terms or the Site that cannot be resolved informally will be subject to the exclusive jurisdiction of the state and federal courts located in Idaho, and you consent to personal jurisdiction there. Before filing a formal claim, we encourage you to <a href="/contact/">contact us</a> so we can try to resolve the issue informally.</p>
+
+  <h2 id="s13">13. Changes to these terms</h2>
+  <p>We may revise these Terms at any time by posting an updated version on this page with a new "Last updated" date. Changes take effect as soon as they're posted. Your continued use of the Site after a change is posted constitutes acceptance of the updated Terms.</p>
+
+  <h2 id="s14">14. General</h2>
+  <p>If any provision of these Terms is found unenforceable, the remaining provisions remain in full effect. Our failure to enforce a provision is not a waiver of it. These Terms, together with our <a href="/privacy/">Privacy Policy</a>, make up the entire agreement between you and ${esc(SITE.short)} regarding the Site and supersede any prior agreements about the Site. These Terms do not alter the terms of any separate agreement you enter into directly with Turo.</p>
+
+  <h2 id="s15">15. Contact us</h2>
+  <p>Questions about these Terms? <a href="/contact/">Contact us</a> and we'll be glad to help.</p>
+</div></section>`;
+  return layout({
+    path: '/terms/', title: 'Terms & Conditions | Boise Luxury Rentals',
+    description: 'Terms for using boiseluxuryrentals.com. Boise Luxury Rentals is an independent Turo host; all bookings, payments and protection plans happen on Turo.',
     body, schema: [breadcrumbSchema(crumbs)],
   });
 }
@@ -372,4 +530,4 @@ function notFoundPage() {
   return layout({ path: '/404.html', title: 'Page not found | Boise Luxury Rentals', description: 'Page not found.', body, noindex: true });
 }
 
-module.exports = { home, carsIndex, corvettePage, thingsPage, aboutPage, faqPage, contactPage, privacyPage, notFoundPage, placeCard, fmtMin, steps };
+module.exports = { home, carsIndex, corvettePage, thingsPage, aboutPage, faqPage, contactPage, privacyPage, termsPage, notFoundPage, placeCard, fmtMin, steps };
