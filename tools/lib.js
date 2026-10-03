@@ -250,15 +250,15 @@ src="https://www.facebook.com/tr?id=992615167187875&ev=PageView&noscript=1"
 height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 <!-- End Google Tag Manager (noscript) -->
 <a class="skip" href="#main">Skip to content</a>
-<div class="turo-bar"><strong>All bookings are completed on Turo.</strong> Tap <em>Book on Turo</em> to check dates and pricing. <a href="/faq/">How it works</a></div>
+${opts.landing ? '' : `<div class="turo-bar"><strong>All bookings are completed on Turo.</strong> Tap <em>Book on Turo</em> to check dates and pricing. <a href="/faq/">How it works</a></div>`}
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" width="44" height="44" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><path d="${BLR_D}" fill="#fff"/></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
-    <button class="menu-btn" aria-label="Menu" aria-expanded="false">Menu</button>
+    <a class="brand" href="${opts.landing ? SITE.turoUrl : '/'}" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" width="44" height="44" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><path d="${BLR_D}" fill="#fff"/></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
+    ${opts.landing ? turoBtn('Book on Turo', { small: true, note: false }) : `<button class="menu-btn" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="main" aria-label="Main">
       ${nav}
       ${turoBtn('Book on Turo', { small: true, note: false })}
-    </nav>
+    </nav>`}
   </div>
 </header>
 <main id="main">
@@ -266,7 +266,7 @@ ${addDividers(opts.body)}
 </main>
 <footer class="site">
   <div class="wrap">
-    <div class="grid g4">
+    ${opts.landing ? '' : `<div class="grid g4">
       <div>
         <h4>${esc(SITE.short)}</h4>
         <p>Luxury and sport car rentals in Boise, Meridian and the Treasure Valley. Reservations are made on Turo.</p>
@@ -300,6 +300,7 @@ ${addDividers(opts.body)}
           <li><a href="/faq/">FAQ</a></li>
           <li><a href="/contact/">Contact</a></li>
           <li><a href="/privacy/">Privacy</a></li>
+          <li><a href="/terms/">Terms &amp; Conditions</a></li>
         </ul>
       </div>
     </div>
@@ -311,7 +312,7 @@ ${addDividers(opts.body)}
       <a href="/sports-car-rental-boise/">Sports car rental Boise</a> &middot;
       <a href="/boise-airport-car-rental/">Boise airport sports car rental</a> &middot;
       <a href="/exotic-rental-boise/">Exotic car rental Boise</a>
-    </p>
+    </p>`}
     <p class="disclaimer" style="border:0;margin-top:0;padding-top:0">${esc(SITE.short)} is an independent vehicle host on Turo and is not owned by, affiliated with or endorsed by Turo, Inc. Turo is a trademark of Turo Inc. All reservations, payments, insurance and protection plans, eligibility requirements, mileage limits and cancellation terms are provided by Turo and shown on the vehicle listing. Drive times and distances on this site are approximate, measured from Meridian, Idaho in normal traffic. Confirm conditions and current hours before you go. Drive safely and obey all traffic laws.</p>
     <p class="disclaimer" style="border:0;margin-top:0;padding-top:0">&copy; ${new Date().getFullYear()} Boise Luxury Rentals</p>
   </div>
@@ -355,7 +356,7 @@ function hero(h1, lead, opts = {}) {
     <h1>${wordSplit(h1)}</h1>
     <p class="lead">${lead}</p>
     ${opts.badge ? `<p class="turo-badge"><span>&#10003;</span> ${opts.badge}</p>` : ''}
-    <div class="cta-row">${opts.big ? turoBtn(CTA_LABEL, { big: true }) : turoBtn('Book on Turo')}<a class="btn btn-ghost${opts.big ? ' btn-xl' : ''}" href="${opts.secondaryHref || '/cars/corvette-stingray/'}">${esc(opts.secondaryLabel || 'See the Corvette')}</a></div>
+    <div class="cta-row">${opts.big ? turoBtn(CTA_LABEL, { big: true }) : turoBtn('Book on Turo')}${opts.singleCta ? '' : `<a class="btn btn-ghost${opts.big ? ' btn-xl' : ''}" href="${opts.secondaryHref || '/cars/corvette-stingray/'}">${esc(opts.secondaryLabel || 'See the Corvette')}</a>`}</div>
     ${opts.stats ? statStrip(opts.stats) : ''}
   </div>
 </section>`;
