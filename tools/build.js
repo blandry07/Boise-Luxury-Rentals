@@ -9,7 +9,6 @@ const { SITE, GUIDES } = require('./data');
 const core = require('./pages-core');
 const seo = require('./pages-seo');
 const fl = require('./pages-flagship');
-const social = require('./pages-landing');
 
 const PUBLIC = path.join(__dirname, '..', 'public');
 
@@ -27,7 +26,6 @@ const pages = [
   ['/faq/', core.faqPage()],
   ['/contact/', core.contactPage()],
   ['/privacy/', core.privacyPage()],
-  ['/terms/', core.termsPage()],
   ['/guides/', seo.guidesIndex()],
   ['/guides/corvette-rental-boise-guide/', seo.guideCorvette()],
   ['/guides/best-sports-car-routes-boise/', seo.guideRoutes()],
@@ -36,27 +34,19 @@ const pages = [
   ['/guides/boise-airport-sports-car-rental/', seo.guideAirport()],
 ];
 
-// Paid-social landing pages (/fb/, /ig/): built and written like any other
-// page, but kept OUT of the `pages` array above so they're excluded from the
-// sitemap (they're noindex campaign pages, not meant for organic search).
-const landingPages = [
-  ['/fb/', social.fbLanding()],
-  ['/ig/', social.igLanding()],
-];
-
 function write(rel, content) {
   const file = path.join(PUBLIC, rel);
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, content);
 }
 
-for (const [url, html] of pages.concat(landingPages)) {
+for (const [url, html] of pages) {
   write(url === '/' ? 'index.html' : url.replace(/^\//, '') + 'index.html', html);
 }
 write('404.html', core.notFoundPage());
 
 // Sitemap
-const priority = (u) => (u === '/' ? '1.0' : u.startsWith('/guides/') && u !== '/guides/' ? '0.6' : (u === '/privacy/' || u === '/terms/') ? '0.2' : '0.8');
+const priority = (u) => (u === '/' ? '1.0' : u.startsWith('/guides/') && u !== '/guides/' ? '0.6' : u === '/privacy/' ? '0.2' : '0.8');
 const today = new Date().toISOString().slice(0, 10);
 const IMG_PAGES = { '/': 8, '/corvette-rental-boise/': 12, '/cars/corvette-stingray/': 12, '/c8-corvette-rental-boise/': 6, '/cars/': 3 };
 const { PHOTOS } = require('./data');
@@ -82,4 +72,4 @@ const { LOGO_MARK, svgDoc } = require('./brand');
 write('assets/favicon.svg', svgDoc(LOGO_MARK, '-6 -6 76 76', '<rect x="-6" y="-6" width="76" height="76" rx="16" fill="#0a0c0f"/>'));
 write('assets/logo.svg', svgDoc(LOGO_MARK, '-6 -6 76 76', '<rect x="-6" y="-6" width="76" height="76" fill="#0a0c0f"/>'));
 
-console.log('Built ' + (pages.length + landingPages.length + 1) + ' pages, sitemap.xml, robots.txt');
+console.log('Built ' + (pages.length + 1) + ' pages, sitemap.xml, robots.txt');
