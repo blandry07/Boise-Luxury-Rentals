@@ -42,6 +42,7 @@ const pages = [
 const landingPages = [
   ['/fb/', social.fbLanding()],
   ['/ig/', social.igLanding()],
+  ['/links/', social.linksPage()],
 ];
 
 function write(rel, content) {

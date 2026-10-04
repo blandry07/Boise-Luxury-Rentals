@@ -266,7 +266,7 @@ ${addDividers(opts.body)}
 </main>
 <footer class="site">
   <div class="wrap">
-    ${opts.landing ? '' : `<div class="grid g4">
+    ${opts.landing ? (opts.minimalFooter ? `<p class="disclaimer" style="border:0;margin-top:0;padding-top:0;text-align:center"><a href="/privacy/">Privacy Policy</a> &middot; <a href="/terms/">Terms &amp; Conditions</a></p>` : '') : `<div class="grid g4">
       <div>
         <h4>${esc(SITE.short)}</h4>
         <p>Luxury and sport car rentals in Boise, Meridian and the Treasure Valley. Reservations are made on Turo.</p>
