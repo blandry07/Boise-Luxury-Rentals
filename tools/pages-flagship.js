@@ -115,7 +115,7 @@ ${feature({ id: 'roof', tag: 'roof', eyebrow: 'Removable roof', h2: 'Take the ro
   html: `<p>This Corvette has a <strong>removable roof panel</strong>. On a clear day in the Treasure Valley, lift it off by hand, stow it in the rear trunk and drive with the sky overhead: down Bogus Basin Road, along the Payette River, or across the Camas Prairie toward Sun Valley.</p>
   <ul><li>Panel comes off in a couple of minutes and stows in the rear trunk</li><li>Stowing the panel uses part of the rear cargo space (see luggage below)</li><li>Keep the panel in the car whenever the roof is off, and put it back on before rain</li></ul>` })}
 
-${feature({ id: 'luggage', tag: 'trunk-rear', flip: true, eyebrow: 'Luggage capacity', h2: 'Room for a weekend trip for two',
+${feature({ id: 'luggage', tag: 'rear', flip: true, eyebrow: 'Luggage capacity', h2: 'Room for a weekend trip for two',
   html: `<p>The C8 is a two-seater with <strong>two trunks</strong>, a front trunk and a rear trunk. Chevrolet lists about <strong>12.6 cubic feet</strong> of combined cargo space, plenty for a couple's weekend when you pack soft duffel bags.</p>
   <div class="big-num"><div><b>2</b><span>Trunks</span></div><div><b>12.6</b><span>cu ft combined</span></div><div><b>2</b><span>Seats</span></div></div>
   <ul><li>Soft bags fit far better than hard-shell suitcases</li><li>Stowing the roof panel takes space from the rear trunk</li><li>Traveling for several days or with more than two people? Plan on packing light or ask us first</li></ul>` })}
