@@ -16,7 +16,7 @@
  *   FORCE_HTTPS         "true" to redirect http -> https (Railway custom domains already serve https)
  *
  * The "save for later" feature (/api/save-for-later) always sends FROM
- * info@boiseluxuryrentals.com (see SFL_FROM below), regardless of which
+ * noreply@boiseluxuryrentals.com (see SFL_FROM below), regardless of which
  * provider is active, as long as that address is a verified sender there.
  */
 const path = require('path');
@@ -121,7 +121,7 @@ async function sendMail({ subject, text, html, replyTo, to, from }) {
       const m = /^(.*?)\s*<([^>]+)>$/.exec(s || '');
       return m ? { name: m[1].trim().replace(/^"|"$/g, ''), email: m[2].trim() } : { email: s };
     };
-    const fromAddr = parseAddr(from || process.env.CONTACT_FROM || 'Boise Luxury Rentals <info@boiseluxuryrentals.com>');
+    const fromAddr = parseAddr(from || process.env.CONTACT_FROM || 'Boise Luxury Rentals <noreply@boiseluxuryrentals.com>');
     const payload = {
       sender: fromAddr,
       to: [{ email: recipient }],
@@ -168,7 +168,7 @@ async function sendMail({ subject, text, html, replyTo, to, from }) {
 
 // ---- "Save for later" email ----
 const SFL_PRICE_TEXT = LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (before tax & Turo fees)` : '';
-const SFL_FROM = 'Boise Luxury Rentals <info@boiseluxuryrentals.com>';
+const SFL_FROM = 'Boise Luxury Rentals <noreply@boiseluxuryrentals.com>';
 
 /** Builds the bulletproof, table-based HTML email sent to the visitor's own address. */
 function saveForLaterEmail({ pageUrl, pageName }) {
