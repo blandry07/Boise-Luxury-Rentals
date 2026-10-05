@@ -5,6 +5,9 @@ const pathAssets = require('path');
 function assetVer(f) { try { return crypto.createHash('md5').update(fsAssets.readFileSync(pathAssets.join(__dirname, '..', 'public', 'assets', f))).digest('hex').slice(0, 8); } catch (e) { return '1'; } }
 'use strict';
 const { SITE, PHOTOS } = require('./data');
+const INSTAGRAM_URL = SITE.sameAs.find((u) => u.includes('instagram.com')) || 'https://www.instagram.com/boiseluxuryrentals/';
+const IG_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-4px;margin-right:6px"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
+const igLink = (compact) => `<a class="social-link" href="${INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="${esc(SITE.short)} on Instagram">${IG_ICON}${compact ? '' : 'Instagram'}</a>`;
 const { imgSize } = require('./imgsize');
 
 const esc = (s) =>
@@ -266,11 +269,12 @@ ${addDividers(opts.body)}
 </main>
 <footer class="site">
   <div class="wrap">
-    ${opts.landing ? (opts.minimalFooter ? `<p class="disclaimer" style="border:0;margin-top:0;padding-top:0;text-align:center"><a href="/privacy/">Privacy Policy</a> &middot; <a href="/terms/">Terms &amp; Conditions</a></p>` : '') : `<div class="grid g4">
+    ${opts.landing ? (opts.minimalFooter ? `<p class="disclaimer" style="border:0;margin-top:0;padding-top:0;text-align:center"><a href="/privacy/">Privacy Policy</a> &middot; <a href="/terms/">Terms &amp; Conditions</a> &middot; ${igLink(false)}</p>` : '') : `<div class="grid g4">
       <div>
         <h4>${esc(SITE.short)}</h4>
         <p>Luxury and sport car rentals in Boise, Meridian and the Treasure Valley. Reservations are made on Turo.</p>
         <p>${turoBtn('Book on Turo', { small: true, note: false })}</p>
+        <p style="margin-top:14px">${igLink(false)}</p>
       </div>
       <div>
         <h4>Rentals</h4>
