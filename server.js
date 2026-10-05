@@ -121,7 +121,7 @@ async function sendMail({ subject, text, html, replyTo, to, from }) {
       const m = /^(.*?)\s*<([^>]+)>$/.exec(s || '');
       return m ? { name: m[1].trim().replace(/^"|"$/g, ''), email: m[2].trim() } : { email: s };
     };
-    const fromAddr = parseAddr(from || process.env.CONTACT_FROM || 'Boise Luxury Rentals <noreply@boiseluxuryrentals.com>');
+    const fromAddr = parseAddr(from || process.env.CONTACT_FROM || 'Boise Luxury Rentals <info@boiseluxuryrentals.com>');
     const payload = {
       sender: fromAddr,
       to: [{ email: recipient }],
