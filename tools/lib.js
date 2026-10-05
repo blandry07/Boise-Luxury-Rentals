@@ -253,7 +253,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 ${opts.landing ? '' : `<div class="turo-bar"><strong>All bookings are completed on Turo.</strong> Tap <em>Book on Turo</em> to check dates and pricing. <a href="/faq/">How it works</a></div>`}
 <header class="site">
   <div class="wrap nav">
-    <a class="brand" href="${opts.landing ? SITE.turoUrl : '/'}" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" width="44" height="44" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><path d="${BLR_D}" fill="#fff"/></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
+    <a class="brand" href="/" aria-label="${esc(SITE.name)} home"><svg class="logo-mark" width="44" height="44" viewBox="0 0 64 64" fill="none" stroke-linecap="round" aria-hidden="true"><circle cx="32" cy="32" r="28" stroke="#eef1f5" stroke-width="3"/><circle class="arc" cx="32" cy="32" r="28" stroke="#e5352b" stroke-width="5" stroke-dasharray="52 200" transform="rotate(-70 32 32)"/><path d="${BLR_D}" fill="#fff"/></svg><span class="brand-text">Boise Luxury Rentals<small>Luxury &amp; Sport Cars</small></span></a>
     ${opts.landing ? turoBtn('Book on Turo', { small: true, note: false }) : `<button class="menu-btn" aria-label="Menu" aria-expanded="false">Menu</button>
     <nav class="main" aria-label="Main">
       ${nav}

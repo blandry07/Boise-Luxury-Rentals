@@ -128,6 +128,11 @@ const linksPage = () => {
   ${faqHtml(LINKS_FAQS)}
 </div></section>
 
+<section class="alt"><div class="wrap narrow" style="text-align:center">
+  <p class="muted" style="margin:0 0 16px">More to see: browse the full site and the rest of our growing fleet.</p>
+  <a class="btn btn-ghost" href="/">See Our Full Site</a>
+</div></section>
+
 <section class="cta-band"><div class="wrap narrow">
   <h2>Ready to drive it?</h2>
   <p class="muted" style="max-width:640px;margin:0 auto 26px">Check your dates on Turo, or message us first if you have questions.</p>
