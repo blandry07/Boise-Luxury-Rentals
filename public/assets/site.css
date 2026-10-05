@@ -83,6 +83,12 @@ nav.main a[aria-current="page"]{color:var(--accent2)}
 .tag{display:inline-block;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--muted)}
 .tag.live{color:#7ee2a8;border-color:#245a3d;background:rgba(40,120,80,.12)}
 .car-card.soon{opacity:.72}
+.notify-form{margin-top:14px}
+.notify-form .row{display:flex;gap:8px}
+.notify-form input[type=email]{flex:1;min-width:0;padding:9px 12px;border-radius:8px;border:1px solid var(--line);background:#0e1217;color:var(--text);font-size:.85rem}
+.notify-form .form-msg{padding:8px 0;font-size:.78rem;border:0;background:none}
+.notify-form .form-msg.ok{color:#5fd999}
+.notify-form .form-msg.err{color:#ff8b82}
 
 /* Photo placeholder / gallery */
 .ph{position:relative;background:linear-gradient(135deg,#1a1f26,#0f1216);overflow:hidden}
@@ -193,6 +199,9 @@ footer.site a:hover{color:var(--text)}
 .btn-xl:hover{box-shadow:0 12px 40px rgba(229,53,43,.5)}
 .turo-badge{display:inline-flex;align-items:center;gap:8px;margin:0 0 18px;padding:7px 14px;border-radius:999px;background:rgba(91,61,245,.22);border:1px solid rgba(140,120,255,.55);color:#e9e6ff;font-size:.86rem;font-weight:600}
 .turo-badge span{color:#8cf0b4}
+.save-later-row{margin-top:14px}
+.save-later{color:var(--muted);font-size:.86rem;text-decoration:underline;text-underline-offset:3px}
+.save-later:hover{color:var(--text)}
 .stat-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:1px;margin-top:38px;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.14);border-radius:16px;overflow:hidden;backdrop-filter:blur(8px)}
 .stat-strip div{background:rgba(10,12,15,.72);padding:18px 14px;text-align:center}
 @media(max-width:520px){.stat-strip div{padding:14px 8px}.stat-strip b{font-size:1.05rem}.stat-strip span{font-size:.56rem;letter-spacing:.05em}}

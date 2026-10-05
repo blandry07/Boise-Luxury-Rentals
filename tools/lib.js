@@ -4,8 +4,32 @@ const fsAssets = require('fs');
 const pathAssets = require('path');
 function assetVer(f) { try { return crypto.createHash('md5').update(fsAssets.readFileSync(pathAssets.join(__dirname, '..', 'public', 'assets', f))).digest('hex').slice(0, 8); } catch (e) { return '1'; } }
 'use strict';
-const { SITE, PHOTOS } = require('./data');
+const { SITE, PHOTOS, LISTING } = require('./data');
 const INSTAGRAM_URL = SITE.sameAs.find((u) => u.includes('instagram.com')) || 'https://www.instagram.com/boiseluxuryrentals/';
+/** "Starting at $119/day (before tax & Turo fees)" — reused anywhere we advertise price. */
+const PRICE_BADGE = LISTING.pricePerDay
+  ? `Starting at <strong>${LISTING.pricePerDay}/day</strong> <span style="font-weight:400;opacity:.8">(${LISTING.priceDisclaimer || 'before tax &amp; fees'})</span>`
+  : '';
+/** A plain-text version for places that can't carry HTML (meta text, mailto bodies). */
+const PRICE_TEXT = LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (before tax & Turo fees)` : '';
+/**
+ * "Save for later": a mailto: link (no backend, no stored addresses) that opens
+ * the visitor's own email client with a pre-filled draft — the page link, the
+ * starting price, and a reminder it's booked on Turo — so they can send it to
+ * themselves (or anyone else) to come back to when they're ready to book.
+ */
+function saveForLaterLink(pagePath, pageName) {
+  const url = SITE.url + pagePath;
+  const subject = encodeURIComponent(`${pageName} — Boise Luxury Rentals`);
+  const lines = [
+    `Saving this for later: ${url}`,
+    '',
+    `${LISTING.year} ${LISTING.make} ${LISTING.model} ${LISTING.trim}${PRICE_TEXT ? ' — ' + PRICE_TEXT : ''}.`,
+    `All bookings are completed securely on Turo.`,
+  ];
+  const body = encodeURIComponent(lines.join('\n'));
+  return `<a class="save-later" href="mailto:?subject=${subject}&body=${body}">&#9993;&nbsp;Email me this page to book later</a>`;
+}
 const IG_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-4px;margin-right:6px"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
 const igLink = (compact) => `<a class="social-link" href="${INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="${esc(SITE.short)} on Instagram">${IG_ICON}${compact ? '' : 'Instagram'}</a>`;
 const { imgSize } = require('./imgsize');
@@ -361,6 +385,7 @@ function hero(h1, lead, opts = {}) {
     <p class="lead">${lead}</p>
     ${opts.badge ? `<p class="turo-badge"><span>&#10003;</span> ${opts.badge}</p>` : ''}
     <div class="cta-row">${opts.big ? turoBtn(CTA_LABEL, { big: true }) : turoBtn('Book on Turo')}${opts.singleCta ? '' : `<a class="btn btn-ghost${opts.big ? ' btn-xl' : ''}" href="${opts.secondaryHref || '/cars/corvette-stingray/'}">${esc(opts.secondaryLabel || 'See the Corvette')}</a>`}</div>
+    ${opts.saveForLater ? `<p class="save-later-row">${saveForLaterLink(opts.saveForLater[0], opts.saveForLater[1])}</p>` : ''}
     ${opts.stats ? statStrip(opts.stats) : ''}
   </div>
 </section>`;
@@ -376,4 +401,4 @@ function val(v, fallback) {
   return v ? esc(v) : (fallback || 'See the Turo listing');
 }
 
-module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg };
+module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg, PRICE_BADGE, PRICE_TEXT, saveForLaterLink };

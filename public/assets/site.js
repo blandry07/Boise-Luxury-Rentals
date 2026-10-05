@@ -130,4 +130,45 @@
         });
     });
   }
+
+  // ---- Small inline "Notify Me" forms (coming-soon fleet cars) ----
+  // Same /api/contact endpoint and inbox as the main contact form above, just
+  // a lighter-weight handler since each page can have several of these.
+  document.querySelectorAll('.notify-form').forEach(function (form) {
+    var msg = form.querySelector('.form-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submit = form.querySelector('button[type=submit]');
+      submit.disabled = true;
+      var original = submit.textContent;
+      submit.textContent = 'Sending...';
+      if (msg) { msg.className = 'form-msg'; msg.textContent = ''; }
+
+      var data = {};
+      new FormData(form).forEach(function (v, k) { data[k] = v; });
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          if (res.ok) {
+            if (msg) { msg.className = 'form-msg ok'; msg.textContent = "You're on the list — we'll reach out when it's available."; }
+            form.reset();
+            submit.textContent = 'Sent!';
+          } else {
+            if (msg) { msg.className = 'form-msg err'; msg.textContent = res.error || 'Something went wrong. Please try again.'; }
+            submit.disabled = false;
+            submit.textContent = original;
+          }
+        })
+        .catch(function () {
+          if (msg) { msg.className = 'form-msg err'; msg.textContent = 'Network error. Please try again.'; }
+          submit.disabled = false;
+          submit.textContent = original;
+        });
+    });
+  });
 })();

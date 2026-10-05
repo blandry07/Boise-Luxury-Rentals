@@ -9,7 +9,7 @@
  */
 const { LISTING, PHOTOS, SITE } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, hero, gallery, faqHtml, breadcrumbSchema, carSchema, CTA_LABEL } = L;
+const { esc, turoBtn, layout, hero, gallery, faqHtml, breadcrumbSchema, carSchema, CTA_LABEL, PRICE_BADGE } = L;
 
 const MINI_FAQS = [
   { q: 'Is this a real rental, or a giveaway/contest?', a: 'A real rental you book yourself. There is no giveaway, contest or sweepstakes tied to this page or our social posts.' },
@@ -24,9 +24,10 @@ const social = (h1, lead, eyebrow, source) => {
     h1,
     lead,
     { xl: true, big: true, singleCta: true, year: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim}`, eyebrow,
-      badge: '5&#9733; rated on Turo &middot; all reservations are handled securely by <strong>Turo</strong>',
+      badge: `${PRICE_BADGE ? PRICE_BADGE + ' &middot; ' : ''}5&#9733; rated on Turo &middot; all reservations are handled securely by <strong>Turo</strong>`,
       alt: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim} C8 rental in Boise, Idaho`,
-      stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['5&#9733;', 'On Turo']] }
+      stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['5&#9733;', 'On Turo']],
+      saveForLater: [path, `${LISTING.year} Corvette Stingray ${LISTING.trim}`] }
   ) + `
 <section><div class="wrap narrow" style="text-align:center">
   <h2>Why people book this car</h2>
@@ -84,7 +85,7 @@ const igLanding = () => social(
  */
 const OFFER_DETAILS = [
   { q: 'Specs at a glance', a: `${LISTING.year} ${LISTING.make} ${LISTING.model} ${LISTING.trim}: a 6.2L V8 making 490+ horsepower, 8-speed dual-clutch automatic, rear-wheel drive, about 3 seconds 0-60, a removable roof panel, 2 seats, and a front + rear trunk. ${esc(LISTING.color)}.` },
-  { q: 'Pricing, mileage & deposit', a: 'Daily pricing changes with season and demand, so exact numbers show up live once you pick your dates on Turo. Mileage allowance, any extra-mile cost and the security deposit are set on the Turo listing and confirmed at checkout, never guessed here.' },
+  { q: 'Pricing, mileage & deposit', a: `Pricing starts at ${esc(LISTING.pricePerDay || '')} per day, before tax and any Turo fees. Daily pricing changes with season and demand, so exact numbers show up live once you pick your dates on Turo. Mileage allowance, any extra-mile cost and the security deposit are set on the Turo listing and confirmed at checkout, never guessed here.` },
   { q: 'Pickup, delivery & driver requirements', a: `The car is based in ${esc(SITE.origin)}, about 20 minutes from Boise Airport (BOI). Minimum driver age, license requirements and any delivery options are set by Turo and shown on the listing before you book.` },
   { q: 'How booking actually works', a: 'Every reservation, payment and protection plan is handled by Turo, not on this page. Tap "Book on Turo" to open the live listing, pick your dates, and check out securely there.' },
 ];
@@ -105,10 +106,11 @@ const linksPage = () => {
     `Rent our ${LISTING.year} Corvette Stingray ${LISTING.trim} &mdash; book securely on Turo.`,
     { xl: true, big: true, compact: true, eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
       img: '/images/corvette-studio-front.jpg', alt: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim} studio photo, front three-quarter view`,
-      secondaryLabel: 'Contact Us', secondaryHref: '/contact/' }
+      secondaryLabel: 'Contact Us', secondaryHref: '/contact/',
+      saveForLater: [path, 'Boise Luxury Rentals — Links'] }
   ) + `
 <section class="mini-stats"><div class="wrap">
-  <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">${LISTING.year} ${esc(LISTING.make)} ${esc(LISTING.model)} ${esc(LISTING.trim)} &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
+  <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">${PRICE_BADGE ? PRICE_BADGE + ' &middot; ' : ''}${LISTING.year} ${esc(LISTING.make)} ${esc(LISTING.model)} ${esc(LISTING.trim)} &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
   ${L.statStrip([['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['Turo', 'Book securely']])}
 </div></section>
 

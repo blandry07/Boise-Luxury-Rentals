@@ -48,7 +48,8 @@ const LISTING = {
   trim: 'Z51',
   color: 'Black exterior, red interior',
   roof: 'Removable roof panel',
-  pricePerDay: '',      // e.g. '$249' (leave blank to show "See Turo")
+  pricePerDay: '$119',  // e.g. '$249' (leave blank to show "See Turo")
+  priceDisclaimer: 'before tax &amp; Turo fees', // shown in small print next to the starting price
   dailyMiles: '',       // e.g. '150 miles per day'
   extraMileCost: '',    // e.g. '$0.75 per extra mile'
   minAge: '',           // e.g. '25+'
@@ -141,7 +142,7 @@ const FAQS = [
   { q: 'Do you deliver the car or do airport pickup?',
     a: 'The Corvette is listed in Meridian, Idaho. Any pickup, delivery or airport options we offer are shown on the Turo listing and are arranged through Turo trip messaging. The Boise Airport is about 14 miles (roughly 20 minutes) from Meridian.' },
   { q: 'How much does it cost?',
-    a: 'Daily pricing, trip fees and any discounts change with the season and demand, so we show live pricing only on Turo. Pick your dates on the Turo listing to see your exact total.' },
+    a: 'Pricing starts at $119 per day, before tax and any Turo fees. Daily pricing, trip fees and any discounts change with season and demand, so your exact total is shown live once you pick your dates on the Turo listing.' },
   { q: 'Can I take the Corvette on a road trip to McCall or Sun Valley?',
     a: 'Mileage limits and allowed trip areas are set on the Turo listing. If you are planning a longer drive, check the daily mileage allowance and consider adding extra miles when booking. Our McCall and Sun Valley guides have full route breakdowns.' },
   { q: 'Is the Corvette hard to drive?',

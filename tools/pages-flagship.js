@@ -59,9 +59,10 @@ function flagship() {
     'Corvette Rental in <span>Boise, Idaho</span>',
     'The mid-engine <strong>C8 Corvette</strong> you have been looking at, with a removable roof, a 6.2L V8 and Treasure Valley roads to match. Sports car rental in Boise, booked securely on Turo.',
     { xl: true, big: true, year: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim}`, eyebrow: 'Corvette Rental Boise · C8 Rental',
-      badge: '5&#9733; rated on Turo &middot; reservations, payment and protection plans are handled securely by <strong>Turo</strong>',
+      badge: `${L.PRICE_BADGE} &middot; 5&#9733; rated on Turo &middot; reservations, payment and protection plans are handled securely by <strong>Turo</strong>`,
       secondaryLabel: 'See every detail', secondaryHref: '#overview',
       alt: `${CAR} C8 Corvette rental in Boise, Idaho`,
+      saveForLater: [path, `${CAR} Rental Boise`],
       stats: [['490+', 'Horsepower'], ['6.2L', 'V8 engine'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['HUD', 'Heads up display']] }
   ) + `
 <section id="overview" style="padding-bottom:20px"><div class="wrap">
@@ -87,7 +88,7 @@ function flagship() {
         <tr><th>Roof</th><td>${esc(LISTING.roof)}</td></tr>
         <tr><th>Seats</th><td>2</td></tr>
         <tr><th>Location</th><td>Meridian, Idaho (Boise area)</td></tr>
-        <tr><th>Price</th><td>${val(LISTING.pricePerDay ? LISTING.pricePerDay + ' per day' : '', 'Live pricing on Turo')}</td></tr>
+        <tr><th>Price</th><td>${val(LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay} per day (before tax & Turo fees)` : '', 'Live pricing on Turo')}</td></tr>
         <tr><th>Booking</th><td><strong>On Turo only</strong></td></tr>
       </table>
     </div>
@@ -270,8 +271,9 @@ function vehiclePage() {
   const body = hero(
     `${LISTING.year} Corvette <span>Stingray ${LISTING.trim}</span>`,
     'Vehicle profile and spec sheet for our C8 Corvette Stingray rental in Boise, Idaho.',
-    { short: true, big: true, eyebrow: 'Vehicle profile · Booked on Turo', badge: '5&#9733; rated on Turo. No payments on this site',
-      img: '/images/corvette-studio-rear.jpg', secondaryLabel: 'Full Corvette rental details', secondaryHref: '/corvette-rental-boise/', alt: `${CAR} Corvette Stingray studio photo, rear three-quarter view` }
+    { short: true, big: true, eyebrow: 'Vehicle profile · Booked on Turo', badge: `${L.PRICE_BADGE} &middot; 5&#9733; rated on Turo. No payments on this site`,
+      img: '/images/corvette-studio-rear.jpg', secondaryLabel: 'Full Corvette rental details', secondaryHref: '/corvette-rental-boise/', alt: `${CAR} Corvette Stingray studio photo, rear three-quarter view`,
+      saveForLater: [path, `${LISTING.year} Corvette Stingray ${LISTING.trim} Profile`] }
   ) + `
 <section><div class="wrap">
   <span class="eyebrow">Gallery</span><h2>Photos of the ${LISTING.year} Corvette Stingray</h2>
@@ -302,7 +304,7 @@ function vehiclePage() {
       <div class="card" style="padding:6px 10px"><table class="facts">
         <tr><th>Where to book</th><td><strong>Turo</strong></td></tr>
         <tr><th>Location</th><td>Meridian, Idaho (Boise area)</td></tr>
-        <tr><th>Daily rate</th><td>${val(LISTING.pricePerDay, 'Live on Turo')}</td></tr>
+        <tr><th>Daily rate</th><td>${val(LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (before tax & Turo fees)` : '', 'Live on Turo')}</td></tr>
         <tr><th>Mileage</th><td>${val(LISTING.dailyMiles, 'Shown on the Turo listing')}</td></tr>
         <tr><th>Minimum age</th><td>${val(LISTING.minAge, 'Shown on the Turo listing')}</td></tr>
         <tr><th>Delivery</th><td>${val(LISTING.delivery, 'See the Turo listing')}</td></tr>
@@ -342,8 +344,9 @@ function c8Page() {
     'C8 Corvette Rental <span>in Boise</span>',
     'Mid-engine layout, a 6.2L V8 and a dual-clutch that snaps off shifts. If you searched for a <strong>C8 rental in Boise</strong> for the driving, this page is for you.',
     { short: true, big: true, eyebrow: 'C8 Corvette Rental Boise · Performance',
-      badge: '5&#9733; rated on <strong>Turo</strong> &middot; available to book now',
+      badge: `${L.PRICE_BADGE} &middot; 5&#9733; rated on <strong>Turo</strong> &middot; available to book now`,
       img: '/images/corvette-studio-front-angle2.jpg', secondaryLabel: 'Corvette rental details & photos', secondaryHref: '/corvette-rental-boise/', alt: 'C8 Corvette Stingray studio photo, front angle',
+      saveForLater: [path, 'C8 Corvette Rental Boise'],
       stats: [['490+', 'Horsepower'], ['~40/60', 'Weight split'], ['~3.0s', '0-60 mph'], ['8-spd', 'Dual-clutch'], ['Mid', 'Engine'], ['HUD', 'Heads up display']] }
   ) + `
 <section><div class="wrap"><div class="notice" style="display:flex;flex-wrap:wrap;gap:20px;align-items:center;justify-content:space-between">

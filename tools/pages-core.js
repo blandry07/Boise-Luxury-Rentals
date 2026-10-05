@@ -1,7 +1,7 @@
 'use strict';
 const { SITE, PHOTOS, PLACES, RESTAURANTS, FAQS, CARS, GUIDES } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg } = L;
+const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg, PRICE_BADGE } = L;
 
 function placeCard(p) {
   const link = p.href ? `<a href="${p.href}">Read the route guide &rarr;</a> &nbsp;·&nbsp; ` : '';
@@ -11,6 +11,25 @@ function placeCard(p) {
   <p class="muted" style="margin:0">${esc(p.blurb)}</p>
   <div class="dir">${link}<a class="dir" href="${mapsDir(p.q)}" target="_blank" rel="noopener">Live directions</a></div>
 </article>`;
+}
+
+/**
+ * Tiny inline lead-capture form under each "coming soon" fleet car. Posts to
+ * the same /api/contact endpoint (and the same CONTACT_TO inbox) as the main
+ * contact form via the generic .notify-form handler in site.js — the visitor
+ * only ever sees an email field; name/message are pre-filled so the existing
+ * backend validation (name + message required) is satisfied without asking
+ * them to type anything extra.
+ */
+function notifyForm(carName) {
+  return `<form class="notify-form" novalidate>
+    <input type="hidden" name="name" value="Notify Me signup">
+    <input type="hidden" name="vehicle" value="${esc(carName)}">
+    <input type="hidden" name="message" value="Please notify me when the ${esc(carName)} is available to book.">
+    <div class="hp" aria-hidden="true"><label>Leave this empty</label><input name="website" tabindex="-1" autocomplete="off"></div>
+    <div class="row"><input type="email" name="email" required maxlength="150" placeholder="Your email" aria-label="Email for ${esc(carName)} notify me"><button class="btn btn-ghost btn-sm" type="submit">Notify Me</button></div>
+    <p class="form-msg" role="status" aria-live="polite"></p>
+  </form>`;
 }
 
 function fmtMin(m) {
@@ -33,9 +52,11 @@ function home() {
 ${hero('Boise <span>Luxury Rentals</span>',
     'Rent our 2023 Corvette Stingray Z51 &mdash; book securely on Turo.',
     { xl: true, big: true, compact: true, singleCta: true, eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
-      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray Z51 studio photo, front three-quarter view' })}
+      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray Z51 studio photo, front three-quarter view',
+      saveForLater: ['/', 'Boise Luxury Rentals — Corvette Rental'] })}
 
 <section class="mini-stats"><div class="wrap">
+  <p class="muted" style="text-align:center;margin:0 0 10px;font-size:.85rem">${PRICE_BADGE}</p>
   <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">2023 Chevrolet Corvette Stingray Z51 &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
   ${statStrip([['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['HUD', 'Heads Up Display'], ['Turo', 'Book securely']])}
 </div></section>
@@ -88,7 +109,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     <span class="eyebrow">Our fleet</span>
     <h2>One car now. More on the way.</h2>
     <div class="grid g4">
-      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">${c.photo ? `<div class="ph">${picImg(c.photo, `${c.name}, coming soon`, ' loading="lazy"')}</div>` : ''}<div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : ''}</div></div>`).join('')}
+      ${CARS.map((c) => `<div class="card car-card${c.status === 'soon' ? ' soon' : ''}">${c.photo ? `<div class="ph">${picImg(c.photo, `${c.name}, coming soon`, ' loading="lazy"')}</div>` : ''}<div class="body"><span class="tag${c.status === 'live' ? ' live' : ''}">${esc(c.tag)}</span><h3 style="margin-top:12px">${esc(c.name)}</h3><p class="muted">${esc(c.blurb)}</p>${c.status === 'live' ? `<a href="/cars/${c.slug}/">View details &rarr;</a>` : notifyForm(c.name)}</div></div>`).join('')}
     </div>
   </div>
 </section>
