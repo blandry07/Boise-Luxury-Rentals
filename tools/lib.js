@@ -13,23 +13,33 @@ const PRICE_BADGE = LISTING.pricePerDay
 /** A plain-text version for places that can't carry HTML (meta text, mailto bodies). */
 const PRICE_TEXT = LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (before tax & Turo fees)` : '';
 /**
- * "Save for later": a mailto: link (no backend, no stored addresses) that opens
- * the visitor's own email client with a pre-filled draft — the page link, the
- * starting price, and a reminder it's booked on Turo — so they can send it to
- * themselves (or anyone else) to come back to when they're ready to book.
+ * "Save for later": opens a small modal (markup in layout(), wired up in
+ * site.js) where the visitor types their own email address. The server then
+ * sends THEM a styled email with a link back to this page, the price, and a
+ * Book on Turo button — see /api/save-for-later in server.js. `pagePath` and
+ * `pageName` travel with the button as data attributes so one shared modal
+ * can serve every page.
  */
-function saveForLaterLink(pagePath, pageName) {
-  const url = SITE.url + pagePath;
-  const subject = encodeURIComponent(`${pageName} — Boise Luxury Rentals`);
-  const lines = [
-    `Saving this for later: ${url}`,
-    '',
-    `${LISTING.year} ${LISTING.make} ${LISTING.model} ${LISTING.trim}${PRICE_TEXT ? ' — ' + PRICE_TEXT : ''}.`,
-    `All bookings are completed securely on Turo.`,
-  ];
-  const body = encodeURIComponent(lines.join('\n'));
-  return `<a class="save-later" href="mailto:?subject=${subject}&body=${body}">&#9993;&nbsp;Email me this page to book later</a>`;
+function saveLaterTrigger(pagePath, pageName) {
+  return `<button type="button" class="save-later save-later-trigger" data-page="${esc(pagePath)}" data-name="${esc(pageName)}">&#9993;&nbsp;Email me this page to book later</button>`;
 }
+
+/** Shared "save for later" modal, included once per page (cheap markup, like the lightbox). */
+const SAVE_MODAL = `<div class="save-modal" role="dialog" aria-modal="true" aria-label="Email me this page to book later">
+  <div class="save-modal-box">
+    <button type="button" class="sm-close" aria-label="Close">&times;</button>
+    <h3>Save this for later</h3>
+    <p class="muted">Enter your email and we'll send you a link back to this page, with the price and a link to book on Turo.</p>
+    <form class="save-modal-form">
+      <input type="text" name="website" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <input type="hidden" name="page">
+      <input type="hidden" name="pageName">
+      <div class="row"><input type="email" name="email" placeholder="you@example.com" required><button type="submit">Email me this page</button></div>
+      <p class="form-msg"></p>
+    </form>
+    <p class="sm-legal">By continuing you agree to our <a href="/privacy/">Privacy Policy</a> and <a href="/terms/">Terms &amp; Conditions</a>.</p>
+  </div>
+</div>`;
 const IG_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-4px;margin-right:6px"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
 const igLink = (compact) => `<a class="social-link" href="${INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="${esc(SITE.short)} on Instagram">${IG_ICON}${compact ? '' : 'Instagram'}</a>`;
 const { imgSize } = require('./imgsize');
@@ -347,6 +357,7 @@ ${addDividers(opts.body)}
 </footer>
 <div class="sticky-cta"><span>Reserve on Turo<br>Secure checkout</span>${turoBtn('Book on Turo', { small: true, note: false })}</div>
 <div class="lightbox" role="dialog" aria-label="Photo viewer" aria-modal="true"><button class="lb-close" aria-label="Close">&times;</button><button class="lb-prev" aria-label="Previous">&lsaquo;</button><img alt=""><button class="lb-next" aria-label="Next">&rsaquo;</button></div>
+${SAVE_MODAL}
 <script src="/assets/site.js?v=${assetVer('site.js')}" defer></script>
 </body>
 </html>`;
@@ -385,7 +396,7 @@ function hero(h1, lead, opts = {}) {
     <p class="lead">${lead}</p>
     ${opts.badge ? `<p class="turo-badge"><span>&#10003;</span> ${opts.badge}</p>` : ''}
     <div class="cta-row">${opts.big ? turoBtn(CTA_LABEL, { big: true }) : turoBtn('Book on Turo')}${opts.singleCta ? '' : `<a class="btn btn-ghost${opts.big ? ' btn-xl' : ''}" href="${opts.secondaryHref || '/cars/corvette-stingray/'}">${esc(opts.secondaryLabel || 'See the Corvette')}</a>`}</div>
-    ${opts.saveForLater ? `<p class="save-later-row">${saveForLaterLink(opts.saveForLater[0], opts.saveForLater[1])}</p>` : ''}
+    ${opts.saveForLater ? `<p class="save-later-row">${saveLaterTrigger(opts.saveForLater[0], opts.saveForLater[1])}</p>` : ''}
     ${opts.stats ? statStrip(opts.stats) : ''}
   </div>
 </section>`;
@@ -401,4 +412,4 @@ function val(v, fallback) {
   return v ? esc(v) : (fallback || 'See the Turo listing');
 }
 
-module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg, PRICE_BADGE, PRICE_TEXT, saveForLaterLink };
+module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg, PRICE_BADGE, PRICE_TEXT, saveLaterTrigger };

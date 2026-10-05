@@ -131,6 +131,73 @@
     });
   }
 
+  // ---- "Save for later" modal: visitor types their own email, we email them ----
+  var saveModal = document.querySelector('.save-modal');
+  if (saveModal) {
+    var smForm = saveModal.querySelector('.save-modal-form');
+    var smMsg = saveModal.querySelector('.form-msg');
+    var smClose = saveModal.querySelector('.sm-close');
+    var smOpen = function (btn) {
+      smForm.reset();
+      smForm.elements.page.value = btn.getAttribute('data-page') || location.pathname;
+      smForm.elements.pageName.value = btn.getAttribute('data-name') || document.title;
+      smMsg.className = 'form-msg';
+      smMsg.textContent = '';
+      var submit = smForm.querySelector('button[type=submit]');
+      submit.disabled = false;
+      submit.textContent = 'Email me this page';
+      saveModal.classList.add('open');
+      smForm.elements.email.focus();
+    };
+    var smCloseModal = function () { saveModal.classList.remove('open'); };
+    document.querySelectorAll('.save-later-trigger').forEach(function (btn) {
+      btn.addEventListener('click', function () { smOpen(btn); });
+    });
+    smClose.addEventListener('click', smCloseModal);
+    saveModal.addEventListener('click', function (e) { if (e.target === saveModal) smCloseModal(); });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && saveModal.classList.contains('open')) smCloseModal();
+    });
+    smForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var submit = smForm.querySelector('button[type=submit]');
+      submit.disabled = true;
+      var original = submit.textContent;
+      submit.textContent = 'Sending...';
+      smMsg.className = 'form-msg';
+      smMsg.textContent = '';
+
+      var data = {};
+      new FormData(smForm).forEach(function (v, k) { data[k] = v; });
+
+      fetch('/api/save-for-later', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+      })
+        .then(function (r) { return r.json().catch(function () { return { ok: false }; }); })
+        .then(function (res) {
+          if (res.ok) {
+            smMsg.className = 'form-msg ok';
+            smMsg.textContent = "Check your inbox — we've emailed you the link.";
+            smForm.reset();
+            submit.textContent = 'Sent!';
+          } else {
+            smMsg.className = 'form-msg err';
+            smMsg.textContent = res.error || 'Something went wrong. Please try again.';
+            submit.disabled = false;
+            submit.textContent = original;
+          }
+        })
+        .catch(function () {
+          smMsg.className = 'form-msg err';
+          smMsg.textContent = 'Network error. Please try again.';
+          submit.disabled = false;
+          submit.textContent = original;
+        });
+    });
+  }
+
   // ---- Small inline "Notify Me" forms (coming-soon fleet cars) ----
   // Same /api/contact endpoint and inbox as the main contact form above, just
   // a lighter-weight handler since each page can have several of these.
