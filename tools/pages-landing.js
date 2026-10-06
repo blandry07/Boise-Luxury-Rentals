@@ -23,11 +23,11 @@ const social = (h1, lead, eyebrow, source) => {
   const body = hero(
     h1,
     lead,
-    { xl: true, big: true, singleCta: true, year: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim}`, eyebrow,
+    { xl: true, big: true, singleCta: true, year: `Chevrolet Corvette Stingray ${LISTING.trim}`, eyebrow,
       badge: `${PRICE_BADGE ? PRICE_BADGE + ' &middot; ' : ''}5&#9733; rated on Turo &middot; all reservations are handled securely by <strong>Turo</strong>`,
-      alt: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim} C8 rental in Boise, Idaho`,
+      alt: `Chevrolet Corvette Stingray ${LISTING.trim} C8 rental in Boise, Idaho`,
       stats: [['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['5&#9733;', 'On Turo']],
-      saveForLater: [path, `${LISTING.year} Corvette Stingray ${LISTING.trim}`] }
+      saveForLater: [path, 'Corvette C8 Stingray Z51'] }
   ) + `
 <section><div class="wrap narrow" style="text-align:center">
   <h2>Why people book this car</h2>
@@ -53,8 +53,8 @@ const social = (h1, lead, eyebrow, source) => {
     path,
     landing: true,
     noindex: true,
-    title: `${LISTING.year} Corvette Stingray ${LISTING.trim} Rental Boise | Book on Turo`,
-    description: `Rent our ${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim} (C8) in Boise/Meridian, Idaho. 5-star rated on Turo. Check dates and book securely.`,
+    title: 'Corvette C8 Stingray Z51 Rental Boise | Book on Turo',
+    description: `Rent our Chevrolet Corvette Stingray ${LISTING.trim} (C8) in Boise/Meridian, Idaho. 5-star rated on Turo. Check dates and book securely.`,
     body,
     schema: [breadcrumbSchema(crumbs), carSchema()],
   });
@@ -62,14 +62,14 @@ const social = (h1, lead, eyebrow, source) => {
 
 const fbLanding = () => social(
   'The Corvette <span>everyone’s talking about</span>',
-  'You saw it on Facebook &mdash; now check real dates and pricing. A 2023 mid-engine C8 Corvette Stingray, booked securely on Turo.',
+  'You saw it on Facebook &mdash; now check real dates and pricing. A mid-engine C8 Corvette Stingray, booked securely on Turo.',
   'From our Facebook page',
   'fb'
 );
 
 const igLanding = () => social(
   'As seen <span>on Instagram</span>',
-  'The car from our feed, ready to book. A 2023 mid-engine C8 Corvette Stingray, booked securely on Turo.',
+  'The car from our feed, ready to book. A mid-engine C8 Corvette Stingray, booked securely on Turo.',
   'From our Instagram',
   'ig'
 );
@@ -84,7 +84,7 @@ const igLanding = () => social(
  * 4-column link grid or no footer at all.
  */
 const OFFER_DETAILS = [
-  { q: 'Specs at a glance', a: `${LISTING.year} ${LISTING.make} ${LISTING.model} ${LISTING.trim}: a 6.2L V8 making 490+ horsepower, 8-speed dual-clutch automatic, rear-wheel drive, about 3 seconds 0-60, a removable roof panel, 2 seats, and a front + rear trunk. ${esc(LISTING.color)}.` },
+  { q: 'Specs at a glance', a: `${LISTING.make} ${LISTING.model} ${LISTING.trim}: a 6.2L V8 making 490+ horsepower, 8-speed dual-clutch automatic, rear-wheel drive, about 3 seconds 0-60, a removable roof panel, 2 seats, and a front + rear trunk. ${esc(LISTING.color)}.` },
   { q: 'Pricing, mileage & deposit', a: `Pricing starts at ${esc(LISTING.pricePerDay || '')} per day, before tax and any Turo fees. Daily pricing changes with season and demand, so exact numbers show up live once you pick your dates on Turo. Mileage allowance, any extra-mile cost and the security deposit are set on the Turo listing and confirmed at checkout, never guessed here.` },
   { q: 'Pickup, delivery & driver requirements', a: `The car is based in ${esc(SITE.origin)}, about 20 minutes from Boise Airport (BOI). Minimum driver age, license requirements and any delivery options are set by Turo and shown on the listing before you book.` },
   { q: 'How booking actually works', a: 'Every reservation, payment and protection plan is handled by Turo, not on this page. Tap "Book on Turo" to open the live listing, pick your dates, and check out securely there.' },
@@ -103,14 +103,14 @@ const linksPage = () => {
 
   const body = hero(
     'Boise <span>Luxury Rentals</span>',
-    `Rent our ${LISTING.year} Corvette Stingray ${LISTING.trim} &mdash; book securely on Turo.`,
+    'Rent our Corvette C8 Stingray Z51 &mdash; book securely on Turo.',
     { xl: true, big: true, compact: true, eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
-      img: '/images/corvette-studio-front.jpg', alt: `${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim} studio photo, front three-quarter view`,
+      img: '/images/corvette-studio-front.jpg', alt: `Chevrolet Corvette Stingray ${LISTING.trim} studio photo, front three-quarter view`,
       secondaryLabel: 'Contact Us', secondaryHref: '/contact/',
       saveForLater: [path, 'Boise Luxury Rentals — Links'] }
   ) + `
 <section class="mini-stats"><div class="wrap">
-  <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">${PRICE_BADGE ? PRICE_BADGE + ' &middot; ' : ''}${LISTING.year} ${esc(LISTING.make)} ${esc(LISTING.model)} ${esc(LISTING.trim)} &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
+  <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">${PRICE_BADGE ? PRICE_BADGE + ' &middot; ' : ''}${esc(LISTING.make)} ${esc(LISTING.model)} ${esc(LISTING.trim)} &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
   ${L.statStrip([['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['Turo', 'Book securely']])}
 </div></section>
 
@@ -146,8 +146,8 @@ const linksPage = () => {
     landing: true,
     minimalFooter: true,
     noindex: true,
-    title: `${LISTING.year} Corvette Stingray ${LISTING.trim} Rental Boise | Links`,
-    description: `Everything to book our ${LISTING.year} Chevrolet Corvette Stingray ${LISTING.trim} (C8) in Boise/Meridian, Idaho: photos, trip details, Turo booking and contact, all in one link.`,
+    title: 'Corvette C8 Stingray Z51 Rental Boise | Links',
+    description: `Everything to book our Chevrolet Corvette Stingray ${LISTING.trim} (C8) in Boise/Meridian, Idaho: photos, trip details, Turo booking and contact, all in one link.`,
     body,
     schema: [breadcrumbSchema(crumbsItems), carSchema()],
   });
