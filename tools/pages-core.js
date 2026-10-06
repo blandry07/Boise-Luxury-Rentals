@@ -2,6 +2,7 @@
 const { SITE, PHOTOS, PLACES, RESTAURANTS, FAQS, CARS, GUIDES } = require('./data');
 const L = require('./lib');
 const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg, PRICE_BADGE } = L;
+const FEATURED_PHOTO = PHOTOS.pick('featured');
 
 function placeCard(p) {
   const link = p.href ? `<a href="${p.href}">Read the route guide &rarr;</a> &nbsp;·&nbsp; ` : '';
@@ -81,7 +82,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
         <ul class="muted"><li>Mid-engine layout with a front and rear trunk</li><li>Automatic dual-clutch: easy in traffic, thrilling on the open road</li><li>Based in Meridian, minutes from Boise</li></ul>
         <div class="cta-row">${turoBtn('CHECK AVAILABILITY & BOOK ON TURO', { big: true })}</div><p style="margin-top:14px"><a href="/corvette-rental-boise/">Corvette rental Boise: full details, photos &amp; requirements &rarr;</a></p>
       </div>
-      <div class="ph feature-photo">${picImg(PHOTOS.gallery[0].src, PHOTOS.gallery[0].alt, ' loading="lazy"')}</div>
+      <div class="ph feature-photo">${picImg(FEATURED_PHOTO.src, FEATURED_PHOTO.alt, ' loading="lazy"')}</div>
     </div>
   </div>
 </section>

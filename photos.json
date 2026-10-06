@@ -5,13 +5,14 @@
     "To hide a photo: delete its block (the file can stay in public/images).",
     "To add a photo: put the .jpg in public/images and copy a block, changing 'file' and 'alt'.",
     "'tags' choose where a photo is used in a specific spot. The FIRST photo in the list with a tag wins:",
-    "  hero = big banner image at the top of pages | side = performance section | interior = interior section",
+    "  hero = big banner image at the top of pages | featured = homepage 'Featured car' photo | side = performance section | interior = interior section",
     "  roof = removable-roof section | rear = luggage section | engine = C8 page engine section | cockpit = C8 drive-modes section",
     "The first 9 photos fill the big mosaic near the top of the Corvette pages, so put your best shots first.",
     "After editing: commit and push in GitHub Desktop. Railway rebuilds the pages automatically."
   ],
   "photos": [
     { "file": "c8-corvette-front-three-quarter.jpg", "alt": "2023 Chevrolet Corvette Stingray Z51 C8 rental in Boise, Idaho, black with bronze wheels, front three-quarter view", "tags": ["hero"] },
+    { "file": "c8-corvette-mountain-overlook-side-profile.jpg", "alt": "Black C8 Corvette Stingray Z51 side profile parked at a mountain overlook near Boise, Idaho at sunset", "tags": ["featured"] },
     { "file": "c8-corvette-roof-off-front-low.jpg", "alt": "C8 Corvette Stingray with the removable roof panel off, low front view, Boise Idaho rental", "tags": [] },
     { "file": "c8-corvette-roof-off-side.jpg", "alt": "Corvette Stingray side profile with the roof panel removed for open-air driving", "tags": ["roof"] },
     { "file": "c8-corvette-rear-three-quarter-left.jpg", "alt": "C8 Corvette Stingray rear three-quarter view with rear wing and diffuser", "tags": [] },
