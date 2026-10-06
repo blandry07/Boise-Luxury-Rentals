@@ -337,7 +337,7 @@ app.use(
   express.static(PUBLIC_DIR, {
     extensions: ['html'],
     setHeaders(res, filePath) {
-      if (/\.(?:jpe?g|png|webp|avif|svg|woff2?)$/i.test(filePath)) {
+      if (/\.(?:jpe?g|png|webp|avif|svg|woff2?|mp4)$/i.test(filePath)) {
         res.setHeader('Cache-Control', 'public, max-age=2592000');
       } else if (/\.(?:css|js)$/i.test(filePath)) {
         res.setHeader('Cache-Control', 'public, max-age=3600');

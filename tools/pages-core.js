@@ -53,7 +53,7 @@ function home() {
 ${hero('Boise <span>Luxury Rentals</span>',
     'Rent our 2023 Corvette Stingray Z51 &mdash; book securely on Turo.',
     { xl: true, big: true, compact: true, singleCta: true, eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
-      video: { src: '/videos/corvette-hero-loop.mp4', poster: '/images/corvette-hero-poster.jpg' },
+      video: { src: '/videos/corvette-hero-loop-v3.mp4', poster: '/images/corvette-hero-poster.jpg' },
       alt: '2023 Chevrolet Corvette Stingray Z51 in a studio, front three-quarter view',
       saveForLater: ['/', 'Boise Luxury Rentals — Corvette Rental'] })}
 
