@@ -52,7 +52,8 @@ function home() {
 ${hero('Boise <span>Luxury Rentals</span>',
     'Rent our 2023 Corvette Stingray Z51 &mdash; book securely on Turo.',
     { xl: true, big: true, compact: true, singleCta: true, eyebrow: 'Sports Car Rental Boise · Corvette Rental Idaho',
-      img: '/images/corvette-studio-front.jpg', alt: '2023 Chevrolet Corvette Stingray Z51 studio photo, front three-quarter view',
+      video: { src: '/videos/corvette-hero-loop.mp4', poster: '/images/corvette-hero-poster.jpg' },
+      alt: '2023 Chevrolet Corvette Stingray Z51 in a studio, front three-quarter view',
       saveForLater: ['/', 'Boise Luxury Rentals — Corvette Rental'] })}
 
 <section class="mini-stats"><div class="wrap">
@@ -153,7 +154,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
     title: 'Boise Sports Car Rental | Corvette Rental in Boise, Idaho',
     description: 'Rent a Chevrolet Corvette Stingray in Boise and the Treasure Valley. Luxury and sport car rentals, booked securely on Turo. Photos, road-trip guides and local tips.',
     body,
-    preloadHero: '/images/corvette-studio-front.jpg',
+    preloadHero: '/images/corvette-hero-poster.jpg',
     schema: [faqSchema(FAQS.slice(0, 5))],
   });
 }

@@ -34,6 +34,26 @@
     stickyCta.classList.add('show');
   }
 
+  // ---- Hero video: mute/unmute toggle + respect prefers-reduced-motion ----
+  var heroVideo = document.querySelector('.hero-video');
+  var heroMute = document.querySelector('.hero-mute');
+  if (heroVideo) {
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduceMotion) {
+      heroVideo.removeAttribute('autoplay');
+      heroVideo.pause();
+      if (heroMute) heroMute.style.display = 'none';
+    } else if (heroMute) {
+      heroMute.addEventListener('click', function () {
+        var unmuted = heroVideo.muted; // about to flip
+        heroVideo.muted = !unmuted;
+        heroMute.classList.toggle('unmuted', unmuted);
+        heroMute.setAttribute('aria-pressed', unmuted ? 'true' : 'false');
+        heroMute.setAttribute('aria-label', unmuted ? 'Mute video' : 'Unmute video');
+      });
+    }
+  }
+
   // ---- Mobile nav ----
   var btn = document.querySelector('.menu-btn');
   var nav = document.querySelector('nav.main');

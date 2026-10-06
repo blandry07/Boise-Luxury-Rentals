@@ -54,7 +54,7 @@ nav.main a[aria-current="page"]{color:var(--accent2)}
 /* Hero */
 .hero{position:relative;min-height:78vh;display:flex;align-items:flex-end;padding:0;overflow:hidden;background:radial-gradient(1200px 500px at 70% 20%,#2a1216 0%,#0a0c0f 70%)}
 .hero.short{min-height:52vh}
-.hero img.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero img.bg,.hero video.bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,12,15,.15) 0%,rgba(10,12,15,.55) 55%,rgba(10,12,15,.96) 100%)}
 .hero .wrap{width:100%;position:relative;z-index:2;padding-top:120px;padding-bottom:56px}
 .hero p.lead{font-size:1.15rem;max-width:640px;color:#d9dfe6}
@@ -324,6 +324,16 @@ footer.site a:hover{color:var(--text)}
 .brand .brand-text{display:flex;flex-direction:column}
 @media(max-width:520px){.brand .logo-mark{width:38px;height:38px}}
 @media (prefers-reduced-motion:reduce){.brand .logo-mark .arc{animation:none!important;transform:rotate(-70deg)}}
+
+/* Hero video mute/unmute toggle: bottom-right of the hero, matching the
+   lightbox/modal close buttons' circular icon-button style. Two SVGs sit
+   inside; site.js toggles which one shows via the .unmuted class. */
+.hero-mute{position:absolute;right:18px;bottom:18px;z-index:5;width:42px;height:42px;border-radius:50%;background:rgba(10,12,15,.55);border:1px solid rgba(255,255,255,.22);color:#fff;cursor:pointer;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(2px);transition:background .2s,border-color .2s}
+.hero-mute:hover{background:rgba(10,12,15,.75);border-color:rgba(255,255,255,.4)}
+.hero-mute .icon-unmuted{display:none}
+.hero-mute.unmuted .icon-muted{display:none}
+.hero-mute.unmuted .icon-unmuted{display:block}
+@media(max-width:700px){.hero-mute{right:12px;bottom:12px;width:38px;height:38px}}
 
 /* hero photo wrapper + phone layout: show the whole car above the text instead of a tight crop */
 .hero .bgwrap{position:absolute;inset:0;overflow:hidden}
