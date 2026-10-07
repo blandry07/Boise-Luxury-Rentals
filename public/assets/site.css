@@ -366,15 +366,28 @@ footer.site a:hover{color:var(--text)}
 @media(max-width:760px){
   .hero.hero-mini .wrap{padding-top:6px;padding-bottom:36px}
 }
-/* Desktop only: shrink the homepage hero's text/CTA block and shift it
-   lower in the frame, so the car photo reads bigger and the block feels
-   less dominant. Mobile keeps the sizing above untouched. */
+/* Desktop only: shrink the homepage hero's text/CTA block, shift it lower
+   in the frame so the car photo reads bigger, and add a small accent rule
+   above the eyebrow plus tighter spacing so it reads as designed rather
+   than just stacked. Mobile keeps the sizing above untouched. */
 @media(min-width:761px){
-  .hero.hero-mini .wrap{padding-top:150px;padding-bottom:36px}
-  .hero.hero-mini h1{font-size:clamp(1.6rem,2.6vw,2.1rem)}
-  .hero.hero-mini p.lead{font-size:.92rem;margin-bottom:14px}
-  .hero.hero-mini .btn-turo.btn-xl{padding:13px 26px;font-size:.92rem}
-  .hero.hero-mini .btn-ghost.btn-xl{padding:13px 26px;font-size:.92rem}
+  .hero.hero-mini .wrap{padding-top:140px;padding-bottom:40px;position:relative}
+  .hero.hero-mini .wrap::before{
+    content:"";
+    display:block;
+    width:56px;
+    height:3px;
+    background:var(--accent2);
+    border-radius:3px;
+    margin-bottom:18px;
+  }
+  .hero.hero-mini .eyebrow{font-size:.74rem;margin-bottom:.6em}
+  .hero.hero-mini h1{font-size:clamp(1.7rem,2.7vw,2.25rem);margin-bottom:14px;line-height:1.08}
+  .hero.hero-mini p.lead{font-size:.95rem;margin-bottom:22px;max-width:520px}
+  .hero.hero-mini .cta-row{gap:14px;align-items:center}
+  .hero.hero-mini .btn-turo.btn-xl{padding:14px 28px;font-size:.9rem}
+  .hero.hero-mini .btn-ghost.btn-xl{padding:14px 28px;font-size:.9rem}
+  .hero.hero-mini .cta-note{margin-top:0}
 }
 
 /* Compact stat strip used below the homepage hero, now that the hero itself
