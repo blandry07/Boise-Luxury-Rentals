@@ -54,6 +54,23 @@
     }
   }
 
+  // ---- "Book on Turo" click tracking: every Turo button/link on the site
+  // (nav, hero, sticky bar, CTA bands, FAQ answers, etc.) already carries a
+  // shared data-turo attribute, so one delegated listener here catches all
+  // of them, on every page, forever - no need to wire each button up by
+  // hand. Pushes a custom event to the GTM dataLayer; see README notes in
+  // Google Tag Manager for the trigger/tag that turns this into a GA4 event. ----
+  window.dataLayer = window.dataLayer || [];
+  document.addEventListener('click', function (e) {
+    var turoEl = e.target.closest && e.target.closest('[data-turo]');
+    if (!turoEl) return;
+    window.dataLayer.push({
+      event: 'turo_click',
+      turo_label: (turoEl.textContent || '').trim().replace(/\s+/g, ' '),
+      turo_page: location.pathname
+    });
+  });
+
   // ---- Mobile nav ----
   var btn = document.querySelector('.menu-btn');
   var nav = document.querySelector('nav.main');
