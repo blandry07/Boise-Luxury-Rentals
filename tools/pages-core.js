@@ -3,6 +3,11 @@ const { SITE, PHOTOS, PLACES, RESTAURANTS, FAQS, CARS, GUIDES } = require('./dat
 const L = require('./lib');
 const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg, PRICE_BADGE } = L;
 const FEATURED_PHOTO = PHOTOS.pick('featured');
+// Homepage-only gallery: leaves out the photo already shown in the "Featured
+// car" section above it, so the same shot doesn't appear twice on one page.
+// The full /cars/corvette-stingray/ gallery further into the site is
+// untouched and still shows every photo, featured one included.
+const HOME_GALLERY = PHOTOS.gallery.filter((p) => p !== FEATURED_PHOTO);
 
 function placeCard(p) {
   const link = p.href ? `<a href="${p.href}">Read the route guide &rarr;</a> &nbsp;·&nbsp; ` : '';
@@ -91,7 +96,7 @@ ${hero('Boise <span>Luxury Rentals</span>',
   <div class="wrap">
     <span class="eyebrow">Gallery</span>
     <h2>See the car</h2>
-    ${gallery(PHOTOS.gallery, 5)}
+    ${gallery(HOME_GALLERY, 5)}
     <p style="margin-top:22px"><a href="/cars/corvette-stingray/">See the full photo gallery &rarr;</a></p>
   </div>
 </section>
