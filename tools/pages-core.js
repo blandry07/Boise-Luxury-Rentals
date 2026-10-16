@@ -1,7 +1,7 @@
 'use strict';
 const { SITE, PHOTOS, PLACES, RESTAURANTS, FAQS, CARS, GUIDES } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg, PRICE_BADGE } = L;
+const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg, PRICE_BADGE, igFollowBanner } = L;
 const FEATURED_PHOTO = PHOTOS.pick('featured');
 // Homepage-only gallery: leaves out the photo already shown in the "Featured
 // car" section above it, so the same shot doesn't appear twice on one page.
@@ -61,6 +61,8 @@ ${hero('Boise <span>Luxury Rentals</span>',
       video: { src: '/videos/corvette-hero-loop-v4.mp4', poster: '/images/corvette-hero-poster.jpg' },
       alt: 'Chevrolet Corvette Stingray Z51 in a studio, front three-quarter view',
       saveForLater: ['/', 'Boise Luxury Rentals — Corvette Rental'] })}
+
+${igFollowBanner()}
 
 <section class="mini-stats"><div class="wrap">
   <p class="muted" style="text-align:center;margin:0 0 10px;font-size:.85rem">${PRICE_BADGE}</p>

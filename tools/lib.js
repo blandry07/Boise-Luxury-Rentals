@@ -42,6 +42,22 @@ const SAVE_MODAL = `<div class="save-modal" role="dialog" aria-modal="true" aria
 </div>`;
 const IG_ICON = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:-4px;margin-right:6px"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
 const igLink = (compact) => `<a class="social-link" href="${INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="${esc(SITE.short)} on Instagram">${IG_ICON}${compact ? '' : 'Instagram'}</a>`;
+// Icon sized/laid out for the pill BUTTON inside igFollowBanner() (flex+gap
+// instead of the inline vertical-align/margin igLink() above uses for plain
+// text links) - stroke="currentColor" so it automatically matches the
+// button's own text color.
+const IG_ICON_BTN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
+const IG_HANDLE = '@' + INSTAGRAM_URL.replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/\/$/, '');
+/**
+ * Slim full-width banner prompting visitors to follow/DM on Instagram.
+ * Reuses the same purple gradient as the top "All bookings..." Turo bar so it
+ * reads as part of the same site chrome, just slimmer (it's a secondary
+ * prompt, not a primary CTA - the Turo button stays the one big ask).
+ */
+const igFollowBanner = () => `<section class="ig-banner"><div class="wrap ig-banner-wrap">
+  <span class="ig-banner-text">Follow or DM us at <strong>${IG_HANDLE}</strong></span>
+  <a class="ig-banner-btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="Follow ${esc(SITE.short)} on Instagram">${IG_ICON_BTN}<span>Follow on Instagram</span></a>
+</div></section>`;
 const { imgSize } = require('./imgsize');
 
 const esc = (s) =>
@@ -433,4 +449,4 @@ function val(v, fallback) {
   return v ? esc(v) : (fallback || 'See the Turo listing');
 }
 
-module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg, PRICE_BADGE, PRICE_TEXT, saveLaterTrigger };
+module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg, PRICE_BADGE, PRICE_TEXT, saveLaterTrigger, igFollowBanner };

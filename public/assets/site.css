@@ -27,6 +27,12 @@ section.alt{background:var(--bg2);border-top:1px solid var(--line);border-bottom
 .turo-bar{background:linear-gradient(90deg,#1b1442,#2a1d6b);color:#e9e6ff;font-size:.86rem;text-align:center;padding:8px 14px}
 .turo-bar strong{color:#fff}
 .turo-bar a{color:#fff;text-decoration:underline}
+.ig-banner{background:linear-gradient(90deg,#1b1442,#2a1d6b)}
+.ig-banner-wrap{display:flex;align-items:center;justify-content:center;gap:16px;padding:8px 14px;flex-wrap:wrap}
+.ig-banner-text{color:#e9e6ff;font-size:.85rem}
+.ig-banner-text strong{color:#fff}
+.ig-banner-btn{display:inline-flex;align-items:center;gap:7px;background:#fff;color:#1b1442;font-weight:700;font-size:.8rem;padding:7px 16px;border-radius:999px;text-decoration:none;white-space:nowrap}
+.ig-banner-btn:hover{background:#eef1f5}
 
 /* Header */
 header.site{position:sticky;top:0;z-index:50;background:rgba(10,12,15,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
