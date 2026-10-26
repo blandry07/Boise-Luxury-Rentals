@@ -48,15 +48,27 @@ const igLink = (compact) => `<a class="social-link" href="${INSTAGRAM_URL}" targ
 // button's own text color.
 const IG_ICON_BTN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5.5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
 const IG_HANDLE = '@' + INSTAGRAM_URL.replace(/^https?:\/\/(www\.)?instagram\.com\//, '').replace(/\/$/, '');
+// Facebook Page link. Not pulled from SITE.sameAs (that one stays the stable
+// profile.php?id=... URL used in schema.org markup) - this is the share link
+// Ben gave specifically for this banner. Facebook Pages only show a vanity
+// @username once one's been claimed in Page Settings; until then there's no
+// handle text to display, so the button just shows the business name instead.
+const FACEBOOK_URL = 'https://www.facebook.com/share/1FEUmZgeQR/';
+const FB_ICON_BTN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M13.5 21v-7.5h2.5l.38-3H13.5V8.5c0-.87.24-1.46 1.49-1.46h1.59V4.35C16.3 4.3 15.26 4.2 14.05 4.2c-2.53 0-4.26 1.54-4.26 4.37V10.5H7.3v3h2.49V21h3.71z"/></svg>';
 /**
- * Slim full-width banner prompting visitors to follow/DM on Instagram.
- * Reuses the same purple gradient as the top "All bookings..." Turo bar so it
- * reads as part of the same site chrome, just slimmer (it's a secondary
- * prompt, not a primary CTA - the Turo button stays the one big ask).
+ * Slim full-width banner prompting visitors to follow/DM on Instagram and
+ * Facebook. Reuses the same purple gradient as the top "All bookings..." Turo
+ * bar so it reads as part of the same site chrome, just slimmer (it's a
+ * secondary prompt, not a primary CTA - the Turo button stays the one big
+ * ask). Two separate pill buttons rather than one combined link, since each
+ * platform needs its own URL and its own icon.
  */
 const igFollowBanner = () => `<section class="ig-banner"><div class="wrap ig-banner-wrap">
-  <span class="ig-banner-text">Follow or DM us at <strong>${IG_HANDLE}</strong></span>
-  <a class="ig-banner-btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="Follow ${esc(SITE.short)} on Instagram">${IG_ICON_BTN}<span>Follow on Instagram</span></a>
+  <span class="ig-banner-text">Follow or DM us on <strong>Instagram</strong> &amp; <strong>Facebook</strong></span>
+  <div class="ig-banner-btns">
+    <a class="ig-banner-btn" href="${INSTAGRAM_URL}" target="_blank" rel="noopener" aria-label="Follow ${esc(SITE.short)} on Instagram">${IG_ICON_BTN}<span>${IG_HANDLE}</span></a>
+    <a class="ig-banner-btn" href="${FACEBOOK_URL}" target="_blank" rel="noopener" aria-label="Follow ${esc(SITE.short)} on Facebook">${FB_ICON_BTN}<span>${esc(SITE.short)}</span></a>
+  </div>
 </div></section>`;
 const { imgSize } = require('./imgsize');
 
