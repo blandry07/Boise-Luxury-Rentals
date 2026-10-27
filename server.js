@@ -24,6 +24,7 @@ const fs = require('fs');
 const express = require('express');
 const compression = require('compression');
 const { SITE, LISTING, PHOTOS } = require('./tools/data');
+const { PRICE_DISCLAIMER_PLAIN } = require('./tools/lib');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -167,7 +168,7 @@ async function sendMail({ subject, text, html, replyTo, to, from }) {
 }
 
 // ---- "Save for later" email ----
-const SFL_PRICE_TEXT = LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (before tax & Turo fees)` : '';
+const SFL_PRICE_TEXT = LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (${PRICE_DISCLAIMER_PLAIN})` : '';
 const SFL_FROM = 'Boise Luxury Rentals <noreply@boiseluxuryrentals.com>';
 
 /** Builds the bulletproof, table-based HTML email sent to the visitor's own address. */

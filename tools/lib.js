@@ -6,12 +6,25 @@ function assetVer(f) { try { return crypto.createHash('md5').update(fsAssets.rea
 'use strict';
 const { SITE, PHOTOS, LISTING } = require('./data');
 const INSTAGRAM_URL = SITE.sameAs.find((u) => u.includes('instagram.com')) || 'https://www.instagram.com/boiseluxuryrentals/';
-/** "Starting at $119/day (before tax & Turo fees)" — reused anywhere we advertise price. */
+/** "Starting at $220/day (including taxes & fees)" — reused anywhere we advertise price. */
 const PRICE_BADGE = LISTING.pricePerDay
   ? `Starting at <strong>${LISTING.pricePerDay}/day</strong> <span style="font-weight:400;opacity:.8">(${LISTING.priceDisclaimer || 'before tax &amp; fees'})</span>`
   : '';
+// Plain-text version of the disclaimer (PRICE_TEXT, and anywhere else that runs
+// the price through esc()/val() can't carry the &amp; entity LISTING.priceDisclaimer
+// uses for direct HTML - escaping it a second time would print "&amp;amp;").
+const PRICE_DISCLAIMER_PLAIN = (LISTING.priceDisclaimer || 'before tax & fees').replace(/&amp;/g, '&');
 /** A plain-text version for places that can't carry HTML (meta text, mailto bodies). */
-const PRICE_TEXT = LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (before tax & Turo fees)` : '';
+const PRICE_TEXT = LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (${PRICE_DISCLAIMER_PLAIN})` : '';
+/**
+ * Small gold outlined pill shown directly under the price on the "mini-stats"
+ * price/spec sections (homepage and /links/). Reads LISTING.discountNote so
+ * it's one place to edit the wording, or blank it out to hide the pill
+ * entirely. Returns '' (nothing rendered) if discountNote is blank.
+ */
+const discountPill = () => LISTING.discountNote
+  ? `<p class="discount-pill-wrap"><span class="discount-pill">${esc(LISTING.discountNote)}</span></p>`
+  : '';
 /**
  * "Save for later": opens a small modal (markup in layout(), wired up in
  * site.js) where the visitor types their own email address. The server then
@@ -461,4 +474,4 @@ function val(v, fallback) {
   return v ? esc(v) : (fallback || 'See the Turo listing');
 }
 
-module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg, PRICE_BADGE, PRICE_TEXT, saveLaterTrigger, igFollowBanner };
+module.exports = { esc, mapsDir, turoBtn, crumbs, breadcrumbSchema, gallery, disclosure, faqHtml, faqSchema, layout, pageHead, hero, statStrip, val, carSchema, articleSchema, CTA_LABEL, NAV, picImg, PRICE_BADGE, PRICE_TEXT, PRICE_DISCLAIMER_PLAIN, saveLaterTrigger, igFollowBanner, discountPill };

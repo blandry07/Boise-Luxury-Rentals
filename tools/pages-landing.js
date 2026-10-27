@@ -9,7 +9,7 @@
  */
 const { LISTING, PHOTOS, SITE } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, hero, gallery, faqHtml, breadcrumbSchema, carSchema, CTA_LABEL, PRICE_BADGE } = L;
+const { esc, turoBtn, layout, hero, gallery, faqHtml, breadcrumbSchema, carSchema, CTA_LABEL, PRICE_BADGE, discountPill } = L;
 const FEATURED_PHOTO = PHOTOS.pick('featured');
 // /links/ gallery leaves out the homepage's "Featured car" photo, same idea
 // as the homepage's own gallery section — that shot stays exclusive to the
@@ -92,7 +92,7 @@ const igLanding = () => social(
  */
 const OFFER_DETAILS = [
   { q: 'Specs at a glance', a: `${LISTING.make} ${LISTING.model} ${LISTING.trim}: a 6.2L V8 making 490+ horsepower, 8-speed dual-clutch automatic, rear-wheel drive, about 3 seconds 0-60, a removable roof panel, 2 seats, and a front + rear trunk. ${esc(LISTING.color)}.` },
-  { q: 'Pricing, mileage & deposit', a: `Pricing starts at ${esc(LISTING.pricePerDay || '')} per day, before tax and any Turo fees. Daily pricing changes with season and demand, so exact numbers show up live once you pick your dates on Turo. Mileage allowance, any extra-mile cost and the security deposit are set on the Turo listing and confirmed at checkout, never guessed here.` },
+  { q: 'Pricing, mileage & deposit', a: `Pricing starts at ${esc(LISTING.pricePerDay || '')} per day, including taxes and fees. Daily pricing and any discounts change with season and demand, so exact numbers show up live once you pick your dates on Turo. Mileage allowance, any extra-mile cost and the security deposit are set on the Turo listing and confirmed at checkout, never guessed here.` },
   { q: 'Pickup, delivery & driver requirements', a: `The car is based in ${esc(SITE.origin)}, about 20 minutes from Boise Airport (BOI). Minimum driver age, license requirements and any delivery options are set by Turo and shown on the listing before you book.` },
   { q: 'How booking actually works', a: 'Every reservation, payment and protection plan is handled by Turo, not on this page. Tap "Book on Turo" to open the live listing, pick your dates, and check out securely there.' },
 ];
@@ -118,7 +118,9 @@ const linksPage = () => {
       saveForLater: [path, 'Boise Luxury Rentals — Links'] }
   ) + `
 <section class="mini-stats"><div class="wrap">
-  <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">${PRICE_BADGE ? PRICE_BADGE + ' &middot; ' : ''}${esc(LISTING.make)} ${esc(LISTING.model)} ${esc(LISTING.trim)} &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
+  <p class="muted" style="text-align:center;margin:0 0 10px;font-size:.85rem">${PRICE_BADGE ? PRICE_BADGE + ' &middot; ' : ''}${esc(LISTING.make)} ${esc(LISTING.model)} ${esc(LISTING.trim)}</p>
+  ${discountPill()}
+  <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
   ${L.statStrip([['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['2', 'Seats'], ['Turo', 'Book securely']])}
 </div></section>
 

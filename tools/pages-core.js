@@ -1,7 +1,7 @@
 'use strict';
 const { SITE, PHOTOS, PLACES, RESTAURANTS, FAQS, CARS, GUIDES } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg, PRICE_BADGE, igFollowBanner } = L;
+const { esc, turoBtn, layout, pageHead, hero, statStrip, gallery, disclosure, faqHtml, faqSchema, breadcrumbSchema, mapsDir, picImg, PRICE_BADGE, igFollowBanner, discountPill } = L;
 const FEATURED_PHOTO = PHOTOS.pick('featured');
 // Homepage-only gallery: leaves out the photo already shown in the "Featured
 // car" section above it, so the same shot doesn't appear twice on one page.
@@ -66,6 +66,7 @@ ${igFollowBanner()}
 
 <section class="mini-stats"><div class="wrap">
   <p class="muted" style="text-align:center;margin:0 0 10px;font-size:.85rem">${PRICE_BADGE}</p>
+  ${discountPill()}
   <p class="muted" style="text-align:center;margin:0 0 16px;font-size:.85rem">Chevrolet Corvette Stingray Z51 &middot; 5&#9733; rated on Turo &middot; All reservations are completed securely on <strong>Turo</strong></p>
   ${statStrip([['490+', 'Horsepower'], ['6.2L', 'V8'], ['~3.0s', '0-60 mph'], ['Open-air', 'Removable roof'], ['HUD', 'Heads Up Display'], ['Turo', 'Book securely']])}
 </div></section>

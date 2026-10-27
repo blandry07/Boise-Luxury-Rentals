@@ -7,7 +7,7 @@
  */
 const { SITE, PHOTOS, LISTING, PLACES } = require('./data');
 const L = require('./lib');
-const { esc, turoBtn, layout, pageHead, hero, disclosure, faqHtml, faqSchema, breadcrumbSchema, carSchema, articleSchema, val, mapsDir, CTA_LABEL, picImg } = L;
+const { esc, turoBtn, layout, pageHead, hero, disclosure, faqHtml, faqSchema, breadcrumbSchema, carSchema, articleSchema, val, mapsDir, CTA_LABEL, picImg, PRICE_DISCLAIMER_PLAIN } = L;
 
 const G = PHOTOS.gallery; // order + tags come from /photos.json
 const photoImg = (p, extra = '') => picImg(p.src, p.alt, ` data-full="${p.src}" loading="lazy"${extra}`);
@@ -88,7 +88,7 @@ function flagship() {
         <tr><th>Roof</th><td>${esc(LISTING.roof)}</td></tr>
         <tr><th>Seats</th><td>2</td></tr>
         <tr><th>Location</th><td>Meridian, Idaho (Boise area)</td></tr>
-        <tr><th>Price</th><td>${val(LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay} per day (before tax & Turo fees)` : '', 'Live pricing on Turo')}</td></tr>
+        <tr><th>Price</th><td>${val(LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay} per day (${PRICE_DISCLAIMER_PLAIN})` : '', 'Live pricing on Turo')}</td></tr>
         <tr><th>Booking</th><td><strong>On Turo only</strong></td></tr>
       </table>
     </div>
@@ -303,7 +303,7 @@ function vehiclePage() {
       <div class="card" style="padding:6px 10px"><table class="facts">
         <tr><th>Where to book</th><td><strong>Turo</strong></td></tr>
         <tr><th>Location</th><td>Meridian, Idaho (Boise area)</td></tr>
-        <tr><th>Daily rate</th><td>${val(LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (before tax & Turo fees)` : '', 'Live on Turo')}</td></tr>
+        <tr><th>Daily rate</th><td>${val(LISTING.pricePerDay ? `Starting at ${LISTING.pricePerDay}/day (${PRICE_DISCLAIMER_PLAIN})` : '', 'Live on Turo')}</td></tr>
         <tr><th>Mileage</th><td>${val(LISTING.dailyMiles, 'Shown on the Turo listing')}</td></tr>
         <tr><th>Minimum age</th><td>${val(LISTING.minAge, 'Shown on the Turo listing')}</td></tr>
         <tr><th>Delivery</th><td>${val(LISTING.delivery, 'See the Turo listing')}</td></tr>
